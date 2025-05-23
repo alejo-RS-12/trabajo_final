@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div> <!--Capa para oscurecer el fondo -->
+    <div class="container" id="container">
+        <!--Formulario de Registro -->
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Registrarse</h1>
+                <!-- Iconos Redes Sociales -->
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>o usa tu correo para registrarte</span>
+                
+                <input type="text" placeholder="Nombre completo" required />
+                <input type="email" placeholder="Correo Electrónico" required />
+                <input type="text" placeholder="Usuario" required />
+                <input type="password" placeholder="Contraseña" required />
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Iniciar Sesión</h1>
+                 <!--Iconos Redes Sociales-->
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>o usa tu cuenta</span>
+                 
+                <input type="text" placeholder="Usuario o Correo" required /> 
+                <input type="password" placeholder="Contraseña" required />
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+
+        <!-- Superposición con los Paneles de Transición -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <!--Panel Izquierdo (Visible cuando se muestra el registro) -->
+                <div class="overlay-panel overlay-left">
+                    <h1>¿Ya tienes una cuenta?</h1>
+                    <p>Inicia sesión para entrar en la página</p>
+                    <button class="ghost" id="signIn">Iniciar Sesión</button>
+                </div>
+                <!--Panel Derecho (Visible cuando se muestra el inicio de sesión) -->
+                <div class="overlay-panel overlay-right">
+                    <h1>¡Hola!</h1>
+                    <p>Ingresa tus datos personales para registrarte</p>
+                    <button class="ghost" id="signUp">Regístrarse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
