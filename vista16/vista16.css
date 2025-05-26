@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #a6d1cf;
+}
+
+.navbar {
+  background-color: #e2e8f0;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 50px;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.user-icon {
+  font-size: 50px;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #e2e8f0;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  overflow-y: auto;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filters {
+  list-style: none;
+  padding: 0;
+}
+
+.filters li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  gap: 20px;
+  padding: 20px;
+  justify-content: center; 
+}
+
+.card {
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.sub-header {
+  background-color: #e2e8f0;
+  padding: 30px 20px;
+  border-bottom: 1px solid #b8d8d5;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.sub-header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: black;
+}
+
+.sub-header p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: black;
+}
+
+.grilla {
+  text-align: center;
+}
