@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #7fd1d1;
+}
+
+.top-bar {
+  background-color: #7fd1d1;
+  padding: 8px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.top-bar .bold {
+  font-weight: bold;
+  color: rgb(243, 2, 2);
+  text-decoration: underline;
+}
+
+header {
+  background-color: #ffffff;
+  padding: 10px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+}
+
+.user-icon img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+/* Fondo y perfil */
+.sub-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  min-height: 250px;
+}
+
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #000000;
+  margin-bottom: -60px;
+}
+
+.profile-container {
+  position: relative;
+  z-index: 1;
+}
+
+.user-profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  object-fit: cover;
+  border: 3px solid black;
+}
+
+.user-icon-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: white;
+  object-fit: cover;
+}
+
+/* Iconos de lápiz */
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Lápiz de perfil */
+.profile-edit {
+  right: -8px;
+  bottom: -8px;
+}
+
+/* Lápiz del fondo */
+.bg-edit {
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Caja de descripción */
+.user-description {
+  margin-top: 20px;
+  padding: 10px;
+  width: 300px;
+  height: 50px;
+  resize: none;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+
+/* Cards */
+.cards-section {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.card {
+  width: 450px;
+  height: 200px;
+  background-color: #46b8c8;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.grilla {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+

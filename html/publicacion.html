@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle del Servicio</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/publicacion.css" />
+</head>
+<body>
+
+  <div class="pagina">
+
+    <div class="barra-superior">
+      <button class="volver-btn" title="Volver atrás">←</button>
+      <div class="iconos-superiores">
+        <i class="fa-solid fa-bookmark" title="Guardar"></i>
+        <i class="fa-solid fa-share-alt" title="Compartir"></i>
+        <i class="fa-solid fa-plus" title="Agregar"></i>
+        <i class="fa-solid fa-flag" title="Denunciar"></i>
+        <i class="fa-solid fa-user" title="Perfil"></i>
+      </div>
+    </div>
+
+    <div class="contenido">
+
+      <div class="contenido-izquierdo">
+        <div class="carrusel">
+          <div class="carrusel-inner" id="carruselInner">
+            <img src="/imagenes/publicacion/uno.jpg" alt="Imagen del servicio 1">
+            <img src="/imagenes/publicacion/dos.jpg" alt="Imagen del servicio 2">
+            <img src="/imagenes/publicacion/tres.jpg" alt="Imagen del servicio 3">
+            <img src="/imagenes/publicacion/cuatro.jpg" alt="Imagen del servicio 4">
+            <img src="/imagenes/publicacion/cinco.jpg" alt="Imagen del servicio 5">
+          </div>
+          <div class="flechas">
+            <button id="prevBtn">◀</button>
+            <button id="nextBtn">▶</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="contenido-derecho">
+
+        <h2 class="titulo-servicio">Título del Servicio</h2>
+        <p class="subtitulo">Nombre del solicitante o empresa</p>
+
+        <div class="estrellas" id="calificacionEstrellas">
+          <i class="fa-regular fa-star" data-value="1"></i>
+          <i class="fa-regular fa-star" data-value="2"></i>
+          <i class="fa-regular fa-star" data-value="3"></i>
+          <i class="fa-regular fa-star" data-value="4"></i>
+          <i class="fa-regular fa-star" data-value="5"></i>
+        </div>
+
+        <p class="descripcion">
+          Descripción detallada del servicio ofrecido. Aquí puedes explayarte sobre las características, beneficios y cualquier otra información relevante del servicio.
+        </p>
+
+        <div class="mapa">
+          <img src="/imagenes/publicacion/mapa.JPG" alt="Mapa del área de servicio">
+        </div>
+
+        <h3>Comentarios</h3>
+        <div class="comentarios">
+          <!-- Comentarios dinámicos -->
+        </div>
+
+        <textarea placeholder="Escribe tu comentario..."></textarea>
+        <button class="btn-enviar">Enviar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/js/publicacion.js"></script>
+</body>
+</html>
