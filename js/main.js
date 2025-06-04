@@ -1,22 +1,39 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+    const filterSearch = document.getElementById('filter-search');
+    const searchBox = filterSearch.closest('.search-box'); //  Contenedor del buscador
+    const sidebarContent = sidebar.querySelector('.sidebar-content');
+    const filterItems = sidebarContent.querySelectorAll('li');
 
-const carousel = document.querySelector('.carousel');
-const images = document.querySelectorAll('.carousel a');
-let currentIndex = 0;
+    // Función para alternar el sidebar
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        // Cambiar el icono de la flecha
+        const icon = toggleBtn.querySelector('i');
+        if (sidebar.classList.contains('collapsed')) {
+            icon.classList.remove('fa-chevron-left');
+            icon.classList.add('fa-chevron-right');
+            searchBox.style.display = 'none'; // Oculta el contenedor del buscador
+        } else {
+            icon.classList.remove('fa-chevron-right');
+            icon.classList.add('fa-chevron-left');
+            searchBox.style.display = 'block'; // Muestra el contenedor del buscador
+        }
+    });
 
-function showNextImage() {
-    currentIndex++;
-    if (currentIndex >= images.length) {
-        currentIndex = 0;
-    }
-    const offset = -currentIndex * images[0].clientWidth;
-    carousel.style.transform = `translateX(${offset}px)`;
-}
+    // Búsqueda en los filtros
+    filterSearch.addEventListener('keyup', () => {
+        const searchTerm = filterSearch.value.toLowerCase();
 
-// Cambiar cada 3 segundos
-setInterval(showNextImage, 3000);
-
-// Ajuste en caso de que cambie el tamaño de ventana
-window.addEventListener('resize', () => {
-    const offset = -currentIndex * images[0].clientWidth;
-    carousel.style.transform = `translateX(${offset}px)`;
+    // Recorremos los elementos de la lista de filtros    
+        filterItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'flex'; // Muestra el elemento si coincide
+            } else {
+                item.style.display = 'none'; // Oculta el elemento si no coincide
+            }
+        });
+    });
 });
