@@ -103,7 +103,7 @@ body {
 nav {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Esto distribuye: logo - menú - usuario */
+  justify-content: space-between; /* Distribuye: logo - menú - usuario */
   padding: 10px 50px;
   background-color: white;
 }
@@ -208,7 +208,10 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
-  max-width: 900px;
+  /* Eliminamos o aumentamos mucho el max-width para que el grid se extienda.
+     Si lo quitas, el grid se expandirá al 100% del contenido-principal.
+  */
+  /* max-width: 900px; */ /* Eliminada para que ocupe todo el espacio disponible */
   margin: 0 auto;
 }
 
@@ -318,16 +321,29 @@ nav {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
+  position: relative; /* Asegura que el botón de alternar se posicione correctamente */
+  height: calc(100vh - 170px); /* Altura dinámica para que el sidebar tenga altura completa (ajusta 170px según tu header y top-bar) */
 }
 
 .barra-lateral-izquierda {
-  width: 240px;
+  width: 240px; /* Ancho inicial del sidebar */
   background-color: #f5f5f5;
-  overflow-y: scroll;
+  /* overflow-y: auto; */ /* Quita el overflow-y del sidebar principal */
   padding: 20px;
-  height: 100%;
+  height: 100%; /* La altura se mantiene */
   box-sizing: border-box;
   flex-shrink: 0;
+  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out; /* Transición suave para el ancho y padding */
+  position: relative; /* Para el botón de alternar */
+  display: flex; /* Para organizar el header y el contenido verticalmente */
+  flex-direction: column;
+}
+
+/* Estado contraído del sidebar */
+.barra-lateral-izquierda.collapsed {
+  width: 60px; /* Ancho cuando está contraído */
+  padding: 20px 0; /* Ajustar padding cuando está contraído */
+  align-items: center; /* Centra el contenido horizontalmente cuando está colapsado */
 }
 
 .barra-lateral-izquierda ul {
@@ -343,8 +359,11 @@ nav {
   font-size: 1em;
   color: #444;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Alinea los elementos al inicio */
   align-items: center;
+  white-space: nowrap; /* Evita que el texto se rompa */
+  overflow: hidden; /* Oculta el texto que se desborde al contraer */
+  text-overflow: ellipsis; /* Añade puntos suspensivos si el texto se corta */
 }
 
 .barra-lateral-izquierda li:last-child {
@@ -356,17 +375,112 @@ nav {
 }
 
 .barra-lateral-izquierda li::after {
-  content: '>';
-  font-weight: bold;
-  color: #555;
+  content: none; /* Eliminción de > */
 }
 
+/* Estilos para el buscador */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Ajuste de padding para el header */
+    width: 100%; /* Ocupa todo el ancho disponible del sidebar */
+    box-sizing: border-box;
+}
+
+.barra-lateral-izquierda.collapsed .sidebar-header {
+    justify-content: center; /* Centra el botón cuando el sidebar está colapsado */
+    padding: 0;
+    margin-bottom: 0; /* No margin-bottom cuando colapsado */
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+    margin-right: 20px; /* Espacio entre el buscador y el botón */
+}
+
+.search-box input {
+    width: calc(100% - 20px); /* Ajusta el ancho para el icono */
+    padding: 8px 10px 8px 30px; /* Espacio para el icono de búsqueda */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.search-box .fa-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+/* Estilos para el botón de alternar */
+.toggle-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #555;
+    padding: 5px;
+    transition: transform 0.3s ease-in-out;
+    /* Ajustes para el botón cuando el sidebar está colapsado */
+}
+
+.barra-lateral-izquierda.collapsed .toggle-btn {
+    margin: 0 auto; /* Centra el botón horizontalmente */
+    transform: translateX(0); 
+    padding: 5px 0; /* Ajusta el padding para que no se vea el fondo blanco del padding original */
+}
+
+
+.toggle-btn .fa-chevron-left {
+    transform: rotate(0deg); /* Flecha hacia la izquierda por defecto */
+}
+
+.barra-lateral-izquierda.collapsed .toggle-btn .fa-chevron-left {
+    transform: rotate(180deg); /* Flecha hacia la derecha cuando contraído */
+}
+
+/* Ocultar el contenido del sidebar cuando está contraído */
+.sidebar-content {
+    flex-grow: 1; /* Permite que el contenido tome el espacio restante */
+    overflow-y: auto; /* Agrega scroll solo al contenido si es necesario */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, max-height 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+.barra-lateral-izquierda.collapsed .sidebar-content {
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0; /* Para que el contenido no ocupe espacio */
+  overflow: hidden; /* Asegura que el contenido no se vea */
+  margin-top: -20px; /* Para que el contenido no empuje hacia abajo */
+}
+
+/* Mostrar el contenido del sidebar cuando está expandido */
+.barra-lateral-izquierda:not(.collapsed) .sidebar-content {
+  opacity: 1;
+  visibility: visible;
+  max-height: 1000px; /* Un valor grande para que el contenido se vea */
+  margin-top: 0;
+}
+
+
+/* Ajuste del contenido principal cuando el sidebar está colapsado */
+/* Esto puede no ser necesario si el flexbox ya maneja el espacio */
+/* .contenedor-sitio.sidebar-collapsed .contenido-principal {
+  margin-left: 60px;
+} */
+
+/* Asegura que el contenido principal ocupe todo el espacio restante */
 .contenido-principal {
   flex-grow: 1;
   overflow-y: auto;
   padding: 20px;
-  height: 100%;
+  height: 100%; /* La altura se mantiene */
   background-color: #7fd1d1;
   box-sizing: border-box;
+  transition: margin-left 0.3s ease-in-out; /* Transición para el margen si el contenido principal se mueve */
 }
-
