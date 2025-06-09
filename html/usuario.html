@@ -52,15 +52,30 @@
     <p>empleos o capacitaciones</p>
   </section>
 
+  <section class="filtro-section">
+  <label for="filtroSelect">Ver:</label>
+  <select id="filtroSelect">
+    <option value="todos">Todas</option>
+    <option value="guardados">Guardados</option>
+    <option value="ofrecidos">Ofrecidos</option>
+  </select>
+  <button id="addCardBtn">Agregar publicación</button>
+</section>
+
   <section class="cards-section">
-    <div class="card">Bienestar</div>
-    <div class="card">Bienestar</div>
-    <div class="card">Bienestar</div>
-    <div class="card">Bienestar</div>
-    <div class="card">Bienestar</div>
-    <div class="card">Bienestar</div>
-  </section>
+  <div class="card guardados">Curso de RCP <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Masajes descontracturantes <button class="delete-btn">×</button></div>
+  <div class="card guardados">Consejos de hidratación <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Clases de yoga <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Asesoría nutricional <button class="delete-btn">×</button></div>
+  <div class="card guardados">Taller de primeros auxilios <button class="delete-btn">×</button></div>
+</section>
+
 
   <script src="/js/usuario.js"></script>
+  <button id="loginToggle" style="position: fixed; top: 10px; right: 10px; z-index: 10;">
+  Simular Login
+  </button>
+
 </body>
 </html>
