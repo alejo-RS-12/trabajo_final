@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página de Datos del Trabajador</title>
+  <link rel="stylesheet" href="/css/usuario.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div class="top-bar">
+    Para mayor experiencia registrate <a href="Login.html" class="bold">aquí</a>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html"><img src="/imagenes/logo.png" class="Logo-ropo" alt="logo" /></a>
+      </div>
+      <ul class="navbar">
+        <li><a href="Formacion.html">Formación</a></li>
+        <li><a href="Trabajos.html">Trabajos</a></li>
+        <li><a href="Bienestar.html">Bienestar</a></li>
+        <li><a href="Nosotros.html">Nosotros</a></li>
+      </ul>
+      <div class="user-icon">
+        <img src="/imagenes/icono-user.png" alt="Usuario" class="user-icon-image" id="nav-user-icon" />
+      </div>
+    </nav>
+  </header>
+
+  <section class="sub-header">
+    <div class="background-container" id="background-container">
+      <label for="backgroundImageInput" class="edit-icon bg-edit">
+        <i class="fas fa-pencil-alt"></i>
+      </label>
+      <input type="file" id="backgroundImageInput" accept="image/*" style="display: none;" />
+    </div>
+
+    <div class="profile-container">
+      <img src="/imagenes/icono-user.png" alt="Usuario" class="user-profile-image" id="profileImage" />
+      <label for="profileImageInput" class="edit-icon profile-edit">
+        <i class="fas fa-pencil-alt"></i>
+      </label>
+      <input type="file" id="profileImageInput" accept="image/*" style="display: none;" />
+    </div>
+
+    <textarea class="user-description" placeholder="Escribe una descripción..."></textarea>
+  </section>
+
+  <section class="grilla">
+    <p>empleos o capacitaciones</p>
+  </section>
+
+  <section class="filtro-section">
+  <label for="filtroSelect">Ver:</label>
+  <select id="filtroSelect">
+    <option value="todos">Todas</option>
+    <option value="guardados">Guardados</option>
+    <option value="ofrecidos">Ofrecidos</option>
+  </select>
+  <button id="addCardBtn">Agregar publicación</button>
+</section>
+
+  <section class="cards-section">
+  <div class="card guardados">Curso de RCP <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Masajes descontracturantes <button class="delete-btn">×</button></div>
+  <div class="card guardados">Consejos de hidratación <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Clases de yoga <button class="delete-btn">×</button></div>
+  <div class="card ofrecidos">Asesoría nutricional <button class="delete-btn">×</button></div>
+  <div class="card guardados">Taller de primeros auxilios <button class="delete-btn">×</button></div>
+</section>
+
+
+  <script src="/js/usuario.js"></script>
+  <button id="loginToggle" style="position: fixed; top: 10px; right: 10px; z-index: 10;">
+  Simular Login
+  </button>
+
+</body>
+</html>

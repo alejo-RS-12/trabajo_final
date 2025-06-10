@@ -1,0 +1,504 @@
+/* Fondo: mismo estilo o imagen del index.html */
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #7fd1d1;
+}
+
+/* Top bar */
+.top-bar {
+  background-color: #a6e6e8;
+  text-align: center;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.top-bar .bold {
+  font-weight: bold;
+  color: crimson;
+  text-decoration: none;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye: logo - menú - usuario */
+  padding: 10px 50px;
+  background-color: white;
+}
+
+.logo img {
+  height: 90px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar :hover {
+  color: #7fd1d1;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.user-icon-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #88d8db;
+  padding: 5px;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1900px;
+  margin: 0%;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más marcada */
+  border: none;
+  margin-bottom: 90px;
+  margin-top: 90px;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: max-content;
+  
+}
+
+.carousel a img {
+  width: 100%;     /* Para que se adapte al contenedor */
+  height: 450px;
+  margin-bottom: -0.5%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1;
+}
+
+.flechas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+  z-index: 10;
+}
+
+.flechas button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.flechas button:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* Trabajos más buscados */
+.trabajos {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+
+.trabajos h4 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.trabajos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.job-box {
+  height: 180px;
+  border-radius: 0;
+  background-color: none;
+  overflow: hidden;
+  padding: 0;
+}
+
+.job-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 0px;
+}
+
+.job-box:hover img {
+  transform: scale(1.05);
+}
+
+
+
+/* Publicaciones */
+.publicaciones {
+  padding: 20px;
+  background-color: #e0f7f7;
+ 
+}
+
+.publicaciones h4 {
+  font-size: 200%;
+  text-align: center;
+  margin: 60px;
+}
+
+.publicaciones-grid {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 50px;
+  padding: 0 20px;
+  margin-bottom: 5%;
+
+}
+
+.post-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.post-card:hover {
+  transform: scale(1.03);
+}
+
+.post-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.post-info {
+  padding: 10px;
+}
+
+.post-title {
+  font-size: 18px;
+  margin: 0 0 5px;
+}
+
+.post-location,
+.post-solicitante {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+
+/* Estructura del sitio */
+.contenedor-sitio {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative; /* Asegura que el botón de alternar se posicione correctamente */
+  height: calc(100vh - 170px); /* Altura dinámica para que el sidebar tenga altura completa (ajusta 170px según tu header y top-bar) */
+}
+
+.barra-lateral-izquierda {
+  width: 240px; /* Ancho inicial del sidebar */
+  background-color: #f5f5f5;
+  /* overflow-y: auto; */ /* Quita el overflow-y del sidebar principal */
+  padding: 20px;
+  height: 100%; /* La altura se mantiene */
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out; /* Transición suave para el ancho y padding */
+  position: relative; /* Para el botón de alternar */
+  display: flex; /* Para organizar el header y el contenido verticalmente */
+  flex-direction: column;
+}
+
+/* Estado contraído del sidebar */
+.barra-lateral-izquierda.collapsed {
+  width: 60px; /* Ancho cuando está contraído */
+  padding: 20px 0; /* Ajustar padding cuando está contraído */
+  align-items: center; /* Centra el contenido horizontalmente cuando está colapsado */
+}
+
+.barra-lateral-izquierda ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.barra-lateral-izquierda li {
+  padding: 10px 5px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 1em;
+  color: #444;
+  display: flex;
+  justify-content: flex-start; /* Alinea los elementos al inicio */
+  align-items: center;
+  white-space: nowrap; /* Evita que el texto se rompa */
+  overflow: hidden; /* Oculta el texto que se desborde al contraer */
+  text-overflow: ellipsis; /* Añade puntos suspensivos si el texto se corta */
+}
+
+.barra-lateral-izquierda li:last-child {
+  border-bottom: none;
+}
+
+.barra-lateral-izquierda li:hover {
+  background-color: #e9e9e9;
+}
+
+.barra-lateral-izquierda li::after {
+  content: none; /* Eliminción de > */
+}
+
+/* Estilos para el buscador */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Ajuste de padding para el header */
+    width: 100%; /* Ocupa todo el ancho disponible del sidebar */
+    box-sizing: border-box;
+}
+
+.barra-lateral-izquierda.collapsed .sidebar-header {
+    justify-content: center; /* Centra el botón cuando el sidebar está colapsado */
+    padding: 0;
+    margin-bottom: 0; /* No margin-bottom cuando colapsado */
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+    margin-right: 20px; /* Espacio entre el buscador y el botón */
+}
+
+.search-box input {
+    width: calc(100% - 20px); /* Ajusta el ancho para el icono */
+    padding: 8px 10px 8px 30px; /* Espacio para el icono de búsqueda */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.search-box .fa-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+/* Estilos para el botón de alternar */
+.toggle-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #555;
+    padding: 5px;
+    transition: transform 0.3s ease-in-out;
+    /* Ajustes para el botón cuando el sidebar está colapsado */
+}
+
+.barra-lateral-izquierda.collapsed .toggle-btn {
+    margin: 0 auto; /* Centra el botón horizontalmente */
+    transform: translateX(0); 
+    padding: 5px 0; /* Ajusta el padding para que no se vea el fondo blanco del padding original */
+}
+
+
+.toggle-btn .fa-chevron-left {
+    transform: rotate(0deg); /* Flecha hacia la izquierda por defecto */
+}
+
+.barra-lateral-izquierda.collapsed .toggle-btn .fa-chevron-left {
+    transform: rotate(180deg); /* Flecha hacia la derecha cuando contraído */
+}
+
+/* Ocultar el contenido del sidebar cuando está contraído */
+.sidebar-content {
+    flex-grow: 1; /* Permite que el contenido tome el espacio restante */
+    overflow-y: auto; /* Agrega scroll solo al contenido si es necesario */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, max-height 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+.barra-lateral-izquierda.collapsed .sidebar-content {
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0; /* Para que el contenido no ocupe espacio */
+  overflow: hidden; /* Asegura que el contenido no se vea */
+  margin-top: -20px; /* Para que el contenido no empuje hacia abajo */
+}
+
+/* Mostrar el contenido del sidebar cuando está expandido */
+.barra-lateral-izquierda:not(.collapsed) .sidebar-content {
+  opacity: 1;
+  visibility: visible;
+  max-height: 1000px; /* Un valor grande para que el contenido se vea */
+  margin-top: 0;
+}
+
+
+/* Ajuste del contenido principal cuando el sidebar está colapsado */
+/* Esto puede no ser necesario si el flexbox ya maneja el espacio */
+/* .contenedor-sitio.sidebar-collapsed .contenido-principal {
+  margin-left: 60px;
+} */
+
+/* Asegura que el contenido principal ocupe todo el espacio restante */
+.contenido-principal {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  height: 100%; /* La altura se mantiene */
+  background-color: #7fd1d1;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease-in-out; /* Transición para el margen si el contenido principal se mueve */
+}
+
+.imagen-fija {
+  position: fixed;
+  /* Se mantiene en la pantalla */
+  bottom: 50%;
+  /* Distancia desde abajo */
+  right: 20px;
+  /* Distancia desde la derecha */
+  width: 30%;
+  /* Tamaño ajustable */
+  z-index: 999;
+  /* Para que esté por encima del resto */
+  pointer-events: none;
+  /* Evita interferir con el clic de otros elementos */
+  opacity: 0.9;
+  /* Ligera transparencia opcional */
+}
+
+.footer {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 40px 60px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-logo {
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-col {
+  flex: 1 1 200px;
+}
+
+.footer-col h2,
+.footer-col h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.footer-col p,
+.footer-col a {
+  font-size: 14px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+.footer-col.subscribe form {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-col.subscribe input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-col.subscribe button {
+  padding: 10px 16px;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.footer-col.subscribe button:hover {
+  background-color: #fff;
+  color: #da0606;
+}
+
+.footer-bottom {
+  border-top: 1px solid #ffffff;
+  padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
