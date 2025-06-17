@@ -1,185 +1,146 @@
-/* Fondo del body (sin imagen de fondo aquí) */
-body {
+body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Arial, sans-serif;
-  background-color: #7fd1d1; /* Mantiene el color de fondo original para el body */
-  color: #000000; /* Color de texto general para el tema claro */
+  font-family: sans-serif;
+  background: url('/imagenes/nosotros/oficios.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-/* Top bar */
-.top-bar {
-  background-color: #a6e6e8;
-  text-align: center;
-  padding: 5px;
-  font-size: 14px;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.top-bar .bold {
-  font-weight: bold;
-  color: crimson;
+.main-content {
+  flex: 1;
+}
+
+.footer {
+  background-color: #222;
+  color: white;
+  padding: 20px;
+}
+
+a {
+  color: #007bff;
   text-decoration: none;
 }
 
-/* NAV */
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Distribuye: logo - menú - usuario */
-  padding: 10px 50px;
-  background-color: white;
+.imagen-background {
+  padding: 3rem;
+  background: transparent;
 }
 
-.logo img {
-  height: 90px;
+.intro-section {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
 }
 
 .navbar {
-  list-style: none;
   display: flex;
-  gap: 50px;
+  flex-wrap: wrap;
+  gap: 1em;
+  list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.navbar :hover {
-  color: #7fd1d1;
-}
-
-.navbar li a {
-  text-decoration: none;
-  color: #000000;
-  font-size: 30px;
-  font-weight: 500;
-}
-
-.user-icon-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #88d8db;
-  padding: 5px;
-}
-
-/* Footer */
-.footer {
-  background-color: #1e1e1e;
-  color: #fff;
-  padding: 40px 60px;
-  font-family: Arial, sans-serif;
-}
-
-.footer-logo {
-  height: 80px;
-  margin-bottom: 10px;
 }
 
 .footer-top {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 40px;
-  margin-bottom: 30px;
+  gap: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer-col {
   flex: 1 1 200px;
 }
 
-.footer-col h2,
 .footer-col h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #f0f0f0;
+  font-size: 1.1em;
 }
 
-.footer-col p,
 .footer-col a {
-  font-size: 14px;
-  color: #ccc;
+  color: #7ab7ff;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footer-col a:hover {
+  color: #a8d0ff;
   text-decoration: underline;
 }
 
-.footer-col.subscribe form {
-  display: flex;
-  margin-top: 10px;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.footer-col.subscribe input {
-  padding: 10px;
-  border-radius: 20px;
-  border: none;
-  flex: 1;
-  min-width: 220px;
-}
-
-.footer-col.subscribe button {
-  padding: 10px 16px;
-  background-color: #000;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.footer-col.subscribe button:hover {
-  background-color: #fff;
-  color: #da0606;
-}
-
 .footer-bottom {
-  border-top: 1px solid #ffffff;
-  padding-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-/* Contenedor para la imagen de fondo detrás del intro-section */
-.imagen-background {
-  background-image: url('/imagenes/nosotros/oficios.jpg'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* La imagen se mantiene fija */
-  
-  /* Color, si la imagen no carga */
-  background-color: #333; 
-  
-  min-height: 500px; /* Altura mínima para ver la imagen */
-  display: flex; /* Para centrar el contenido */
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
-  padding: 20px; /* Espacio alrededor del contenido */
-}
-
-/* Estilos para el recuadro de la introducción (TEXTO) */
-.intro-section {
-  padding: 50px 20px;
-  max-width: 900px;
-  margin: 0 auto; /* Se centra dentro de .imagen-background */
-  background-color: rgba(30, 30, 30, 0.9); /* Fondo oscuro semi-transparente */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  text-align: justify;
-  line-height: 1.6;
-  color: #f5f5f5; /* Texto claro para contraste con el fondo oscuro */
-}
-
-.intro-section h1 {
+  margin-top: 1em;
+  padding-top: 0.5em;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
-  color: #03dac6; /* Color para el título */
-  margin-bottom: 30px;
+  font-size: 0.9em;
+  color: #ccc;
 }
 
-.intro-section p {
-  margin-bottom: 15px;
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1em;
+    padding-bottom: 0.5em;
+  }
+
+  .footer-col {
+    margin-bottom: 0.5em;
+  }
+
+  .intro-section {
+    padding: 1em;
+    font-size: 1em;
+  }
+
+  /* ocultar .top-bar y header */
+  .top-bar {
+    display: none;
+  }
+
+  header {
+    display: none;
+  }
 }
