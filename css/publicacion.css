@@ -285,3 +285,93 @@ textarea {
     border-radius: 0;
   }
 }
+
+/*     ESTILOS DEL MODAL   */
+/* ======================= */
+
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Para scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+}
+
+.chat-box {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 15px 0;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.mensaje {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background-color: #e0f7fa;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.input-chat {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-chat input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.input-chat button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: #45b8c5;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.input-chat button:hover {
+  background-color: #3aa5b4;
+}

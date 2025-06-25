@@ -1,46 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Carrusel
   const carruselInner = document.getElementById('carruselInner');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const images = carruselInner.querySelectorAll('img');
-
+  const volverBtn = document.querySelector('.volver-btn');
+  const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
+  const estrellas = calificacionEstrellasDiv?.querySelectorAll('i') || [];
 
   let currentIndex = 0;
 
-  function updateCarrusel() {
-    const offset = -currentIndex * images[0].clientWidth;
-    carruselInner.style.transform = `translateX(${offset}px)`;
+  if (carruselInner && nextBtn && prevBtn) {
+    const images = carruselInner.querySelectorAll('img');
+
+    function updateCarrusel() {
+      const offset = -currentIndex * images[0].clientWidth;
+      carruselInner.style.transform = `translateX(${offset}px)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateCarrusel();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateCarrusel();
+    });
+
+    window.addEventListener('resize', updateCarrusel);
+    updateCarrusel();
   }
-
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateCarrusel();
-  });
-
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateCarrusel();
-  });
-
-  window.addEventListener('resize', updateCarrusel);
-  updateCarrusel();
-
-  // Calificación por estrellas
-  const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
-  const estrellas = calificacionEstrellasDiv.querySelectorAll('i');
 
   let calificacionSeleccionada = 0;
 
-  function actualizarEstrellas(calificacion) {
+  function actualizarEstrellas(valor) {
     estrellas.forEach((estrella, index) => {
-      if (index < calificacion) {
-        estrella.classList.remove('fa-regular');
-        estrella.classList.add('fa-solid');
-      } else {
-        estrella.classList.remove('fa-solid');
-        estrella.classList.add('fa-regular');
-      }
+      estrella.classList.toggle('fa-solid', index < valor);
+      estrella.classList.toggle('fa-regular', index >= valor);
     });
   }
 
@@ -51,26 +46,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     estrella.addEventListener('mouseover', () => {
-      const hoverValue = parseInt(estrella.dataset.value);
-      estrellas.forEach((s, i) => {
-        if (i < hoverValue) {
-          s.classList.remove('fa-regular');
-          s.classList.add('fa-solid');
-        } else if (i >= calificacionSeleccionada) {
-          s.classList.remove('fa-solid');
-          s.classList.add('fa-regular');
-        }
-      });
+      actualizarEstrellas(parseInt(estrella.dataset.value));
     });
 
     estrella.addEventListener('mouseout', () => {
       actualizarEstrellas(calificacionSeleccionada);
     });
   });
-    // Función para el botón de volver atrás
-  const volverBtn = document.querySelector('.volver-btn');
-  volverBtn.addEventListener('click', () => {
-    window.history.back(); // Regresa a la página anterior
+
+  volverBtn?.addEventListener('click', () => {
+    window.history.back();
   });
 
+  // Chat Modal
+  const btnComentario = document.getElementById("btn-comentario");
+  const modalChat = document.getElementById("modal-chat");
+  const cerrarModal = document.getElementById("cerrar-modal");
+  const inputMensaje = document.getElementById("mensaje-chat");
+  const chatMensajes = document.getElementById("chat-mensajes");
+  const enviarMensaje = document.getElementById("enviar-mensaje");
+
+  if (btnComentario && modalChat && cerrarModal && inputMensaje && chatMensajes && enviarMensaje) {
+    btnComentario.addEventListener("click", () => {
+      modalChat.style.display = "flex";
+    });
+
+    cerrarModal.addEventListener("click", () => {
+      modalChat.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modalChat) {
+        modalChat.style.display = "none";
+      }
+    });
+
+    enviarMensaje.addEventListener("click", () => {
+      const texto = inputMensaje.value.trim();
+      if (texto !== "") {
+        const nuevoMensaje = document.createElement("div");
+        nuevoMensaje.className = "mensaje";
+        nuevoMensaje.textContent = texto;
+        chatMensajes.appendChild(nuevoMensaje);
+        inputMensaje.value = "";
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+      }
+    });
+  }
 });
