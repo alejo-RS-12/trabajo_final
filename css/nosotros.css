@@ -145,15 +145,15 @@ nav {
 
 /* Contenedor para la imagen de fondo detrás del intro-section */
 .imagen-background {
-  background-image: url('/imagenes/nosotros/oficios.jpg'); 
+  background-image: url("/imagenes/nosotros/oficios.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed; /* La imagen se mantiene fija */
-  
+
   /* Color, si la imagen no carga */
-  background-color: #333; 
-  
+  background-color: #333;
+
   min-height: 500px; /* Altura mínima para ver la imagen */
   display: flex; /* Para centrar el contenido */
   align-items: center; /* Centra verticalmente */
@@ -182,4 +182,40 @@ nav {
 
 .intro-section p {
   margin-bottom: 15px;
+}
+
+/* Fondo modal: negro con opacidad al 50% */
+.modal {
+  display: none; /* Por defecto, estará oculto */
+  position: fixed; /* Posición fija */
+  z-index: 1; /* Se situará por encima de otros elementos de la página*/
+  padding-top: 20px; /* El contenido estará situado a 200px de la parte superior */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Algura completa */
+  overflow: auto; /* Se activará el scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+}
+
+.modal-content {
+  position: center; /* Relativo con respecto al contenedor -modal- */
+  background-color: rgba(8, 2, 2, 0.041);
+  margin: auto; /* Centrada */
+  padding: 20px;
+  width: 50%;
+}
+
+.cerrar {
+  color: rgb(18, 223, 154);
+  float: right;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }

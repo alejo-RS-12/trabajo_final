@@ -131,7 +131,6 @@ nav {
   border: 1px solid #ccc;
 }
 
-
 /* Cards */
 .cards-section {
   display: flex;
@@ -207,5 +206,3 @@ nav {
 .card {
   position: relative; /* para ubicar el botón delete dentro */
 }
-
-

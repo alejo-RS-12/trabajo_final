@@ -9,25 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const userDescription = document.querySelector(".user-description");
   const loginToggle = document.getElementById("loginToggle");
 
-// Simular login
-loginToggle.addEventListener("click", () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  localStorage.setItem("isLoggedIn", !isLoggedIn);
+  // Simular login
+  loginToggle.addEventListener("click", () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    localStorage.setItem("isLoggedIn", !isLoggedIn);
+    updateDescriptionState();
+  });
+
+  // Habilita o deshabilita la descripción según estado de login
+  function updateDescriptionState() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    userDescription.disabled = !isLoggedIn;
+    userDescription.placeholder = isLoggedIn
+      ? "Escribe una descripción..."
+      : "Debes estar registrado para editar esta descripción";
+  }
+
+  // Llamar al cargar la página
   updateDescriptionState();
-});
-
-// Habilita o deshabilita la descripción según estado de login
-function updateDescriptionState() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  userDescription.disabled = !isLoggedIn;
-  userDescription.placeholder = isLoggedIn
-    ? "Escribe una descripción..."
-    : "Debes estar registrado para editar esta descripción";
-}
-
-// Llamar al cargar la página
-updateDescriptionState();
-
 
   // Imagen de perfil
   profileInput.addEventListener("change", function () {
@@ -37,10 +36,10 @@ updateDescriptionState();
       reader.onload = function (e) {
         profileImage.src = e.target.result;
         navUserIcon.src = e.target.result; // También actualizar la del navbar
-      // Mostrar imagen como fondo de toda la página
-      document.body.style.backgroundImage = `url('${e.target.result}')`;
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundPosition = "center";
+        // Mostrar imagen como fondo de toda la página
+        document.body.style.backgroundImage = `url('${e.target.result}')`;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
       };
       reader.readAsDataURL(file);
     }
@@ -67,7 +66,7 @@ const cards = document.querySelectorAll(".cards-section .card");
 filtroSelect.addEventListener("change", () => {
   const filtro = filtroSelect.value;
 
-  cards.forEach(card => {
+  cards.forEach((card) => {
     if (filtro === "todos") {
       card.style.display = "flex";
     } else if (card.classList.contains(filtro)) {
@@ -78,7 +77,7 @@ filtroSelect.addEventListener("change", () => {
   });
 });
 
-// Agregar y eliminar publicaciones 
+// Agregar y eliminar publicaciones
 const addCardBtn = document.getElementById("addCardBtn");
 const cardsSection = document.querySelector(".cards-section");
 
@@ -111,4 +110,3 @@ cardsSection.addEventListener("click", (e) => {
     }
   }
 });
-
