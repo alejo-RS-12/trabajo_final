@@ -20,7 +20,7 @@
         <i class="fa-solid fa-bookmark" title="Guardar"></i>
         <i class="fa-solid fa-share-alt" title="Compartir"></i>
         <i class="fa-solid fa-plus" title="Agregar"></i>
-        <i class="fa-solid fa-flag" title="Denunciar"></i>
+        <i class="fa-solid fa-flag" title="Denunciar" id="btnDenunciar"></i>
         <i class="fa-solid fa-user" title="Perfil"></i>
       </div>
     </div>
@@ -66,13 +66,30 @@
 
         <h3>Comentarios</h3>
         <div class="comentarios">
-          <!-- Comentarios dinámicos -->
-        </div>
+          </div>
 
         <textarea placeholder="Escribe tu comentario..."></textarea>
         <button class="btn-enviar">Enviar</button>
       </div>
 
+    </div>
+  </div>
+
+  <div class="modal" id="modalDenuncia" style="display: none;"> 
+    <div class="modal_container">
+      <h1>Denunciar Publicación</h1>
+      <p>Por favor, selecciona el motivo de tu denuncia:</p>
+      <select>
+        <option value="">Selecciona un motivo</option>
+        <option value="spam">Spam</option>
+        <option value="contenido-inapropiado">Contenido Inapropiado</option>
+        <option value="fraude">Fraude</option>
+        <option value="informacion-falsa">Información Falsa</option>
+        <option value="otro">Otro</option>
+      </select>
+      <textarea placeholder="Añade más detalles sobre tu denuncia (opcional)"></textarea>
+      <button class="btn-enviar" style="margin-top: 10px;">Enviar Denuncia</button>
+      <button class="modal_cierre" id="cerrarModalBtn">Cerrar</button>
     </div>
   </div>
 

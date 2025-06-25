@@ -268,6 +268,74 @@ textarea {
   background-color: #3aa5b4;
 }
 
+/*Modal*/
+
+
+.modal {
+  width: 100%;
+  
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  position: fixed; /* Fija la posición del modal */
+  top: 0; /* Alinea al principio de la ventana */
+  left: 0; /* Alinea al principio de la ventana */
+  height: 100vh; /* Asegura que el modal ocupe toda la altura de la ventana */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal_container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: relative; /* Para posicionar el botón de cerrar */
+  display: flex; /* Para organizar los elementos internos del modal */
+  flex-direction: column; /* Organiza los elementos en columna */
+  gap: 15px; /* Espacio entre elementos del modal */
+}
+
+.modal_container h1 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal_container p {
+    margin-bottom: 0;
+    color: #555;
+}
+
+.modal_container select,
+.modal_container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal_cierre {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.modal_cierre:hover {
+  color: #f00; /* Color rojo al pasar el mouse */
+}
+
+
 /* Media Queries para diseño responsive */
 @media (max-width: 768px) {
   .contenido {
