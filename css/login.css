@@ -10,11 +10,11 @@ body {
   background-color: #292729;
 
   /* propiedades de Flexbox para el centrado */
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: Arial, sans-serif;
   height: 100vh;
   position: relative;
 }
@@ -99,29 +99,7 @@ button {
 button:hover {
   background-color: #3aa5b4;
 }
-/*  ESTO ES EL FORMATO DEL BOTON ANTERIOR
-button {
-    border-radius: 20px;
-    border: 1px solid #007bff; 
-    background-color: #7fd1d1; 
-    color: #000000;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    cursor: pointer;
-}
 
-button:active {
-    transform: scale(0.95);
-}
-
-button:focus {
-    outline: none;
-}
-*/
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
