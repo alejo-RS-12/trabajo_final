@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+export function inicializarLogin() {
   const nombre = document.getElementById("nombre");
   const email = document.getElementById("email");
   const usuario = document.getElementById("usuario");
@@ -94,4 +94,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remueve la clase para volver al estado inicial (mostrar inicio de sesión)
     container.classList.remove("right-panel-active");
   });
-});
+}

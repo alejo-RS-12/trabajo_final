@@ -4,17 +4,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROPO - Trabajos</title>
+  <title>ROPO - Formacion</title>
   <link rel="stylesheet" href="/css/trabajos.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
  <img src="/imagenes/artes_visuales.png" alt="Decoración" class="imagen-fija">
- <main>
-  <!-- Top bar -->
+  <!-- Top bar para el registro -->
   <div class="top-bar">
-    Algunas funciones están limitadas. Presiona <a href="Login.html" class="bold">aquí</a> para registrarte y aprovechar los beneficios.
+    Algunas funciones estan limitadas, presiona <a href="#" id="abrirModal"class="bold">aquí</a> para poder registrarte y
+    aprovechar los beneficios
+  </div>  
+<div id="ventanaModal" class="modal">
+  <span class="cerrar">&times;</span>
+  <div class="modal-content" id="modal-content">
+    <span class="cerrar">&times;</span>
+        <h2>Ventana modal del Login no se cargo</h2>
+      <!-- Aquí se cargará el contenido de la página externa -->
+    </div>
   </div>
 
   <!-- Header -->
@@ -210,7 +218,7 @@
     </div>
   </footer>
 
-  <script src="/js/buscador.js"></script>
+  <script type="module" src="/js/buscador.js"></script>
 </body>
 
 </html>

@@ -1,8 +1,12 @@
-html, body {
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+html,
+body {
   height: 100%;
   margin: 0;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -73,8 +77,6 @@ nav {
   pointer-events: none;
   opacity: 0.9;
 }
-
-
 
 /* Contenedor principal del sitio */
 .contenedor-sitio {
@@ -241,7 +243,8 @@ nav {
   font-size: 18px;
   margin: 0 0 5px;
 }
-.post-location, .post-solicitante {
+.post-location,
+.post-solicitante {
   font-size: 14px;
   margin: 2px 0;
 }
@@ -250,7 +253,7 @@ nav {
   background-color: #1e1e1e;
   color: #fff;
   padding: 40px 60px;
-  font-family: Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .footer-logo {
@@ -324,4 +327,40 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+}
+
+/* Fondo modal: negro con opacidad al 50% */
+.modal {
+  display: none; /* Por defecto, estará oculto */
+  position: fixed; /* Posición fija */
+  z-index: 1; /* Se situará por encima de otros elementos de la página*/
+  padding-top: 20px; /* El contenido estará situado a 200px de la parte superior */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Algura completa */
+  overflow: auto; /* Se activará el scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+}
+
+.modal-content {
+  position: center; /* Relativo con respecto al contenedor -modal- */
+  background-color: rgba(8, 2, 2, 0.041);
+  margin: auto; /* Centrada */
+  padding: 20px;
+  width: 50%;
+}
+
+.cerrar {
+  color: rgb(18, 223, 154);
+  float: right;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
