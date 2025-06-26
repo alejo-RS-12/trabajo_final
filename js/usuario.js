@@ -9,23 +9,49 @@ document.addEventListener("DOMContentLoaded", function () {
   const filtroSelect = document.getElementById("filtroSelect");
   const addCardBtn = document.getElementById("addCardBtn");
   const cardsSection = document.querySelector(".cards-section");
+  const profileEditIcon = document.querySelector(".profile-edit");
+  const bgEditIcon = document.querySelector(".bg-edit");
 
-  // Estado login
+  // Al cargar la página, inicializa el estado del login
+  updateUIBasedOnLogin();
+
+  // Botón de login/logout simulado
   loginToggle.addEventListener("click", () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    localStorage.setItem("isLoggedIn", !isLoggedIn);
-    updateDescriptionState();
+    const newLoginState = !isLoggedIn;
+    localStorage.setItem("isLoggedIn", newLoginState);
+    updateUIBasedOnLogin();
   });
 
-  function updateDescriptionState() {
+  function updateUIBasedOnLogin() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    // Habilitar/deshabilitar edición de descripción
     userDescription.disabled = !isLoggedIn;
     userDescription.placeholder = isLoggedIn
       ? "Escribe una descripción..."
       : "Debes estar registrado para editar esta descripción";
-  }
 
-  updateDescriptionState();
+    // Inputs de imagen
+    profileInput.disabled = !isLoggedIn;
+    backgroundInput.disabled = !isLoggedIn;
+
+    // Mostrar íconos de lápiz si logueado
+    profileEditIcon.style.display = isLoggedIn ? "block" : "none";
+    bgEditIcon.style.display = isLoggedIn ? "block" : "none";
+
+    // Cambiar clase del <body> y texto del botón
+    document.body.classList.toggle("logged-in", isLoggedIn);
+    loginToggle.textContent = isLoggedIn ? "Cerrar sesión" : "Simular Login";
+
+    // Mostrar botón agregar solo si logueado
+    addCardBtn.style.display = isLoggedIn ? "inline-block" : "none";
+
+    // Mostrar botones de eliminar solo si logueado
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.style.display = isLoggedIn ? "inline-block" : "none";
+    });
+  }
 
   // Imagen de perfil
   profileInput.addEventListener("change", function () {
@@ -35,15 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
       reader.onload = function (e) {
         profileImage.src = e.target.result;
         navUserIcon.src = e.target.result;
-        document.body.style.backgroundImage = `url('${e.target.result}')`;
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
       };
       reader.readAsDataURL(file);
     }
   });
 
-  // Fondo de cabecera
+  // Imagen de fondo
   backgroundInput.addEventListener("change", function () {
     const file = backgroundInput.files[0];
     if (file) {
@@ -57,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Filtro (si usás clases guardados/ofrecidos en las post-cards)
+  // Filtro de tarjetas
   filtroSelect.addEventListener("change", () => {
     const filtro = filtroSelect.value;
     const cards = document.querySelectorAll(".cards-section .post-card");
@@ -73,12 +96,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Agregar tarjetas nuevas
+  // Agregar nueva tarjeta
   addCardBtn.addEventListener("click", () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      alert("Debes iniciar sesión para agregar publicaciones.");
+      return;
+    }
+
     const titulo = prompt("Título del trabajo:");
     const ubicacion = prompt("Ubicación:");
     const solicitante = prompt("Nombre del solicitante:");
-    const tipo = prompt("¿Es 'guardados' o 'ofrecidos'? (opcional para filtro)");
+    const tipo = prompt("¿Es 'guardados' o 'ofrecidos'?");
 
     if (!titulo || !ubicacion || !solicitante) {
       alert("Faltan datos");
@@ -104,11 +133,18 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
 
     cardsSection.appendChild(nuevaCard);
+    updateUIBasedOnLogin(); // para aplicar visibilidad del botón eliminar
   });
 
-  // Eliminar tarjetas
+  // Eliminar tarjeta (solo si logueado)
   cardsSection.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-btn")) {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        alert("Debes iniciar sesión para eliminar publicaciones.");
+        return;
+      }
+
       const card = e.target.closest(".post-card");
       if (confirm("¿Estás seguro de que querés eliminar esta publicación?")) {
         card.remove();

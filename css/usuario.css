@@ -7,7 +7,7 @@ body {
 }
 
 .top-bar {
-  background-color: #7fd1d1;
+  background-color: #a6e6e8;
   padding: 8px;
   text-align: center;
   color: rgb(0, 0, 0);
@@ -53,7 +53,7 @@ nav {
   border-radius: 50%;
 }
 
-/* Fondo y perfil */
+/* ---------- Fondo y perfil ---------- */
 .sub-header {
   position: relative;
   display: flex;
@@ -73,6 +73,9 @@ nav {
   overflow: hidden;
   border: 2px solid #000000;
   margin-bottom: -60px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .profile-container {
@@ -98,7 +101,7 @@ nav {
   object-fit: cover;
 }
 
-/* Iconos de lápiz */
+/* ---------- Iconos de lápiz ---------- */
 .edit-icon {
   position: absolute;
   bottom: 0;
@@ -108,21 +111,20 @@ nav {
   border-radius: 50%;
   cursor: pointer;
   font-size: 14px;
+  display: none; /* ← oculta por defecto, visible solo si logueado */
 }
 
-/* Lápiz de perfil */
 .profile-edit {
   right: -8px;
   bottom: -8px;
 }
 
-/* Lápiz del fondo */
 .bg-edit {
   bottom: 10px;
   right: 10px;
 }
 
-/* Caja de descripción */
+/* ---------- Caja de descripción ---------- */
 .user-description {
   margin-top: 20px;
   padding: 10px;
@@ -133,14 +135,26 @@ nav {
   border: 1px solid #ccc;
 }
 
-/* Cards */
+.user-description:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.subtitulo{
+  background-color: white;
+  margin: 10px;
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+/* ---------- Cards ---------- */
 .cards-section {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 30px;
   background-color: #ffffff;
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
 }
 
 .card {
@@ -153,42 +167,7 @@ nav {
   justify-content: center;
   border-radius: 10px;
   font-weight: bold;
-}
-
-.grilla {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 1.1rem;
-}
-
-.user-description:disabled {
-  background-color: #e0e0e0;
-  color: #888;
-  cursor: not-allowed;
-}
-
-.filtro-section {
-  text-align: center;
-  margin: 30px 0 10px;
-  font-size: 1.1rem;
-}
-
-#filtroSelect {
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-/* Estilo para los botones de agregar - eliminar publicacion */
-.filtro-section button {
-  margin-left: 15px;
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: #007b8a;
-  color: white;
-  cursor: pointer;
+  position: relative;
 }
 
 .card .delete-btn {
@@ -205,24 +184,14 @@ nav {
   font-weight: bold;
 }
 
-.card {
-  position: relative; /* para ubicar el botón delete dentro */
-}
-.cards-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
-  padding: 30px;
-  background-color: #ffffff;
-}
-
-/* Card estilo trabajos */
+/* ---------- Estilo personalizado para las publicaciones ---------- */
 .post-card {
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s;
+  position: relative;
 }
 
 .post-card:hover {
@@ -248,4 +217,82 @@ nav {
 .post-solicitante {
   font-size: 14px;
   margin: 2px 0;
+}
+
+.post-info .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ---------- Grilla y filtro ---------- */
+.grilla {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+
+.filtro-section {
+  text-align: center;
+  margin: 30px 0 10px;
+  font-size: 1.1rem;
+}
+
+#filtroSelect {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Botón Agregar Publicación */
+.filtro-section button {
+  margin-left: 15px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007b8a;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mostrar iconos de edición solo cuando está logueado */
+body.logged-in .edit-icon {
+  display: block;
+}
+
+/* Estilo visual del botón login según estado */
+#loginToggle {
+  background-color: #008cba;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+body.logged-in #loginToggle {
+  background-color: #d9534f;
+}
+
+.delete-btn {
+  display: none;
+}
+
+body.logged-in .delete-btn {
+  display: inline-block;
+}
+
+#addCardBtn {
+  display: none;
 }
