@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCarrusel();
   }
 
-
   // Calificación por estrellas
   const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
   
@@ -82,63 +81,98 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Modal de Chat
+  const btnComentario = document.getElementById("btn-comentario");
+  const modalChat = document.getElementById("modal-chat");
+  const cerrarModalChat = document.getElementById("cerrar-modal"); // Renombrado 
+  const inputMensaje = document.getElementById("mensaje-chat");
+  const chatMensajes = document.getElementById("chat-mensajes");
+  const enviarMensaje = document.getElementById("enviar-mensaje");
+
+  if (btnComentario && modalChat && cerrarModalChat && inputMensaje && chatMensajes && enviarMensaje) {
+    btnComentario.addEventListener("click", () => {
+      modalChat.style.display = "flex";
+    });
+
+    cerrarModalChat.addEventListener("click", () => {
+      modalChat.style.display = "none";
+    });
+
+    // Cerrar modal de chat haciendo clic fuera
+    modalChat.addEventListener("click", (e) => {
+      if (e.target === modalChat) {
+        modalChat.style.display = "none";
+      }
+    });
+
+    enviarMensaje.addEventListener("click", () => {
+      const texto = inputMensaje.value.trim();
+      if (texto !== "") {
+        const nuevoMensaje = document.createElement("div");
+        nuevoMensaje.className = "mensaje";
+        nuevoMensaje.textContent = texto;
+        chatMensajes.appendChild(nuevoMensaje);
+        inputMensaje.value = "";
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+      }
+    });
+  }
+
   // Funcionalidad del Modal de Denuncia
   const btnDenunciar = document.getElementById('btnDenunciar');
   const modalDenuncia = document.getElementById('modalDenuncia');
-  const cerrarModalBtn = document.getElementById('cerrarModalBtn');
-  const btnEnviarDenuncia = modalDenuncia ? modalDenuncia.querySelector('.btn-enviar') : null; // Seleccionar el botón de enviar denuncia dentro del modal
-  const selectMotivo = modalDenuncia ? modalDenuncia.querySelector('select') : null;
-  const textareaDetalles = modalDenuncia ? modalDenuncia.querySelector('textarea') : null;
+  const cerrarModalDenunciaBtn = document.getElementById('cerrarModalDenunciaBtn');
+  const enviarDenunciaBtn = document.getElementById('enviarDenunciaBtn');
+  const motivoDenuncia = document.getElementById('motivoDenuncia');
+  const detallesDenuncia = document.getElementById('detallesDenuncia');
 
-
-  if (btnDenunciar && modalDenuncia && cerrarModalBtn) {
-    // Mostrar el modal
+  if (btnDenunciar && modalDenuncia && cerrarModalDenunciaBtn && enviarDenunciaBtn && motivoDenuncia && detallesDenuncia) {
+    // Mostrar el modal de denuncia
     btnDenunciar.addEventListener('click', () => {
       modalDenuncia.style.display = 'flex';
     });
 
-    // Ocultar el modal con el botón de cerrar
-    cerrarModalBtn.addEventListener('click', () => {
+    // Ocultar el modal de denuncia con el botón de cerrar
+    cerrarModalDenunciaBtn.addEventListener('click', () => {
       modalDenuncia.style.display = 'none';
     });
 
-    // Ocultar el modal haciendo clic fuera
+    // Ocultar el modal de denuncia haciendo clic fuera
     modalDenuncia.addEventListener('click', (event) => {
       if (event.target === modalDenuncia) {
         modalDenuncia.style.display = 'none';
       }
     });
 
-    // Ocultar el modal con la tecla 'Escape'
+    // Ocultar el modal de denuncia con la tecla 'Escape'
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && modalDenuncia.style.display === 'flex') {
         modalDenuncia.style.display = 'none';
+      } else if (event.key === 'Escape' && modalChat.style.display === 'flex') { // También para el modal de chat
+        modalChat.style.display = 'none';
       }
     });
 
     // Funcionalidad del botón de enviar denuncia
-    if (btnEnviarDenuncia && selectMotivo && textareaDetalles) {
-        btnEnviarDenuncia.addEventListener('click', () => {
-            const motivo = selectMotivo.value;
-            const detalles = textareaDetalles.value.trim();
+    enviarDenunciaBtn.addEventListener('click', () => {
+        const motivo = motivoDenuncia.value;
+        const detalles = detallesDenuncia.value.trim();
 
-            if (motivo === "") {
-                alert("Por favor, selecciona un motivo para la denuncia.");
-                return;
-            }
+        if (motivo === "") {
+            alert("Por favor, selecciona un motivo para la denuncia.");
+            return;
+        }
 
-            // Aquí es donde enviarías la denuncia a tu servidor
-            console.log("Denuncia enviada:");
-            console.log("Motivo:", motivo);
-            console.log("Detalles:", detalles);
-            
-            alert("Denuncia enviada con éxito. Gracias por tu reporte.");
-            modalDenuncia.style.display = 'none'; // Cerrar el modal después de enviar
-            
-            // Opcional: Limpiar el formulario
-            selectMotivo.value = "";
-            textareaDetalles.value = "";
-        });
-    }
+        console.log("Denuncia enviada:");
+        console.log("Motivo:", motivo);
+        console.log("Detalles:", detalles);
+        
+        alert("Denuncia enviada con éxito. Gracias por tu reporte.");
+        modalDenuncia.style.display = 'none'; // Cerrar el modal después de enviar
+        
+        // Opcional: Limpiar el formulario
+        motivoDenuncia.value = "";
+        detallesDenuncia.value = "";
+    });
   }
 });

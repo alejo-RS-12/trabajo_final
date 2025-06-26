@@ -1,24 +1,24 @@
 body {
-  margin: 0; 
+  margin: 0;
   font-family: sans-serif;
-  background: #333; 
-  height: 100vh; 
+  background: #333;
+  height: 100vh;
   display: flex; /* centrar el contenido */
   justify-content: center; /* Centra horizontalmente*/
   align-items: center; /* Centrar verticalmente*/
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .pagina {
   padding: 0;
-  background-color: #555; 
-  width: 100vw; 
-  height: 100vh; 
-  max-width: none; 
-  margin: 0; 
-  border-radius: 0; 
+  background-color: #555;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
-  display: flex; 
+  display: flex;
   flex-direction: column; /*barra superior y contenido en columna */
 }
 
@@ -29,9 +29,9 @@ body {
   background-color: #45b8c5; /* Color de la barra superior */
   color: white;
   padding: 10px 20px;
-  width: 100%; 
+  width: 100%;
   box-sizing: border-box; /* Incluye padding en el ancho */
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .volver-btn {
@@ -120,7 +120,7 @@ body {
   object-fit: cover; /* Las imágenes cubren el espacio*/
   display: block;
   border-radius: 4px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .flechas {
@@ -175,14 +175,14 @@ body {
 
 /* Estrellas última corrección */
 .estrellas {
-  
+
   color: #ccc; /* Color gris claro para las estrellas vacías*/
   font-size: 20px;
   margin-bottom: 15px;
   cursor: pointer;
-  display: flex; 
+  display: flex;
   justify-content: flex-start; /* Comienza desde la izquierda */
-  align-items: center; 
+  align-items: center;
 }
 
 .estrellas i {
@@ -206,12 +206,12 @@ body {
 }
 
 .mapa {
-  background: none; 
-  height: 150px; 
+  background: none;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #555; 
+  color: #555;
   margin-bottom: 20px;
   border-radius: 4px;
   border: 1px solid #ddd;
@@ -219,9 +219,9 @@ body {
 }
 
 .mapa img {
-  width: 100%; 
-  height: 100%; 
-  object-fit: cover; 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -231,7 +231,7 @@ body {
 }
 
 .comentarios {
-  flex-grow: 1; 
+  flex-grow: 1;
   margin-bottom: 0;
   border-top: none;
   padding-top: 0;
@@ -241,14 +241,14 @@ body {
 
 textarea {
   width: 100%;
-  flex-grow: 1; 
+  flex-grow: 1;
   padding: 10px;
-  resize: vertical; 
+  resize: vertical;
   margin-top: 10px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   min-height: 100px;
 }
 
@@ -268,50 +268,65 @@ textarea {
   background-color: #3aa5b4;
 }
 
-/*Modal*/
-
+/* ESTILOS DEL MODAL (ambos modales) */
+/* ============================================== */
 
 .modal {
-  width: 100%;
-  
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 20px;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: none; /* Oculto por defecto */
   position: fixed; /* Fija la posición del modal */
-  top: 0; /* Alinea al principio de la ventana */
-  left: 0; /* Alinea al principio de la ventana */
-  height: 100vh; /* Asegura que el modal ocupe toda la altura de la ventana */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Para scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
+  justify-content: center; /* Centra horizontalmente el modal-content */
+  align-items: center; /* Centra verticalmente el modal-content */
 }
 
-.modal_container {
-  background-color: #fff;
-  width: 100%;
-  max-width: 600px;
-  border-radius: 20px;
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* Ajuste para centrado vertical cuando no es flex */
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: relative; /* Para posicionar el botón de cerrar */
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: aparecer 0.3s ease-out;
+  position: relative; /* Para posicionar el botón de cierre */
   display: flex; /* Para organizar los elementos internos del modal */
   flex-direction: column; /* Organiza los elementos en columna */
   gap: 15px; /* Espacio entre elementos del modal */
 }
 
-.modal_container h1 {
-    margin-top: 0;
-    color: #333;
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.modal_container p {
-    margin-bottom: 0;
-    color: #555;
+/* Cambio .close a .close-btn */
+.close-btn {
+  color: #aaa;
+  background: none; /* Quitar fondo de botón */
+  border: none;    /* Quitar borde de botón */
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute; /* Posicionamiento absoluto para el botón de cierre */
+  top: 10px;
+  right: 15px;
+  padding: 0; /* Quitar padding por defecto del botón */
 }
 
-.modal_container select,
-.modal_container textarea {
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+}
+
+/* Estilos específicos para elementos dentro de modal-content que son comunes (select, textarea) */
+.modal-content select,
+.modal-content textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -319,22 +334,57 @@ textarea {
     box-sizing: border-box;
 }
 
-.modal_cierre {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
+/* Botón de enviar denuncia  */
+#enviarDenunciaBtn {
+    margin-top: 10px;
+}
+
+/* Estilos para el chat box */
+.chat-box {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 15px 0;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.mensaje {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background-color: #e0f7fa;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.input-chat {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-chat input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.input-chat button {
+  padding: 10px 20px;
+  border-radius: 20px;
   border: none;
-  font-size: 24px;
+  background-color: #45b8c5;
+  color: white;
   cursor: pointer;
-  color: #333;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.modal_cierre:hover {
-  color: #f00; /* Color rojo al pasar el mouse */
+.input-chat button:hover {
+  background-color: #3aa5b4;
 }
-
 
 /* Media Queries para diseño responsive */
 @media (max-width: 768px) {
