@@ -207,5 +207,45 @@ nav {
 .card {
   position: relative; /* para ubicar el botón delete dentro */
 }
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 30px;
+  background-color: #ffffff;
+}
 
+/* Card estilo trabajos */
+.post-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.post-card:hover {
+  transform: scale(1.03);
+}
+
+.post-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.post-info {
+  padding: 10px;
+}
+
+.post-title {
+  font-size: 18px;
+  margin: 0 0 5px;
+}
+
+.post-location,
+.post-solicitante {
+  font-size: 14px;
+  margin: 2px 0;
+}
 
