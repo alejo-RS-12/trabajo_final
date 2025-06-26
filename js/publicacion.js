@@ -3,10 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const volverBtn = document.querySelector('.volver-btn');
+  const iconoMensajes = document.getElementById("abrir-mensajes");
   const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
   const estrellas = calificacionEstrellasDiv?.querySelectorAll('i') || [];
 
   let currentIndex = 0;
+
+  iconoMensajes?.addEventListener("click", () => {
+  modalChat.style.display = "flex";
+});
 
   if (carruselInner && nextBtn && prevBtn) {
     const images = carruselInner.querySelectorAll('img');
