@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Montserrat", sans-serif;
   background: #333;
   height: 100vh;
   display: flex; /* centrar el contenido */
@@ -35,27 +37,26 @@ body {
 }
 
 .volver-btn {
-    font-size: 35px;
-    color: #000;
-    background-color: transparent;
-    border: 2px solid #000;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    padding: 0;
+  font-size: 35px;
+  color: #000;
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  padding: 0;
 }
 
 /* Efecto hover (opcional) */
 .volver-btn:hover {
-    background-color: #e0e0e0;
-    transform: scale(1.05);
+  background-color: #e0e0e0;
+  transform: scale(1.05);
 }
-
 
 .iconos-superiores {
   display: flex;
@@ -160,7 +161,7 @@ body {
   background-color: white; /* Fondo de la columna de información */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .titulo-servicio {
@@ -175,7 +176,6 @@ body {
 
 /* Estrellas última corrección */
 .estrellas {
-
   color: #ccc; /* Color gris claro para las estrellas vacías*/
   font-size: 20px;
   margin-bottom: 15px;
@@ -191,13 +191,10 @@ body {
   transition: color 0.2s ease; /* Transición suave al cambiar de color */
 }
 
-
 .estrellas i.fa-solid,
 .estrellas i.fas {
   color: #f4c542 !important; /* ¡Color amarillo con prioridad máxima! */
 }
-
-
 
 .descripcion {
   margin-bottom: 20px;
@@ -268,78 +265,74 @@ textarea {
   background-color: #3aa5b4;
 }
 
-/* ESTILOS DEL MODAL (ambos modales) */
-/* ============================================== */
+/* Media Queries para diseño responsive */
+@media (max-width: 768px) {
+  .contenido {
+    flex-direction: column; /* Apila las columnas verticalmente en pantallas pequeñas */
+    padding: 10px;
+  }
+
+  .contenido-izquierdo {
+    margin-right: 0;
+    margin-bottom: 20px; /* Margen inferior cuando las columnas se apilan */
+  }
+
+  .pagina {
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+/*     ESTILOS DEL MODAL   */
+/* ======================= */
 
 .modal {
   display: none; /* Oculto por defecto */
-  position: fixed; /* Fija la posición del modal */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto; /* Para scroll si es necesario */
   background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
-  justify-content: center; /* Centra horizontalmente el modal-content */
-  align-items: center; /* Centra verticalmente el modal-content */
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto; /* Ajuste para centrado vertical cuando no es flex */
+  margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   animation: aparecer 0.3s ease-out;
-  position: relative; /* Para posicionar el botón de cierre */
-  display: flex; /* Para organizar los elementos internos del modal */
-  flex-direction: column; /* Organiza los elementos en columna */
-  gap: 15px; /* Espacio entre elementos del modal */
 }
 
 @keyframes aparecer {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-/* Cambio .close a .close-btn */
-.close-btn {
+.close {
   color: #aaa;
-  background: none; /* Quitar fondo de botón */
-  border: none;    /* Quitar borde de botón */
+  float: right;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
-  position: absolute; /* Posicionamiento absoluto para el botón de cierre */
-  top: 10px;
-  right: 15px;
-  padding: 0; /* Quitar padding por defecto del botón */
 }
 
-.close-btn:hover,
-.close-btn:focus {
+.close:hover,
+.close:focus {
   color: #000;
 }
 
-/* Estilos específicos para elementos dentro de modal-content que son comunes (select, textarea) */
-.modal-content select,
-.modal-content textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* Botón de enviar denuncia  */
-#enviarDenunciaBtn {
-    margin-top: 10px;
-}
-
-/* Estilos para el chat box */
 .chat-box {
   max-height: 200px;
   overflow-y: auto;
@@ -384,22 +377,4 @@ textarea {
 
 .input-chat button:hover {
   background-color: #3aa5b4;
-}
-
-/* Media Queries para diseño responsive */
-@media (max-width: 768px) {
-  .contenido {
-    flex-direction: column; /* Apila las columnas verticalmente en pantallas pequeñas */
-    padding: 10px;
-  }
-
-  .contenido-izquierdo {
-    margin-right: 0;
-    margin-bottom: 20px; /* Margen inferior cuando las columnas se apilan */
-  }
-
-  .pagina {
-    margin: 0;
-    border-radius: 0;
-  }
 }

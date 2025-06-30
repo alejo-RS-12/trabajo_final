@@ -1,178 +1,64 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Carrusel
-  const carruselInner = document.getElementById('carruselInner');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  
-  if (carruselInner && prevBtn && nextBtn) {
-    const images = carruselInner.querySelectorAll('img');
-    let currentIndex = 0;
+import { inicializarLogin } from "/js/login.js"; // importo la función que activa los formularios login and register
+document.addEventListener("DOMContentLoaded", () => {
+  // Ventana modal
+  const modal = document.getElementById("ventanaModal"); // contenedor principal del modal
+  const boton = document.getElementById("abrirModal"); //  "boton" o link (palabra "aqui") que abre el modal
+  const span = document.getElementsByClassName("cerrar")[0]; // es la  X que permite cerrar la ventana modal
+  const modalBody = document.getElementById("modal-content"); // contenedor donde se inserta Login.html
 
-    function updateCarrusel() {
-      const offset = -currentIndex * (images.length > 0 ? images[0].clientWidth : 0);
-      carruselInner.style.transform = `translateX(${offset}px)`;
-    }
+  let loginCargado = false; // Asegura Login.html no se cargó, (para evitar múltiples fetch, y que genere los errores como por ejemplo que quede NO funcional los formularios 😡😡😡)
 
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      updateCarrusel();
-    });
+  // Abrir modal
+  boton.addEventListener("click", function () {
+    // Al hacer clic en "Aqui"
+    modal.style.display = "block"; // cambia display de none a block para mostrar el modal
 
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      updateCarrusel();
-    });
+    if (!loginCargado) {
+      // acá controlamos si esta cargado o no Login y si no fue cargado
+      fetch("Login.html") // lo pedimos al servidor
+        .then((response) => response.text()) // convertimos la respuesta a texto
+        .then((data) => {
+          modalBody.innerHTML = data; //lo asignamos dentro del modal
 
-    window.addEventListener('resize', updateCarrusel);
-    updateCarrusel();
-  }
+          const parser = new DOMParser(); //creamos un parser para leer ese HTML
+          const doc = parser.parseFromString(data, "text/html"); // Convertimos el texto HTML a DOM
 
-  // Calificación por estrellas
-  const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
-  
-  if (calificacionEstrellasDiv) {
-    const estrellas = calificacionEstrellasDiv.querySelectorAll('i');
-    let calificacionSeleccionada = 0;
-
-    function actualizarEstrellas(calificacion) {
-      estrellas.forEach((estrella, index) => {
-        if (index < calificacion) {
-          estrella.classList.remove('fa-regular');
-          estrella.classList.add('fa-solid');
-        } else {
-          estrella.classList.remove('fa-solid');
-          estrella.classList.add('fa-regular');
-        }
-      });
-    }
-
-    estrellas.forEach(estrella => {
-      estrella.addEventListener('click', () => {
-        calificacionSeleccionada = parseInt(estrella.dataset.value);
-        actualizarEstrellas(calificacionSeleccionada);
-        console.log(`Calificaste con: ${calificacionSeleccionada} estrellas`);
-      });
-
-      estrella.addEventListener('mouseover', () => {
-        const hoverValue = parseInt(estrella.dataset.value);
-        estrellas.forEach((s, i) => {
-          if (i < hoverValue) {
-            s.classList.remove('fa-regular');
-            s.classList.add('fa-solid');
-          } else if (i >= calificacionSeleccionada) {
-            s.classList.remove('fa-solid');
-            s.classList.add('fa-regular');
+          // Cargar CSS si no está ya agregado
+          const cssHref = "/css/login.css"; //ruta del login css
+          if (!document.querySelector(`link[href="${cssHref}"]`)) {
+            // si no se cargo aún
+            const link = document.createElement("link"); // creamos el link
+            link.rel = "stylesheet"; // definimos el tipo de relacion como estilo de la página
+            link.href = cssHref; //asignamos la ruta del archivo
+            document.head.appendChild(link); // lo anexamos al head del html
           }
+
+          // Inicializar interacciones
+          inicializarLogin(); // llamamos a la función que carga el contenido de login.js (formularios, botones, validaciones)
+
+          loginCargado = true; //le asignamos el valor true asi la proxima vez no se repite y asi no genera errores!!!
         });
-      });
+    } else {
+      inicializarLogin(); //si ya se cargó antes, aseguramos que los eventos sigan funcionando
+    }
+  });
 
-      estrella.addEventListener('mouseout', () => {
-        actualizarEstrellas(calificacionSeleccionada);
-      });
-    });
-    actualizarEstrellas(calificacionSeleccionada);
-  }
+  // cerrar modal (usando la X)
+  span.addEventListener("click", function () {
+    //cuando se hace click en la X
+    modal.style.display = "none"; // se vuelve a asignar el valor NONE a la propiedad display
+    modalBody.innerHTML = ""; // vaciamos el contenido del modal
+    loginCargado = false; //permite recargar el HTML desde cero al volver a abrir
+  });
 
-  // Función para el botón de volver atrás
-  const volverBtn = document.querySelector('.volver-btn');
-  if (volverBtn) {
-    volverBtn.addEventListener('click', () => {
-      window.history.back();
-    });
-  }
-
-  // Modal de Chat
-  const btnComentario = document.getElementById("btn-comentario");
-  const modalChat = document.getElementById("modal-chat");
-  const cerrarModalChat = document.getElementById("cerrar-modal"); // Renombrado 
-  const inputMensaje = document.getElementById("mensaje-chat");
-  const chatMensajes = document.getElementById("chat-mensajes");
-  const enviarMensaje = document.getElementById("enviar-mensaje");
-
-  if (btnComentario && modalChat && cerrarModalChat && inputMensaje && chatMensajes && enviarMensaje) {
-    btnComentario.addEventListener("click", () => {
-      modalChat.style.display = "flex";
-    });
-
-    cerrarModalChat.addEventListener("click", () => {
-      modalChat.style.display = "none";
-    });
-
-    // Cerrar modal de chat haciendo clic fuera
-    modalChat.addEventListener("click", (e) => {
-      if (e.target === modalChat) {
-        modalChat.style.display = "none";
-      }
-    });
-
-    enviarMensaje.addEventListener("click", () => {
-      const texto = inputMensaje.value.trim();
-      if (texto !== "") {
-        const nuevoMensaje = document.createElement("div");
-        nuevoMensaje.className = "mensaje";
-        nuevoMensaje.textContent = texto;
-        chatMensajes.appendChild(nuevoMensaje);
-        inputMensaje.value = "";
-        chatMensajes.scrollTop = chatMensajes.scrollHeight;
-      }
-    });
-  }
-
-  // Funcionalidad del Modal de Denuncia
-  const btnDenunciar = document.getElementById('btnDenunciar');
-  const modalDenuncia = document.getElementById('modalDenuncia');
-  const cerrarModalDenunciaBtn = document.getElementById('cerrarModalDenunciaBtn');
-  const enviarDenunciaBtn = document.getElementById('enviarDenunciaBtn');
-  const motivoDenuncia = document.getElementById('motivoDenuncia');
-  const detallesDenuncia = document.getElementById('detallesDenuncia');
-
-  if (btnDenunciar && modalDenuncia && cerrarModalDenunciaBtn && enviarDenunciaBtn && motivoDenuncia && detallesDenuncia) {
-    // Mostrar el modal de denuncia
-    btnDenunciar.addEventListener('click', () => {
-      modalDenuncia.style.display = 'flex';
-    });
-
-    // Ocultar el modal de denuncia con el botón de cerrar
-    cerrarModalDenunciaBtn.addEventListener('click', () => {
-      modalDenuncia.style.display = 'none';
-    });
-
-    // Ocultar el modal de denuncia haciendo clic fuera
-    modalDenuncia.addEventListener('click', (event) => {
-      if (event.target === modalDenuncia) {
-        modalDenuncia.style.display = 'none';
-      }
-    });
-
-    // Ocultar el modal de denuncia con la tecla 'Escape'
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && modalDenuncia.style.display === 'flex') {
-        modalDenuncia.style.display = 'none';
-      } else if (event.key === 'Escape' && modalChat.style.display === 'flex') { // También para el modal de chat
-        modalChat.style.display = 'none';
-      }
-    });
-
-    // Funcionalidad del botón de enviar denuncia
-    enviarDenunciaBtn.addEventListener('click', () => {
-        const motivo = motivoDenuncia.value;
-        const detalles = detallesDenuncia.value.trim();
-
-        if (motivo === "") {
-            alert("Por favor, selecciona un motivo para la denuncia.");
-            return;
-        }
-
-        console.log("Denuncia enviada:");
-        console.log("Motivo:", motivo);
-        console.log("Detalles:", detalles);
-        
-        alert("Denuncia enviada con éxito. Gracias por tu reporte.");
-        modalDenuncia.style.display = 'none'; // Cerrar el modal después de enviar
-        
-        // Opcional: Limpiar el formulario
-        motivoDenuncia.value = "";
-        detallesDenuncia.value = "";
-    });
-  }
+  // cerrar modal (haciendo clic afuera del modal)
+  window.addEventListener("click", function (event) {
+    // si se hace clic fuera del modal
+    if (event.target === modal) {
+      // y sobre el fondo oscuro
+      modal.style.display = "none"; // se vuelve a asignar el valor NONE a la propiedad display
+      modalBody.innerHTML = ""; // vaciamos el contenido del modal
+      loginCargado = false; //permite recargar el HTML desde cero al volver a abrir
+    }
+  });
 });

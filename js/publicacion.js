@@ -7,11 +7,66 @@ document.addEventListener('DOMContentLoaded', () => {
   const calificacionEstrellasDiv = document.getElementById('calificacionEstrellas');
   const estrellas = calificacionEstrellasDiv?.querySelectorAll('i') || [];
 
-  let currentIndex = 0;
+  const btnComentario = document.getElementById("btn-comentario");
+  const modalChat = document.getElementById("modal-chat");
+  const cerrarModal = document.getElementById("cerrar-modal");
+  const inputMensaje = document.getElementById("mensaje-chat");
+  const chatMensajes = document.getElementById("chat-mensajes");
+  const enviarMensaje = document.getElementById("enviar-mensaje");
+  const textareaComentario = document.querySelector("textarea");
 
-  iconoMensajes?.addEventListener("click", () => {
-  modalChat.style.display = "flex";
-});
+  const loginToggle = document.createElement("button");
+  loginToggle.id = "loginToggle";
+  loginToggle.style.position = "fixed";
+  loginToggle.style.top = "10px";
+  loginToggle.style.right = "10px";
+  loginToggle.style.zIndex = "1000";
+  document.body.appendChild(loginToggle);
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  loginToggle.textContent = isLoggedIn ? "Cerrar sesión" : "Simular Login";
+
+  loginToggle.addEventListener("click", () => {
+    const nuevoEstado = !isLoggedIn;
+    localStorage.setItem("isLoggedIn", nuevoEstado);
+    location.reload();
+  });
+
+  // --- RESTRICCIONES SI NO ESTÁS LOGUEADO ---
+  if (!isLoggedIn) {
+    const botonesInteractivos = document.querySelectorAll(
+      ".fa-bookmark, .fa-share-alt, .fa-flag, #abrir-mensajes, #btn-comentario, #enviar-mensaje"
+    );
+
+    botonesInteractivos.forEach(btn => {
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.5";
+      btn.title = "Debes iniciar sesión para usar esta función";
+    });
+
+    if (textareaComentario) {
+      textareaComentario.disabled = true;
+      textareaComentario.placeholder = "Debes iniciar sesión para comentar";
+    }
+
+    if (inputMensaje) {
+      inputMensaje.disabled = true;
+      inputMensaje.placeholder = "Debes iniciar sesión para chatear";
+    }
+
+    estrellas.forEach(estrella => {
+      estrella.style.pointerEvents = "none";
+      estrella.style.opacity = "0.5";
+      estrella.title = "Inicia sesión para calificar";
+    });
+
+    if (enviarMensaje) {
+      enviarMensaje.disabled = true;
+    }
+  }
+
+  // --- CARRUSEL ---
+  let currentIndex = 0;
 
   if (carruselInner && nextBtn && prevBtn) {
     const images = carruselInner.querySelectorAll('img');
@@ -35,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCarrusel();
   }
 
+  // --- CALIFICACIÓN ---
   let calificacionSeleccionada = 0;
 
   function actualizarEstrellas(valor) {
@@ -63,14 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.history.back();
   });
 
-  // Chat Modal
-  const btnComentario = document.getElementById("btn-comentario");
-  const modalChat = document.getElementById("modal-chat");
-  const cerrarModal = document.getElementById("cerrar-modal");
-  const inputMensaje = document.getElementById("mensaje-chat");
-  const chatMensajes = document.getElementById("chat-mensajes");
-  const enviarMensaje = document.getElementById("enviar-mensaje");
-
+  // --- CHAT ---
   if (btnComentario && modalChat && cerrarModal && inputMensaje && chatMensajes && enviarMensaje) {
     btnComentario.addEventListener("click", () => {
       modalChat.style.display = "flex";
@@ -98,4 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Abrir modal desde ícono mensaje (reubicado abajo para que modal exista)
+  iconoMensajes?.addEventListener("click", () => {
+    if (isLoggedIn && modalChat) {
+      modalChat.style.display = "flex";
+    }
+  });
 });
