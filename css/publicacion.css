@@ -265,26 +265,8 @@ textarea {
   background-color: #3aa5b4;
 }
 
-/* Media Queries para diseño responsive */
-@media (max-width: 768px) {
-  .contenido {
-    flex-direction: column; /* Apila las columnas verticalmente en pantallas pequeñas */
-    padding: 10px;
-  }
-
-  .contenido-izquierdo {
-    margin-right: 0;
-    margin-bottom: 20px; /* Margen inferior cuando las columnas se apilan */
-  }
-
-  .pagina {
-    margin: 0;
-    border-radius: 0;
-  }
-}
-
-/*     ESTILOS DEL MODAL   */
-/* ======================= */
+/* ESTILOS DEL MODAL (ambos modales) */
+/* ============================================== */
 
 .modal {
   display: none; /* Oculto por defecto */
@@ -295,31 +277,30 @@ textarea {
   width: 100%;
   height: 100%;
   overflow: auto; /* Para scroll si es necesario */
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro original */
+  justify-content: center; /* Centra horizontalmente el modal-content */
+  align-items: center; /* Centra verticalmente el modal-content */
 }
 
 .modal-content {
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 8px; /* Borde redondeado original */
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra original */
   animation: aparecer 0.3s ease-out;
+  position: relative; /* Para posicionar el botón de cierre */
+  
 }
 
 @keyframes aparecer {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
+/* Estilos del botón de cierre - Clase 'close' original */
 .close {
   color: #aaa;
   float: right;
@@ -333,6 +314,23 @@ textarea {
   color: #000;
 }
 
+
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Botón de enviar denuncia con sombra anterior */
+#enviarDenunciaBtn {
+    margin-top: 10px;
+    /* box-shadow y transform de hover eliminados */
+}
+
+/* Estilos para el chat box */
 .chat-box {
   max-height: 200px;
   overflow-y: auto;
@@ -377,4 +375,22 @@ textarea {
 
 .input-chat button:hover {
   background-color: #3aa5b4;
+}
+
+/* Media Queries para diseño responsive */
+@media (max-width: 768px) {
+  .contenido {
+    flex-direction: column; /* Apila las columnas verticalmente en pantallas pequeñas */
+    padding: 10px;
+  }
+
+  .contenido-izquierdo {
+    margin-right: 0;
+    margin-bottom: 20px; /* Margen inferior cuando las columnas se apilan */
+  }
+
+  .pagina {
+    margin: 0;
+    border-radius: 0;
+  }
 }
