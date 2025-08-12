@@ -1,7 +1,10 @@
-/*Menú responsive*/
-"use strict";
-document.querySelector(".btn-menu").addEventListener("click",alternarMenu);
-function alternarMenu() {
-    document.querySelector(".navbar").classList.toggle("show");
-}
-//funcion para el menu hamburgesa
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.querySelector(".menu-toggle");
+    const navbar = document.querySelector(".navbar");
+
+    if (menuBtn && navbar) {
+        menuBtn.addEventListener("click", function () {
+            navbar.classList.toggle("show");
+        });
+    }
+});

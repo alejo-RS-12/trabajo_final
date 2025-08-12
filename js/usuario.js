@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { //Se asegura de que todo el HTML esté cargado antes de ejecutar el código JavaScript.
+  // seleccion de elementos del dom
   const profileInput = document.getElementById("profileImageInput");
   const profileImage = document.getElementById("profileImage");
   const navUserIcon = document.getElementById("nav-user-icon");
@@ -16,14 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
   updateUIBasedOnLogin();
 
   // Botón de login/logout simulado
-  loginToggle.addEventListener("click", () => {
+  loginToggle.addEventListener("click", () => {// esta funcion alterna el estado del login del usuario momentaneamente
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const newLoginState = !isLoggedIn;
     localStorage.setItem("isLoggedIn", newLoginState);
     updateUIBasedOnLogin();
   });
 
-  function updateUIBasedOnLogin() {
+  function updateUIBasedOnLogin() {// en esta funcion habilita o desabilita la interfaz dependiendo el estado del login 
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     // Habilitar/deshabilitar edición de descripción
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Imagen de perfil
-  profileInput.addEventListener("change", function () {
+  profileInput.addEventListener("change", function () {// funcion que actualiza la imagen de perfil del usuario
     const file = profileInput.files[0];
     if (file) {
       const reader = new FileReader();
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Imagen de fondo
-  backgroundInput.addEventListener("change", function () {
+  backgroundInput.addEventListener("change", function () {// funcion para actualizar la imagen de fondo del usuario
     const file = backgroundInput.files[0];
     if (file) {
       const reader = new FileReader();
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Filtro de tarjetas
-  filtroSelect.addEventListener("change", () => {
+  filtroSelect.addEventListener("change", () => {// funcion del filtrado de publicaciones entre guardados, ofrecidos o todos
     const filtro = filtroSelect.value;
     const cards = document.querySelectorAll(".cards-section .post-card");
 
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Agregar nueva tarjeta
-  addCardBtn.addEventListener("click", () => {
+  addCardBtn.addEventListener("click", () => {// funcion que agrega una nueva card de trabajo si el usuario esta logeado
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
       alert("Debes iniciar sesión para agregar publicaciones.");
@@ -137,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Eliminar tarjeta (solo si logueado)
-  cardsSection.addEventListener("click", (e) => {
+  cardsSection.addEventListener("click", (e) => { // funcion de eliminar card de trabajo
     if (e.target.classList.contains("delete-btn")) {
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       if (!isLoggedIn) {
