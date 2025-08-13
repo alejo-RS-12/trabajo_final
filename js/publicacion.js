@@ -9,20 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnComentario = document.getElementById("btn-comentario");
   const modalChat = document.getElementById("modal-chat");
-  const cerrarModal = document.getElementById("cerrar-modal");
+  // Seleccion elementos del modal de chat
+  const cerrarModalChat = document.getElementById("cerrar-modal");
   const inputMensaje = document.getElementById("mensaje-chat");
   const chatMensajes = document.getElementById("chat-mensajes");
   const enviarMensaje = document.getElementById("enviar-mensaje");
   const textareaComentario = document.querySelector("textarea");
 
-  const loginToggle = document.createElement("button");
-  loginToggle.id = "loginToggle";
-  loginToggle.style.position = "fixed";
-  loginToggle.style.top = "10px";
-  loginToggle.style.right = "10px";
-  loginToggle.style.zIndex = "1000";
-  document.body.appendChild(loginToggle);
+  // Selectores para el modal de denuncia (Añadidos/Verificados)
+  const btnDenunciar = document.getElementById('btnDenunciar'); // El icono de la bandera
+  const modalDenuncia = document.getElementById('modalDenuncia');
+  const cerrarModalDenunciaBtn = document.getElementById('cerrarModalDenunciaBtn');
+  const motivoDenuncia = document.getElementById('motivoDenuncia');
+  const detallesDenuncia = document.getElementById('detallesDenuncia');
+  const enviarDenunciaBtn = document.getElementById('enviarDenunciaBtn');
 
+
+  const loginToggle = document.getElementById("loginToggle"); // Seleccionar el botón existente
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   loginToggle.textContent = isLoggedIn ? "Cerrar sesión" : "Simular Login";
 
@@ -62,6 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (enviarMensaje) {
       enviarMensaje.disabled = true;
+    }
+    // Deshabilitar elementos del modal de denuncia si no está logueado
+    if (motivoDenuncia) {
+        motivoDenuncia.disabled = true;
+        detallesDenuncia.disabled = true;
+        enviarDenunciaBtn.disabled = true;
+        btnDenunciar.style.pointerEvents = "none";
+        btnDenunciar.style.opacity = "0.5";
+        btnDenunciar.title = "Debes iniciar sesión para denunciar";
     }
   }
 
@@ -120,12 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- CHAT ---
-  if (btnComentario && modalChat && cerrarModal && inputMensaje && chatMensajes && enviarMensaje) {
+  if (btnComentario && modalChat && cerrarModalChat && inputMensaje && chatMensajes && enviarMensaje) {
     btnComentario.addEventListener("click", () => {
       modalChat.style.display = "flex";
     });
 
-    cerrarModal.addEventListener("click", () => {
+    cerrarModalChat.addEventListener("click", () => {
       modalChat.style.display = "none";
     });
 
@@ -148,10 +160,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Abrir modal desde ícono mensaje (reubicado abajo para que modal exista)
+  // Abrir modal desde ícono mensaje
   iconoMensajes?.addEventListener("click", () => {
     if (isLoggedIn && modalChat) {
       modalChat.style.display = "flex";
     }
   });
+
+  // --- Modal de denuncias---
+  if (btnDenunciar && modalDenuncia && cerrarModalDenunciaBtn && motivoDenuncia && detallesDenuncia && enviarDenunciaBtn) {
+    btnDenunciar.addEventListener('click', () => {
+      if (isLoggedIn) { // Solo abrir si está logueado
+        modalDenuncia.style.display = 'flex';
+      }
+    });
+
+    cerrarModalDenunciaBtn.addEventListener('click', () => {
+      modalDenuncia.style.display = 'none';
+      // Limpiar campos al cerrar
+      motivoDenuncia.value = '';
+      detallesDenuncia.value = '';
+    });
+
+    // Ocultar el modal de denuncia haciendo clic fuera
+    modalDenuncia.addEventListener('click', (event) => {
+      if (event.target === modalDenuncia) {
+        modalDenuncia.style.display = 'none';
+        motivoDenuncia.value = '';
+        detallesDenuncia.value = '';
+      }
+    });
+
+    // Ocultar el modal de denuncia con la tecla 'Escape'
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modalDenuncia.style.display === 'flex') {
+        modalDenuncia.style.display = 'none';
+        motivoDenuncia.value = '';
+        detallesDenuncia.value = '';
+      } else if (event.key === 'Escape' && modalChat.style.display === 'flex') {
+        modalChat.style.display = 'none';
+      }
+    });
+
+    // Funcionalidad del botón de enviar denuncia
+    enviarDenunciaBtn.addEventListener('click', () => {
+        const motivo = motivoDenuncia.value;
+        const detalles = detallesDenuncia.value.trim();
+
+        if (motivo === "") {
+            alert("Por favor, selecciona un motivo para la denuncia.");
+            return;
+        }
+
+        console.log("Denuncia enviada:");
+        console.log("Motivo:", motivo);
+        console.log("Detalles:", detalles);
+        
+        alert("Denuncia enviada con éxito. Gracias por tu reporte.");
+        modalDenuncia.style.display = 'none'; // Cerrar el modal después de enviar
+        motivoDenuncia.value = ''; // Limpiar select
+        detallesDenuncia.value = ''; // Limpiar textarea
+    });
+  }
 });
