@@ -2,57 +2,52 @@
 
 body {
   margin: 0;
-  background-color: #7fd1d1;
   font-family: "Montserrat", sans-serif;
+  background-color: #7fd1d1;
 }
 
-.top-bar {
-  background-color: #a6e6e8;
-  padding: 8px;
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-
-.top-bar .bold {
-  font-weight: bold;
-  color: rgb(243, 2, 2);
-  text-decoration: underline;
-}
-
-header {
-  background-color: #ffffff;
-  padding: 10px 0;
-}
-
+/* NAV mobile first */
 nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  justify-content: space-between;
+  background: white;
+  padding: 0.5rem 1rem;
+  margin-top: 10px;
+  margin-bottom: 5%;
 }
 
 .logo img {
-  height: 60px;
+  height: 80px;
 }
 
 .navbar {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navbar li {
   list-style: none;
-  display: flex;
-  gap: 2rem;
 }
 
-.navbar li a {
+.navbar a {
   text-decoration: none;
-  color: black;
-  font-size: 1.1rem;
+  color: #000;
+  font-size: 1.2rem;
 }
 
-.user-icon img {
-  height: 50px;
-  width: 50px;
+.navbar :hover {
+  color: #7fd1d1;
+}
+
+.user-icon-image {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  background: #88d8db;
+  padding: 5px;
 }
-
 /* ---------- Fondo y perfil ---------- */
 .sub-header {
   position: relative;

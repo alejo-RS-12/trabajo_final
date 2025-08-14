@@ -16,6 +16,7 @@ nav {
   margin-top: 10px;
   margin-bottom: 5%;
 }
+
 .logo img {
   height: 80px;
 }
@@ -25,14 +26,21 @@ nav {
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .navbar li {
   list-style: none;
 }
+
 .navbar a {
   text-decoration: none;
   color: #000;
   font-size: 1.2rem;
 }
+
+.navbar :hover {
+  color: #7fd1d1;
+}
+
 .user-icon-image {
   width: 40px;
   height: 40px;
@@ -81,7 +89,7 @@ nav {
 }
 
 .flechas button {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -91,7 +99,7 @@ nav {
 }
 
 .flechas button:hover {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Publicaciones */
@@ -99,23 +107,28 @@ nav {
   background: #cdf3f3;
   padding: 1rem;
 }
+
 .publicaciones h4 {
   text-align: center;
 }
+
 .publicaciones-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
+
 .post-card {
   background: white;
   border-radius: 8px;
   overflow: hidden;
 }
+
 .post-img img {
   width: 100%;
   height: auto;
 }
+
 .post-info {
   padding: 0.5rem;
 }
@@ -127,18 +140,21 @@ nav {
   padding: 1rem;
 }
 
-.footer-logo{
+.footer-logo {
   height: 40%;
 }
+
 .footer-top {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
+
 .footer-col a {
   color: #ccc;
   text-decoration: none;
 }
+
 .footer-bottom {
   border-top: 1px solid #fff;
   margin-top: 1rem;
@@ -151,44 +167,59 @@ nav {
 
 /* Escalar hacia tablet y escritorio */
 @media (min-width: 768px) {
+
+  .navbar :hover {
+    color: #7fd1d1;
+  }
+
   .navbar {
     display: flex !important;
     flex-direction: row;
     gap: 2rem;
   }
+
   .menu-toggle {
     display: none;
   }
+
   .publicaciones-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .footer-top {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (min-width: 1024px) {
 
+  .navbar :hover {
+    color: #7fd1d1;
+  }
+
   /* Imagen decorativa */
-.imagen-fija {
-  position: fixed;
-  top: 15%;
-  right: 10px;
-  width: 20%;
-  z-index: 999;
-  pointer-events: none;
-  opacity: 0.9;
-}
- 
-  .navbar{
+  .imagen-fija {
+    position: fixed;
+    top: 15%;
+    right: 10px;
+    width: 20%;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  .navbar {
     margin-right: 8%;
   }
 
   .logo img {
-   height: 90px;
+    height: 90px;
   }
+
   .publicaciones-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+
   .footer-top {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -200,12 +231,13 @@ nav {
   flex-direction: column;
   background: white;
   position: absolute;
-  top: 70px; /* Altura del nav */
+  top: 70px;
+  /* Altura del nav */
   left: 0;
   width: 100%;
   padding: 1rem;
   gap: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
 
@@ -222,22 +254,4 @@ nav {
 
 .navbar.show a:hover {
   background: #f0f0f0;
-}
-
-.cerrar-imagen {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: red;
-  color: white;
-  border: none;
-  font-size: 16px;
-  padding: 5px 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-.cerrar-imagen:hover {
-  background: darkred;
 }

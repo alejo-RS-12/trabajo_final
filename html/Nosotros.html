@@ -8,45 +8,24 @@
   </head>
 
   <body>
-    <!-- Top bar para el registro -->
-    <div class="top-bar">
-      Algunas funciones estan limitadas, presiona
-      <a href="#" id="abrirModal" class="bold">aquí</a> para poder registrarte y
-      aprovechar los beneficios
-    </div>
-    <div id="ventanaModal" class="modal">
-      <span class="cerrar">&times;</span>
-      <div class="modal-content" id="modal-content">
-        <span class="cerrar">&times;</span>
-        <h2>Ventana modal del Login no se cargo</h2>
-        <!-- Aquí se cargará el contenido de la página externa -->
-      </div>
-    </div>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo"><img src="/imagenes/logo.png" alt="logo"></a>
+      <button class="menu-toggle" id="btn-menu">☰</button>
+      <ul class="navbar" id="navbar">
+        <li><a href="Formacion.html">Formación</a></li>
+        <li><a href="Trabajos.html">Trabajos</a></li>
+        <li><a href="Bienestar.html">Bienestar</a></li>
+        <li><a href="Nosotros.html">Nosotros</a></li>
+        <li><a href="/html/Login.html">Ingresa</a></li>
+      </ul>
+      <a href="usuario.html" class="user-icon">
+        <img src="/imagenes/icono-user.png" alt="Usuario" class="user-icon-image">
+      </a>
+    </nav>
+  </header>
 
-    <header>
-      <nav>
-        <div class="logo">
-          <a href="index.html"
-            ><img src="/imagenes/logo.png" class="Logo-ropo" alt="logo"
-          /></a>
-        </div>
-        <ul class="navbar">
-          <li><a href="Formacion.html">Formación</a></li>
-          <li><a href="Trabajos.html">Trabajos</a></li>
-          <li><a href="Bienestar.html">Bienestar</a></li>
-          <li><a href="Nosotros.html">Nosotros</a></li>
-        </ul>
-        <div class="user-icon">
-          <a href="usuario.html"
-            ><img
-              src="/imagenes/icono-user.png"
-              alt="Usuario"
-              class="user-icon-image"
-              id="user-icon"
-          /></a>
-        </div>
-      </nav>
-    </header>
     <div class="imagen-background">
       <div class="intro-section">
         <h1>Bienvenido a ROPO: Tu Guía de Servicios Locales</h1>
@@ -120,6 +99,6 @@
       </div>
     </footer>
 
-    <script type="module" src="/js/nosotros.js"></script>
+    <script src="/js/menu.js" defer></script>
   </body>
 </html>
