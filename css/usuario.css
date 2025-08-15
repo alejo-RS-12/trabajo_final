@@ -21,10 +21,21 @@ nav {
   height: 80px;
 }
 
+/* --- MOBILE FIRST (por defecto, < 768px) --- */
 .navbar {
   display: none;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.menu-toggle {
+  display: block;
+  /* Botón hamburguesa visible en móvil */
+}
+
+.navbar.show {
+  display: flex;
+  /* Cuando el JS añade .show, aparece el menú */
 }
 
 .navbar li {
@@ -48,6 +59,7 @@ nav {
   background: #88d8db;
   padding: 5px;
 }
+
 /* ---------- Fondo y perfil ---------- */
 .sub-header {
   position: relative;
@@ -106,7 +118,8 @@ nav {
   border-radius: 50%;
   cursor: pointer;
   font-size: 14px;
-  display: none; /* ← oculta por defecto, visible solo si logueado */
+  display: none;
+  /* ← oculta por defecto, visible solo si logueado */
 }
 
 .profile-edit {
@@ -136,7 +149,7 @@ nav {
   cursor: not-allowed;
 }
 
-.subtitulo{
+.subtitulo {
   background-color: white;
   margin: 10px;
   margin-left: 35%;
@@ -290,4 +303,64 @@ body.logged-in .delete-btn {
 
 #addCardBtn {
   display: none;
+}
+
+@media (min-width: 768px) {
+   
+  .navbar :hover {
+    color: #7fd1d1;
+  }
+
+  .navbar {
+    display: flex !important;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+
+   .navbar {
+    margin-right: 8%;
+  }
+
+  .logo img {
+    height: 90px;
+  }
+}
+
+/* Estilos para menú desplegable móvil */
+.navbar.show {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  /* Altura del nav */
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.navbar.show li {
+  margin-left: 38%;
+  align-items: center;
+}
+
+.navbar.show a {
+  font-size: 1.2rem;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.navbar.show a:hover {
+  background: #f0f0f0;
 }
