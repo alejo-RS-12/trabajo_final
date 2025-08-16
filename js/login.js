@@ -1,4 +1,4 @@
-export function inicializarLogin() {
+function inicializarLogin() {
   const nombre = document.getElementById("nombre");
   const email = document.getElementById("email");
   const usuario = document.getElementById("usuario");
@@ -94,4 +94,6 @@ export function inicializarLogin() {
     // Remueve la clase para volver al estado inicial (mostrar inicio de sesión)
     container.classList.remove("right-panel-active");
   });
+
 }
+inicializarLogin(); // para ejecutarla

@@ -17,8 +17,8 @@ nav {
   margin-bottom: 2%;
 }
 
-  .navbar :hover {
-    color: #7fd1d1;
+.navbar :hover {
+  color: #7fd1d1;
 }
 
 .logo img {
@@ -30,14 +30,17 @@ nav {
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .navbar li {
   list-style: none;
 }
+
 .navbar a {
   text-decoration: none;
   color: #000;
   font-size: 1.1rem;
 }
+
 .user-icon-image {
   width: 40px;
   height: 40px;
@@ -69,7 +72,8 @@ nav {
 
 .publicaciones-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Mobile: 2 columnas */
+  grid-template-columns: repeat(2, 1fr);
+  /* Mobile: 2 columnas */
   gap: 15px;
   margin: 5%;
 }
@@ -81,21 +85,26 @@ nav {
   overflow: hidden;
   transition: transform 0.2s ease;
 }
+
 .post-card:hover {
   transform: scale(1.02);
 }
-.post-img img{
+
+.post-img img {
   width: 100%;
   height: 160px;
   object-fit: cover;
 }
+
 .post-info {
   padding: 8px;
 }
+
 .post-title {
   font-size: 16px;
   margin: 0 0 4px;
 }
+
 .post-location,
 .post-solicitante {
   font-size: 13px;
@@ -108,36 +117,44 @@ nav {
   color: #fff;
   padding: 20px;
 }
+
 .footer-logo {
   height: 60px;
   margin-bottom: 10px;
 }
+
 .footer-top {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .footer-col {
   flex: 1;
 }
+
 .footer-col h3 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
 }
+
 .footer-col a {
   color: #ccc;
   font-size: 14px;
   text-decoration: none;
 }
+
 .footer-col a:hover {
   text-decoration: underline;
 }
+
 .footer-col.subscribe form {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
+
 .footer-col.subscribe input {
   padding: 8px;
   border-radius: 20px;
@@ -145,6 +162,7 @@ nav {
   flex: 1;
   min-width: 160px;
 }
+
 .footer-col.subscribe button {
   padding: 8px 12px;
   background-color: #000;
@@ -153,10 +171,12 @@ nav {
   border-radius: 20px;
   cursor: pointer;
 }
+
 .footer-col.subscribe button:hover {
   background-color: #fff;
   color: #da0606;
 }
+
 .footer-bottom {
   border-top: 1px solid #fff;
   padding-top: 15px;
@@ -173,13 +193,16 @@ nav {
     flex-direction: row;
     gap: 2rem;
   }
+
   .menu-toggle {
     display: none;
   }
+
   .publicaciones-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (min-width: 1024px) {
 
   .contenedor-sitio {
@@ -190,19 +213,23 @@ nav {
 
   .barra-lateral-izquierda {
     overflow-y: auto;
- 
+
   }
+
   .contenido-principal {
     flex: 1;
     padding: 20px;
   }
+
   .publicaciones-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
+
   .post-img img {
     height: 150px;
   }
+
   .imagen-fija {
     position: fixed;
     top: 20%;
@@ -222,21 +249,25 @@ nav {
   width: 100%;
   padding: 1rem;
   gap: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
+
 .navbar.show li {
   text-align: center;
 }
+
 .navbar.show a {
   font-size: 1.2rem;
   color: #333;
   padding: 0.5rem;
   border-radius: 4px;
 }
+
 .navbar.show a:hover {
   background: #f0f0f0;
 }
+
 /* === Estilos globales === */
 /* === Estilos globales === */
 .oculto {
@@ -251,12 +282,14 @@ nav {
 .search-box {
   position: relative;
 }
+
 .search-box input {
   width: 100%;
   padding: 8px 10px 8px 30px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .search-box .fa-search {
   position: absolute;
   left: 10px;
@@ -264,15 +297,18 @@ nav {
   transform: translateY(-50%);
   color: #888;
 }
+
 .barra-lateral-izquierda ul {
   list-style: none;
   padding: 0;
 }
+
 .barra-lateral-izquierda li {
   padding: 8px;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
 }
+
 .barra-lateral-izquierda li:hover {
   background-color: #e9e9e9;
 }
@@ -285,8 +321,10 @@ nav {
 
 /* Cuando la barra lateral está colapsada */
 .barra-lateral-izquierda.collapsed {
-  width: 50px; /* ancho reducido en modo colapsado */
-  overflow: hidden; /* oculta el contenido que sobra */
+  width: 50px;
+  /* ancho reducido en modo colapsado */
+  overflow: hidden;
+  /* oculta el contenido que sobra */
 }
 
 /* Ocultar buscador y contenido en modo colapsado */

@@ -306,7 +306,7 @@ body.logged-in .delete-btn {
 }
 
 @media (min-width: 768px) {
-   
+
   .navbar :hover {
     color: #7fd1d1;
   }
@@ -324,7 +324,7 @@ body.logged-in .delete-btn {
 
 @media (min-width: 1024px) {
 
-   .navbar {
+  .navbar {
     margin-right: 8%;
   }
 

@@ -2,30 +2,29 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
 }
 
 body {
   background-color: #292729;
-
   /* propiedades de Flexbox para el centrado */
-  /* display: flex; */
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
+  height: 100%;
   position: relative;
+ 
 }
+
+/* ==== MOBILE FIRST ==== */
 
 .background-overlay {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-  background-color: rgba(0, 0, 50, 0.4); /* Azul oscuro semitransparente */
-  z-index: 0; /* Detrás del contenedor principal */
+  background-color: rgba(0, 0, 50, 0.4);
+  /* Azul oscuro semitransparente */
+  z-index: 0;
+  /* Detrás del contenedor principal */
 }
 
 /* Botón de cerrar */
@@ -42,7 +41,8 @@ body {
 h1 {
   font-weight: bold;
   margin: 0;
-  margin-bottom: 0.2rem; /* Espacio debajo del H1 */
+  margin-bottom: 0.2rem;
+  /* Espacio debajo del H1 */
 }
 
 p {
@@ -60,7 +60,8 @@ span {
 h6 {
   font-weight: bold;
   margin-top: 4px;
-  margin-bottom: 3px; /* Espacio debajo del H1 */
+  margin-bottom: 3px;
+  /* Espacio debajo del H1 */
 }
 
 a {
@@ -75,21 +76,24 @@ a {
   font-weight: lighter;
   margin-top: 3px;
   margin-bottom: 5px;
-  color: #333; /* o el color que quieras */
+  color: #333;
+  /* o el color que quieras */
 }
 
 .terminos-texto .terminos-link {
   color: blue;
-  text-decoration: none; /* o underline si querés */
+  text-decoration: none;
+  /* o underline si querés */
   font-weight: inherit;
   font-size: inherit;
 }
+
 /*ESTO ES EL NUEVO BOTON CON EL FORMATO DEL BOTON DE PUBLICACIÒN */
 button {
   padding: 12px 25px;
   background-color: #45b8c5;
   border-color: transparent;
-  color: white;
+  color: black;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
@@ -103,6 +107,7 @@ button:hover {
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
+  color: black;
 }
 
 form {
@@ -111,7 +116,6 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 50px;
   height: 100%;
   text-align: center;
 }
@@ -122,7 +126,8 @@ input {
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
-  border-radius: 5px; /* Bordes ligeramente redondeados */
+  border-radius: 5px;
+  /* Bordes ligeramente redondeados */
 }
 
 /*PARA SACAR EL BORDE NEGRO DE LOS INPUT*/
@@ -141,7 +146,9 @@ input:focus {
   width: 850px;
   max-width: 100%;
   min-height: 630px;
-  z-index: 1; /* Encima delde fondo */
+  z-index: 1;
+  margin-top: 45%;
+  /* Encima delde fondo */
 }
 
 .form-container {
@@ -154,13 +161,16 @@ input:focus {
 .sign-in-container {
   left: 0;
   width: 50%;
-  z-index: 2; /* Asegura que el sign-in esté visible inicialmente */
+  z-index: 2;
+  /* Asegura que el sign-in esté visible inicialmente */
 }
 
 .sign-up-container {
-  left: 0; /* Empieza en la misma posición */
+  left: 0;
+  /* Empieza en la misma posición */
   width: 50%;
-  opacity: 0; /* Oculto inicialmente */
+  opacity: 0;
+  /* Oculto inicialmente */
   z-index: 1;
 }
 
@@ -169,19 +179,23 @@ input:focus {
 /* Mover hacia la derecha */
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
-  opacity: 0; /* Opcional: Hacer fade out */
-  z-index: 1; /* Poner detrás */
+  opacity: 0;
+  /* Opcional: Hacer fade out */
+  z-index: 1;
+  /* Poner detrás */
 }
 
 /* Traer desde la derecha */
 .container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
-  z-index: 5; /* Poner delante */
+  z-index: 5;
+  /* Poner delante */
   animation: show 0.6s;
 }
 
 @keyframes show {
+
   0%,
   49.99% {
     opacity: 0;
@@ -198,12 +212,14 @@ input:focus {
 .overlay-container {
   position: absolute;
   top: 0;
-  left: 50%; /* Empieza en la mitad derecha */
+  left: 50%;
+  /* Empieza en la mitad derecha */
   width: 50%;
   height: 100%;
   overflow: hidden;
   transition: transform 0.6s ease-in-out;
-  z-index: 100; /* Encima de los formularios */
+  z-index: 100;
+  /* Encima de los formularios */
 }
 
 /* Mover hacia la izquierda */
@@ -212,17 +228,21 @@ input:focus {
 }
 
 .overlay {
-  background: #7fd1d1; /* Azul oscuro */
+  background: #7fd1d1;
+  /* Azul oscuro */
   background: -webkit-linear-gradient(to right, #7fd1d1, #7fd1d1);
-  background: linear-gradient(to right, #7fd1d1, #7fd1d1); /* Degradado azul */
+  background: linear-gradient(to right, #7fd1d1, #7fd1d1);
+  /* Degradado azul */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
   color: #000000;
   position: relative;
-  left: -100%; /* Empieza corrido a la izquierda */
+  left: -100%;
+  /* Empieza corrido a la izquierda */
   height: 100%;
-  width: 200%; /* Doble de ancho para contener ambos paneles */
+  width: 200%;
+  /* Doble de ancho para contener ambos paneles */
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
@@ -242,16 +262,19 @@ input:focus {
   text-align: center;
   top: 0;
   height: 100%;
-  width: 50%; /* Cada panel ocupa la mitad */
+  width: 50%;
+  /* Cada panel ocupa la mitad */
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 
 .overlay-left {
   /* Posiciona el panel izquierdo correctamente dentro*/
-  transform: translateX(-20%); /* Ajuste inicial para la animación */
+  transform: translateX(-20%);
+  /* Ajuste inicial para la animación */
 
-  background-color: #7fd1d1; /* Fondo azul oscuro como en la imagen */
+  background-color: #7fd1d1;
+  /* Fondo azul oscuro como en la imagen */
 }
 
 .container.right-panel-active .overlay-left {
@@ -262,11 +285,13 @@ input:focus {
   right: 0;
   transform: translateX(0);
 
-  background-color: #7fd1d1; /* Fondo azul oscuro */
+  background-color: #7fd1d1;
+  /* Fondo azul oscuro */
 }
 
 .container.right-panel-active .overlay-right {
-  transform: translateX(20%); /* Ajuste para la animación */
+  transform: translateX(20%);
+  /* Ajuste para la animación */
 }
 
 /* --- Estilos Iconos --- */
@@ -286,6 +311,7 @@ input:focus {
   color: #333;
   transition: background-color 0.3s ease-in-out;
 }
+
 .social-container a:hover {
   background-color: #eee;
 }
@@ -296,7 +322,8 @@ input:focus {
 }
 
 .input-group input {
-  padding-right: 30px; /* Espacio para el icono */
+  padding-right: 30px;
+  /* Espacio para el icono */
 }
 
 .icon {
@@ -322,4 +349,39 @@ input:focus {
   margin-bottom: 10px;
   text-align: left;
   display: block;
+}
+
+/* ==== TABLET (≥768px) ==== */
+@media (min-width: 768px) {
+  .container {
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
+    padding: 45%;
+    margin-bottom: 40%; ;
+
+  }
+
+  .form-container {
+    position: absolute;
+    width: 50%;
+  }
+
+  .overlay-container {
+    display: block;
+    position: absolute;
+    width: 50%;
+  }
+}
+
+/* ==== DESKTOP (≥1024px) ==== */
+@media (min-width: 1024px) {
+  .container {
+    width: 100%;
+   margin-bottom: 40%; ;
+  }
+
+  .overlay-container {
+    left: 50%;
+  }
 }
