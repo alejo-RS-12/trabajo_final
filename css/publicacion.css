@@ -79,45 +79,43 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* 📱 Mobile First (por defecto: columna) */
 .contenido {
   display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
-  background-color: #eee; /* Fondo del contenido principal */
-  gap: 20px;
+  flex-direction: column; /* todo en columna */
+  padding: 10px;
+  background-color: #eee;
+  gap: 15px;
   flex-grow: 1;
-  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
-}
-
-.contenido-izquierdo {
-  background-color: #ccc; /* Fondo de la columna del carrusel */
-  padding: 20px;
-  flex: 2; /* ajustar para cambiar el tamaño de la columna izquierda */
-  min-width: 320px;
-  border-radius: 8px;
-  display: flex;
+  overflow-y: auto;
   align-items: center;
-  justify-content: center;
-  position: relative;
 }
 
+.contenido-izquierdo,
+.contenido-derecho {
+  width: 100%; /* ocupa todo en columna */
+  border-radius: 8px;
+}
+
+/* Carrusel base en mobile */
 .carrusel {
-  width: 100%;
-  height: 350px; /* Altura del carrusel */
+  overflow: hidden;
   position: relative;
-  overflow: hidden; /* Oculta las imágenes fuera de la vista */
-  border-radius: 4px;
+  max-width: 100%;
 }
 
 .carrusel-inner {
   display: flex;
-  transition: transform 0.5s ease-in-out; /* Animación de deslizamiento */
-  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carrusel-inner img {
+  width: 100%;   /* En mobile ocupa todo el ancho */
+  border-radius: 10px;
 }
 
 .carrusel img {
   min-width: 100%; /* Cada imagen ocupa el 100% del ancho del carrusel */
-  height: 100%;
   object-fit: cover; /* Las imágenes cubren el espacio*/
   display: block;
   border-radius: 4px;
@@ -147,6 +145,9 @@ body {
   opacity: 0.8;
   transition: opacity 0.2s ease, background-color 0.2s ease;
 }
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
 
 .flechas button:hover {
   opacity: 1;
@@ -204,22 +205,19 @@ body {
 
 .mapa {
   background: none;
-  height: 150px;
+  height: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: #555;
-  margin-bottom: 20px;
   border-radius: 4px;
-  border: 1px solid #ddd;
   overflow: hidden; /* Para que la imagen no se desborde */
 }
 
 .mapa img {
-  width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  margin-right: 5%;
 }
 
 .comentarios h3 {
@@ -377,20 +375,44 @@ textarea {
   background-color: #3aa5b4;
 }
 
-/* Media Queries para diseño responsive */
-@media (max-width: 768px) {
-  .contenido {
-    flex-direction: column; /* Apila las columnas verticalmente en pantallas pequeñas */
-    padding: 10px;
+/* Tablet en adelante (>=768px) */
+@media (min-width: 768px) {
+  .mapa img{
+    height: 100%;
   }
 
   .contenido-izquierdo {
-    margin-right: 0;
-    margin-bottom: 20px; /* Margen inferior cuando las columnas se apilan */
+
+    flex: 2; 
   }
 
-  .pagina {
-    margin: 0;
-    border-radius: 0;
+  .contenido-derecho {
+     flex: 1;
   }
 }
+
+/* Desktop en adelante (>=1024px) */
+@media (min-width: 1024px) {
+
+  .mapa img{
+    height: 100%;
+  }
+
+  .contenido {
+    flex-direction: row; 
+  }
+
+  .contenido-izquierdo {
+    flex: 0 1 auto;   /* se ajusta solo */
+    max-width: 60%;   /* límite opcional */
+  }
+
+  .contenido-derecho {
+    height: 100%;
+    flex: 1;
+  }
+
+}
+
+
+
