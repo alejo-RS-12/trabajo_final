@@ -1,0 +1,366 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #7fd1d1;
+}
+
+/* NAV mobile first */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 0.5rem 1rem;
+  margin-top: 10px;
+  margin-bottom: 5%;
+}
+
+.logo img {
+  height: 80px;
+}
+
+/* --- MOBILE FIRST (por defecto, < 768px) --- */
+.navbar {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu-toggle {
+  display: block;
+  /* Botón hamburguesa visible en móvil */
+}
+
+.navbar.show {
+  display: flex;
+  /* Cuando el JS añade .show, aparece el menú */
+}
+
+.navbar li {
+  list-style: none;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.navbar :hover {
+  color: #7fd1d1;
+}
+
+.user-icon-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #88d8db;
+  padding: 5px;
+}
+
+/* ---------- Fondo y perfil ---------- */
+.sub-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  min-height: 250px;
+}
+
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #000000;
+  margin-bottom: -60px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-container {
+  position: relative;
+  z-index: 1;
+}
+
+.user-profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: white;
+  object-fit: cover;
+  border: 3px solid black;
+}
+
+.user-icon-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-color: white;
+  object-fit: cover;
+}
+
+/* ---------- Iconos de lápiz ---------- */
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: none;
+  /* ← oculta por defecto, visible solo si logueado */
+}
+
+.profile-edit {
+  right: -8px;
+  bottom: -8px;
+}
+
+.bg-edit {
+  bottom: 10px;
+  right: 10px;
+}
+
+/* ---------- Caja de descripción ---------- */
+.user-description {
+  margin-top: 20px;
+  padding: 10px;
+  width: 300px;
+  height: 50px;
+  resize: none;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.user-description:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.subtitulo {
+  background-color: white;
+  margin: 10px;
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+/* ---------- Cards ---------- */
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 30px;
+  background-color: #ffffff;
+}
+
+.card {
+  width: 450px;
+  height: 200px;
+  background-color: #46b8c8;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: bold;
+  position: relative;
+}
+
+.card .delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ---------- Estilo personalizado para las publicaciones ---------- */
+.post-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.post-card:hover {
+  transform: scale(1.03);
+}
+
+.post-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.post-info {
+  padding: 10px;
+}
+
+.post-title {
+  font-size: 18px;
+  margin: 0 0 5px;
+}
+
+.post-location,
+.post-solicitante {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.post-info .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ---------- Grilla y filtro ---------- */
+.grilla {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+
+.filtro-section {
+  text-align: center;
+  margin: 30px 0 10px;
+  font-size: 1.1rem;
+}
+
+#filtroSelect {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Botón Agregar Publicación */
+.filtro-section button {
+  margin-left: 15px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007b8a;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mostrar iconos de edición solo cuando está logueado */
+body.logged-in .edit-icon {
+  display: block;
+}
+
+/* Estilo visual del botón login según estado */
+#loginToggle {
+  background-color: #008cba;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+body.logged-in #loginToggle {
+  background-color: #d9534f;
+}
+
+.delete-btn {
+  display: none;
+}
+
+body.logged-in .delete-btn {
+  display: inline-block;
+}
+
+#addCardBtn {
+  display: none;
+}
+
+@media (min-width: 768px) {
+
+  .navbar :hover {
+    color: #7fd1d1;
+  }
+
+  .navbar {
+    display: flex !important;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .navbar {
+    margin-right: 8%;
+  }
+
+  .logo img {
+    height: 90px;
+  }
+}
+
+/* Estilos para menú desplegable móvil */
+.navbar.show {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  /* Altura del nav */
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.navbar.show li {
+  margin-left: 38%;
+  align-items: center;
+}
+
+.navbar.show a {
+  font-size: 1.2rem;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.navbar.show a:hover {
+  background: #f0f0f0;
+}

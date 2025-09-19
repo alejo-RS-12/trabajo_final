@@ -1,0 +1,418 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background: #333;
+  height: 100vh;
+  display: flex; /* centrar el contenido */
+  justify-content: center; /* Centra horizontalmente*/
+  align-items: center; /* Centrar verticalmente*/
+  overflow: hidden;
+}
+
+.pagina {
+  padding: 0;
+  background-color: #555;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; /*barra superior y contenido en columna */
+}
+
+.barra-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #45b8c5; /* Color de la barra superior */
+  color: white;
+  padding: 10px 20px;
+  width: 100%;
+  box-sizing: border-box; /* Incluye padding en el ancho */
+  flex-shrink: 0;
+}
+
+.volver-btn {
+  font-size: 35px;
+  color: #000;
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  padding: 0;
+}
+
+/* Efecto hover (opcional) */
+.volver-btn:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.iconos-superiores {
+  display: flex;
+  gap: 15px; /* Espacio entre los íconos */
+  font-size: 20px;
+  align-items: center;
+}
+
+.iconos-superiores i {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: rgb(0, 0, 0); /* Iconos blancos */
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.iconos-superiores i:hover {
+  transform: scale(1.1);
+  color: #f0f0f0;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 📱 Mobile First (por defecto: columna) */
+.contenido {
+  display: flex;
+  flex-direction: column; /* todo en columna */
+  padding: 10px;
+  background-color: #eee;
+  gap: 15px;
+  flex-grow: 1;
+  overflow-y: auto;
+  align-items: center;
+}
+
+.contenido-izquierdo,
+.contenido-derecho {
+  width: 100%; /* ocupa todo en columna */
+  border-radius: 8px;
+}
+
+/* Carrusel base en mobile */
+.carrusel {
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+}
+
+.carrusel-inner {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carrusel-inner img {
+  width: 100%;   /* En mobile ocupa todo el ancho */
+  border-radius: 10px;
+}
+
+.carrusel img {
+  min-width: 100%; /* Cada imagen ocupa el 100% del ancho del carrusel */
+  object-fit: cover; /* Las imágenes cubren el espacio*/
+  display: block;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.flechas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+  z-index: 10;
+}
+
+.flechas button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
+
+.flechas button:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.contenido-derecho {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  background-color: white; /* Fondo de la columna de información */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-servicio {
+  margin-top: 0;
+  color: #333;
+}
+
+.subtitulo {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Estrellas última corrección */
+.estrellas {
+  color: #ccc; /* Color gris claro para las estrellas vacías*/
+  font-size: 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start; /* Comienza desde la izquierda */
+  align-items: center;
+}
+
+.estrellas i {
+  /* Estrellas dentro del div "estrellas" */
+  margin-right: 2px;
+  transition: color 0.2s ease; /* Transición suave al cambiar de color */
+}
+
+.estrellas i.fa-solid,
+.estrellas i.fas {
+  color: #f4c542 !important; /* ¡Color amarillo con prioridad máxima! */
+}
+
+.descripcion {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.mapa {
+  background: none;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  color: #555;
+  border-radius: 4px;
+  overflow: hidden; /* Para que la imagen no se desborde */
+}
+
+.mapa img {
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin-right: 5%;
+}
+
+.comentarios h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.comentarios {
+  flex-grow: 1;
+  margin-bottom: 0;
+  border-top: none;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  flex-grow: 1;
+  padding: 10px;
+  resize: vertical;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  min-height: 100px;
+}
+
+.btn-enviar {
+  padding: 12px 25px;
+  background-color: #45b8c5;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  transition: background-color 0.2s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #3aa5b4;
+}
+
+/* ESTILOS DEL MODAL (ambos modales) */
+/* ============================================== */
+
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Para scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro original */
+  justify-content: center; /* Centra horizontalmente el modal-content */
+  align-items: center; /* Centra verticalmente el modal-content */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px; /* Borde redondeado original */
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra original */
+  animation: aparecer 0.3s ease-out;
+  position: relative; /* Para posicionar el botón de cierre */
+  
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Estilos del botón de cierre - Clase 'close' original */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+}
+
+
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Botón de enviar denuncia con sombra anterior */
+#enviarDenunciaBtn {
+    margin-top: 10px;
+    /* box-shadow y transform de hover eliminados */
+}
+
+/* Estilos para el chat box */
+.chat-box {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 15px 0;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.mensaje {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background-color: #e0f7fa;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.input-chat {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-chat input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.input-chat button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: #45b8c5;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.input-chat button:hover {
+  background-color: #3aa5b4;
+}
+
+/* Tablet en adelante (>=768px) */
+@media (min-width: 768px) {
+  .mapa img{
+    height: 100%;
+  }
+
+  .contenido-izquierdo {
+
+    flex: 2; 
+  }
+
+  .contenido-derecho {
+     flex: 1;
+  }
+}
+
+/* Desktop en adelante (>=1024px) */
+@media (min-width: 1024px) {
+
+  .mapa img{
+    height: 100%;
+  }
+
+  .contenido {
+    flex-direction: row; 
+  }
+
+  .contenido-izquierdo {
+    flex: 0 1 auto;   /* se ajusta solo */
+    max-width: 60%;   /* límite opcional */
+  }
+
+  .contenido-derecho {
+    height: 100%;
+    flex: 1;
+  }
+
+}
+
+
+

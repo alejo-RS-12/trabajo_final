@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página de Datos del Trabajador</title>
+  <link rel="stylesheet" href="css/usuario.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo"><img src="/imagenes/logo.png" alt="logo"></a>
+      <button class="menu-toggle" id="btn-menu">☰</button>
+      <ul class="navbar" id="navbar">
+        <li><a href="Formacion.html">Formación</a></li>
+        <li><a href="Trabajos.html">Trabajos</a></li>
+        <li><a href="Bienestar.html">Bienestar</a></li>
+        <li><a href="Nosotros.html">Nosotros</a></li>
+        <li><a href="/html/Login.html">Ingresa</a></li>
+      </ul>
+
+      <a href="usuario.html" class="user-icon">
+        <img id="nav-user-icon" src="imagenes/icono-user.png" alt="Usuario" class="user-icon-image">
+      </a>
+
+    </nav>
+  </header>
+
+
+  <section class="sub-header">
+    <div class="background-container" id="background-container">
+      <label for="backgroundImageInput" class="edit-icon bg-edit">
+        <i class="fas fa-pencil-alt"></i>
+      </label>
+      <input type="file" id="backgroundImageInput" accept="image/*" style="display: none" />
+    </div>
+
+    <div class="profile-container">
+      <img src="imagenes/icono-user.png" alt="Usuario" class="user-profile-image" id="profileImage" />
+      <label for="profileImageInput" class="edit-icon profile-edit">
+        <i class="fas fa-pencil-alt"></i>
+      </label>
+      <input type="file" id="profileImageInput" accept="image/*" style="display: none" />
+    </div>
+
+    <textarea class="user-description" placeholder="Escribe una descripción..."></textarea>
+  </section>
+
+  <section class="grilla">
+    <p class="subtitulo">empleos o capacitaciones</p>
+  </section>
+
+  <section class="filtro-section">
+    <label for="filtroSelect">Ver:</label>
+    <select id="filtroSelect">
+      <option value="todos">Todas</option>
+      <option value="guardados">Guardados</option>
+      <option value="ofrecidos">Ofrecidos</option>
+    </select>
+    <button id="addCardBtn">Agregar publicación</button>
+  </section>
+
+  <section class="cards-section">
+    <div class="post-card">
+      <div class="post-img">
+        <a href="html/publicacion.html"><img src="imagenes/trabajos/albaniles.jpg" alt="Imagen del trabajo" /></a>
+      </div>
+      <div class="post-info">
+        <h5 class="post-title">Albañil</h5>
+        <p class="post-location">Ubicación: Olavarría</p>
+        <p class="post-solicitante">Solicitante: Juan Pérez</p>
+        <button class="delete-btn">×</button>
+        <!-- <- este botón -->
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-img">
+        <a href="html/publicacion.html"><img src="imagenes/trabajos/electricistas.jpg" alt="Imagen del trabajo" /></a>
+      </div>
+      <div class="post-info">
+        <h5 class="post-title">Electricista</h5>
+        <p class="post-location">Ubicación: Azul</p>
+        <p class="post-solicitante">Solicitante: Ana Gómez</p>
+        <button class="delete-btn">×</button>
+        <!-- <- este botón -->
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-img">
+        <a href="html/publicacion.html"><img src="imagenes/trabajos/plomeros.jpg" alt="Imagen del trabajo" /></a>
+      </div>
+      <div class="post-info">
+        <h5 class="post-title">Plomero</h5>
+        <p class="post-location">Ubicación: Loma Negra</p>
+        <p class="post-solicitante">Solicitante: Juan Rutia</p>
+        <button class="delete-btn">×</button>
+        <!-- <- este botón -->
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-img">
+        <a href="html/publicacion.html"><img src="imagenes/trabajos/personaltrainers.jpg"
+            alt="Imagen del trabajo" /></a>
+      </div>
+      <div class="post-info">
+        <h5 class="post-title">Personal Trainer</h5>
+        <p class="post-location">Ubicación: Olavarría</p>
+        <p class="post-solicitante">Solicitante: Laura Gimenez</p>
+        <button class="delete-btn">×</button>
+        <!-- <- este botón -->
+      </div>
+    </div>
+  </section>
+
+  <script src="js/usuario.js"></script>
+  <script src="js/menu.js"></script>
+  <button id="loginToggle" style="position: fixed; top: 10px; right: 10px; z-index: 10">
+    Simular Login
+  </button>
+</body>
+
+</html>

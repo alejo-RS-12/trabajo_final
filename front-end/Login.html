@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login y Registro</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+
+<body>
+  <div class="container" id="container">
+    <!--Formulario de Registro -->
+    <div class="form-container sign-up-container">
+      <form id="form-registro">
+        <h1>Registrarse</h1>
+        <!-- Iconos Redes Sociales -->
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+        </div>
+        <span>o usa tu correo para registrarte</span>
+        <h6>Ingresá tu nombre completo*</h6>
+        <div class="input-group">
+          <input type="text" id="nombre" placeholder="Nombre completo" required />
+          <span class="icon" id="icon-nombre"></span>
+        </div>
+        <small id="error-nombre" class="error-text"></small>
+        <h6>Ingresá tu E-Mail*</h6>
+        <div class="input-group">
+          <input type="email" id="email" placeholder="ejemplo@ropo.com" required />
+          <span class="icon" id="icon-email"></span>
+        </div>
+        <small id="error-email" class="error-text"></small>
+        <h6>Nombre de Usuario*</h6>
+        <div class="input-group">
+          <input type="text" id="usuario" placeholder="Usuario" required />
+          <span class="icon" id="icon-usuario"></span>
+        </div>
+        <small id="error-usuario" class="error-text"></small>
+        <h6>Contraseña*</h6>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Contraseña" required />
+          <span class="icon" id="icon-password"></span>
+        </div>
+        <small id="error-password" class="error-text"></small>
+        <p class="terminos-texto">
+          Registrándote aceptás los
+          <a href="http://" class="terminos-link">términos y condiciones</a>
+        </p>
+        <button type="submit">Registrarse</button>
+      </form>
+    </div>
+  
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="form-container sign-in-container">
+      <form id="form-login">
+        <h1>Iniciar Sesión</h1>
+        <!--Iconos Redes Sociales-->
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>o usa tu cuenta</span>
+        <h6>Nombre de Usuario*</h6>
+        <input type="text" id="usuario-login" placeholder="Usuario o Correo" required />
+        <h6>Contraseña*</h6>
+        <input type="password" id="password-login" placeholder="Contraseña" required />
+        <a href="#">¿Olvidaste tu contraseña?</a>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+    </div>
+  
+    <!-- Superposición con los Paneles de Transición -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <!--Panel Izquierdo (Visible cuando se muestra el registro) -->
+        <div class="overlay-panel overlay-left">
+          <h1>¿Ya tienes una cuenta?</h1>
+          <p>Inicia sesión para entrar en la página</p>
+          <button class="ghost" id="signIn">Iniciar Sesión</button>
+        </div>
+        <!--Panel Derecho (Visible cuando se muestra el inicio de sesión) -->
+        <div class="overlay-panel overlay-right">
+          <h1>¡Hola!</h1>
+          <p>Ingresa tus datos personales para registrarte</p>
+          <button class="ghost" id="signUp">Regístrarse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/login.js"></script>
+</body>
+</html>

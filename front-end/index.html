@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <img src="imagenes/artes_visuales.png" alt="Decoración" class="imagen-fija">
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo"><img src="imagenes/logo.png" alt="logo"></a>
+      <button class="menu-toggle" id="btn-menu">☰</button>
+      <ul class="navbar" id="navbar">
+        <li><a href="Formacion.html">Formación</a></li>
+        <li><a href="Trabajos.html">Trabajos</a></li>
+        <li><a href="Bienestar.html">Bienestar</a></li>
+        <li><a href="Nosotros.html">Nosotros</a></li>
+        <li><a href="Login.html">Ingresa</a></li>
+      </ul>
+      <a href="usuario.html" class="user-icon">
+        <img src="imagenes/icono-user.png" alt="Usuario" class="user-icon-image">
+      </a>
+    </nav>
+  </header>
+
+  <!-- Carrusel -->
+  <div class="carousel-container">
+    <div class="carousel">
+      <a href="#"><img src="imagenes/carrusel_pub/santotomas.png" alt="Santo Tomás" class="active"></a>
+      <a href="#"><img src="imagenes/carrusel_pub/iteco20.png" alt="ITECO"></a>
+      <a href="#"><img src="imagenes/carrusel_pub/usiglo21.png" alt="Siglo 21"></a>
+      <a href="#"><img src="imagenes/carrusel_pub/isft130.webp" alt="Instituto 130"></a>
+    </div>
+    <div class="flechas">
+      <button id="prevBtn">◀</button>
+      <button id="nextBtn">▶</button>
+    </div>
+  </div>
+
+  <!-- Sección publicaciones -->
+  <section class="publicaciones">
+    <h4>Publicaciones destacadas</h4>
+    <div class="publicaciones-grid">
+      <!-- Publicación 1 -->
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/albaniles.jpg" alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Albañil</h5>
+          <p class="post-location">Ubicación: Olavarría</p>
+          <p class="post-solicitante">Solicitante: Juan Pérez</p>
+        </div>
+      </div>
+
+      <!-- Publicación 2 (duplicada como ejemplo) -->
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/electricistas.jpg" alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Electricista</h5>
+          <p class="post-location">Ubicación: Azul</p>
+          <p class="post-solicitante">Solicitante: Ana Gómez</p>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/plomeros.jpg" alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Plomero</h5>
+          <p class="post-location">Ubicación: Loma Negra</p>
+          <p class="post-solicitante">Solicitante: Juan Rutia</p>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/personaltrainers.jpg"
+              alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Personal Trainer</h5>
+          <p class="post-location">Ubicación: Olavarría</p>
+          <p class="post-solicitante">Solicitante: Laura Gimenez</p>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/albaniles2.jpg" alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Albañil</h5>
+          <p class="post-location">Ubicación: Sierra Chica</p>
+          <p class="post-solicitante">Solicitante: Marcos Gutierrez</p>
+        </div>
+      </div>
+
+      <!-- Publicación 2 (duplicada como ejemplo) -->
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/electricistas2.jpg"
+              alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Electricista</h5>
+          <p class="post-location">Ubicación: Olavarría</p>
+          <p class="post-solicitante">Solicitante: Nestor Díaz</p>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/plomeros2.jpg" alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Plomero</h5>
+          <p class="post-location">Ubicación: Sierras Bayas</p>
+          <p class="post-solicitante">Solicitante: Gustavo Álvarez</p>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-img">
+          <a href="html/publicacion.html"><img src="imagenes/trabajos/personaltrainers2.jpg"
+              alt="Imagen del trabajo"></a>
+        </div>
+        <div class="post-info">
+          <h5 class="post-title">Personal Trainer</h5>
+          <p class="post-location">Ubicación: Olavarría</p>
+          <p class="post-solicitante">Solicitante: Diego Zamudio</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <img src="imagenes/logo_ropo_fondo_transparente.png" class="footer-logo" alt="logo">
+        <p>Todos los derechos reservados 2025</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contáctanos</h3>
+        <p><a href="#">Escríbenos</a></p>
+        <p><a href="mailto:ropo@example.com">ropo@example.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Síguenos</h3>
+        <p><a href="#">Facebook</a></p>
+        <p><a href="#">X</a></p>
+        <p><a href="#">Instagram</a></p>
+      </div>
+      <div class="footer-col subscribe">
+        <h3>Suscríbete</h3>
+        <form>
+          <input type="email" placeholder="Ingrese su email" required>
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+      <a href="#">Cookies</a>
+      <a href="html/Nosotros.html">Nosotros</a>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script src="js/menu.js" defer></script>
+</body>
+
+</html>
