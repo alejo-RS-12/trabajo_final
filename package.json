@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/passport": "^11.0.5",
+    "@nestjs/serve-static": "^5.0.3",
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
@@ -12,7 +14,11 @@
     "mysql2": "^3.15.0",
     "nodemailer": "^7.0.6",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "typeorm": "^0.3.26"
+  },
+  "devDependencies": {
+    "@types/passport-google-oauth20": "^2.0.16"
   }
 }

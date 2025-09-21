@@ -13,7 +13,7 @@ export class UsersService {
 
     @InjectRepository(Rol)
     private readonly rolRepo: Repository<Rol>,
-  ) {}
+  ) { }
 
   // 📌 Registro
   async register(data: Partial<Usuario>) {
@@ -27,16 +27,21 @@ export class UsersService {
 
     // Buscar rol por defecto (Usuario común → idRol = 1)
     const rolDefault = await this.rolRepo.findOne({ where: { idRol: 1 } });
-    if (!rolDefault) throw new BadRequestException('El rol por defecto no existe en la base de datos');
+    if (!rolDefault) {
+      throw new BadRequestException('El rol por defecto no existe en la base de datos');
+    }
 
     // Hashear contraseña
+    if (!data.contrasena) {
+      throw new BadRequestException('La contraseña es obligatoria');
+    }
     const hashedPass = await bcrypt.hash(data.contrasena, 10);
 
     // Crear usuario
     const nuevoUsuario = this.usuarioRepo.create({
       ...data,
       contrasena: hashedPass,
-      rol: rolDefault,
+      rol: rolDefault, // ⚡ ya validado, nunca null
     });
 
     const usuarioGuardado = await this.usuarioRepo.save(nuevoUsuario);
@@ -47,12 +52,13 @@ export class UsersService {
     return { message: 'Usuario registrado correctamente', usuario: resto };
   }
 
+
   // 📌 Login
   async login(email: string, contrasena: string) {
     const usuario = await this.usuarioRepo.findOne({ where: { email }, relations: ['rol'] });
     if (!usuario) throw new UnauthorizedException('Credenciales inválidas');
 
-    const match = await bcrypt.compare(contrasena, usuario.contrasena);
+    const match = await bcrypt.compare(contrasena, contrasena);
     if (!match) throw new UnauthorizedException('Credenciales inválidas');
 
     const { contrasena: _, ...resto } = usuario;
@@ -60,19 +66,29 @@ export class UsersService {
   }
 
   // 📌 Login con Google
-  async googleLogin(googleUser: { email: string; nombreCompleto: string }) {
-    let usuario = await this.usuarioRepo.findOne({ where: { email: googleUser.email }, relations: ['rol'] });
+
+  async googleLogin(googleUser: { email: string; nombre: string }) {
+    let usuario = await this.usuarioRepo.findOne({
+      where: { email: googleUser.email },
+      relations: ['rol'],
+    });
 
     if (!usuario) {
+      // 👉 Buscar rol por defecto y validar que exista
       const rolDefault = await this.rolRepo.findOne({ where: { idRol: 1 } });
+      if (!rolDefault) {
+        throw new BadRequestException('El rol por defecto no existe en la base de datos');
+      }
 
+      // 👉 Crear nuevo usuario con rol válido
       usuario = this.usuarioRepo.create({
         email: googleUser.email,
-        nombreCompleto: googleUser.nombreCompleto,
-        contrasena: null,
+        nombre: googleUser.nombre,
+        contrasena: null,   // permitido porque en la entidad es nullable
         esGoogle: true,
-        rol: rolDefault,
+        rol: rolDefault,    // ahora siempre es un Rol, nunca null
       });
+
       await this.usuarioRepo.save(usuario);
     }
 

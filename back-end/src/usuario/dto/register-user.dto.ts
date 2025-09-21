@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
 export class RegisterUserDto {
   @IsNotEmpty({ message: 'El nombre completo es obligatorio' })
-  nombreCompleto: string;
+  nombre: string;
 
   @IsNotEmpty({ message: 'El nombre de usuario es obligatorio' })
   nombreDeUsuario: string;

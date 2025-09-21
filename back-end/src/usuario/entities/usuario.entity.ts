@@ -9,7 +9,7 @@ export class Usuario {
   idUsuario: number;
 
   @Column({ length: 100 })
-  nombreCompleto: string;
+  nombre: string;
 
   @Column({ unique: true })
   email: string;
@@ -17,8 +17,9 @@ export class Usuario {
   @Column({ unique: true, length: 50 })
   nombreDeUsuario: string;
 
-  @Column({ length: 255, nullable: true, select: false })
+  @Column({type: 'varchar', length: 255,nullable: true })
   contrasena: string | null;
+
 
   @Column({ default: false })
   esGoogle: boolean;
