@@ -17,7 +17,7 @@ export class Usuario {
   @Column({ unique: true, length: 50 })
   nombreDeUsuario: string;
 
-  @Column({type: 'varchar', length: 255,nullable: true })
+  @Column({type: 'varchar', length: 255, nullable: true })
   contrasena: string | null;
 
 
