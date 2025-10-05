@@ -1,0 +1,5 @@
+[
+  { "idUsuario":1, "nombreCompleto": "Jose Luis Labourdette", "nombreDeUsuario": "jose", "email": "jose@mail.com", "contrasena": "dev1234", "idRol": 1},
+  { "idUsuario":2, "nombreCompleto": "Pedro de Mendoza", "nombreDeUsuario": "pedro", "email": "pedro@mail.com", "contrasena": "pedro1234",  "idRol": 2},
+  { "idUsuario":3, "nombreCompleto": "Pepe Argento", "nombreDeUsuario": "pepe", "email": "pepe@mail.com", "contrasena": "pepe1234", "idRol": 3}
+]

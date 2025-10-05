@@ -1,0 +1,13 @@
+[
+  {
+    "idProfesional": 1,
+    "usuarioId": 3,
+    "matricula": "1234",
+    "descripcion": "Trabajo de tarde",
+    "calificacionPromedio": "3.00",
+    "usuario": {
+    "idUsuario": 3
+    },
+    "profesiones": [21]
+  }
+]
