@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import { useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ToastContainer from "./ToastContainer";
@@ -8,6 +9,8 @@ import DenunciaModal from "./DenunciaModal";
 import "../css/trabajos.css";
 
 export default function PublicacionPage() {
+  const { usuario } = useAuth();
+  const usuarioId = usuario?.idUsuario;
   const { id } = useParams(); // id de la URL
   console.log("ID de la publicación:", id);
 
@@ -19,6 +22,66 @@ export default function PublicacionPage() {
   const [copiado, setCopiado] = useState(false);
   const [publicacion, setPublicacion] = useState(publicacionState || null);
   const [loading, setLoading] = useState(!publicacionState);
+  const [favorito, setFavorito] = useState(false); 
+
+  useEffect(() => {
+  if (!usuarioId) return;
+
+  const checkFavorito = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`);
+      if (!res.ok) throw new Error("No se pudieron obtener favoritos");
+      const data = await res.json();
+
+      // Ajusta según lo que devuelva tu backend:
+      // Si devuelve [{idPublicacion: 1}, ...] → data.map(f => f.idPublicacion)
+      // Si devuelve [1, 2, 3] → data directamente
+      const idsFavoritos = data.map(fav => fav.idPublicacion ?? fav);
+      setFavorito(idsFavoritos.includes(Number(id)));
+    } catch (err) {
+      console.warn(err);
+      setFavorito(false);
+    }
+  };
+
+  checkFavorito();
+}, [id, usuarioId]);
+
+  // 3️⃣ Alternar favorito (guardar / quitar)
+  const toggleFavorito = () => {
+    if (!usuarioId) {
+      showToast("⚠️ Debes iniciar sesión para usar favoritos");
+      return;
+    }
+
+    if (!favorito) {
+      // 👉 Guardar favorito
+      fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idPublicacion: Number(id) }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error();
+          setFavorito(true);
+          showToast("❤️ Publicación guardada en favoritos");
+        })
+        .catch(() => showToast("❌ Error al guardar en favoritos"));
+    } else {
+      // 👉 Quitar favorito
+      fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
+  method: "DELETE",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ idPublicacion: Number(id) }),
+})
+  .then((res) => {
+    if (!res.ok) throw new Error();
+    setFavorito(false);
+    showToast("💔 Publicación quitada de favoritos");
+  })
+  .catch(() => showToast("❌ Error al quitar favorito"));
+    }
+  };
 
   const handleCompartir = () => {
     // Construimos la URL de la publicación
@@ -37,7 +100,7 @@ export default function PublicacionPage() {
 
 // Guardar en favoritos (ejemplo usuario id=2)
   const handleGuardar = () => {
-    fetch(`http://localhost:3000/usuario/2/favoritos`, {
+    fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idPublicacion: Number(id) }),
@@ -96,7 +159,7 @@ export default function PublicacionPage() {
     <button className="btn-accion" onClick={() => setMostrarChat(true)}>
       💬 Chat
     </button>
-    <button className="btn-accion" onClick={handleGuardar}>❤️ Guardar</button>
+     <button className="btn-accion" onClick={toggleFavorito}> {favorito ? "💔 Quitar" : "❤️ Guardar"} </button>
     <button onClick={handleCompartir} className="btn-accion">🔗 Compartir</button>
   </div>
 </div>

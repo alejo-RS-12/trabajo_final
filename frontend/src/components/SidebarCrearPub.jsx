@@ -118,15 +118,15 @@ export default function SidebarCrearPub({
                       src={pub.imagenes?.[0]
                 ? (typeof pub.imagenes[0] === "string"
                     ? (pub.imagenes[0].startsWith("/uploads")
-                        ? `http://localhost:3000${pub.imagenes[0]}` // 👈 ajustá el host si tu backend corre en otro puerto/dominio
+                        ? `http://localhost:3000${pub.imagenes[0]}` 
                         : pub.imagenes[0])
                     : pub.imagenes[0].url)
-                : "../src/assets/crearpub/placeholder.jpg"}
+                : "/crearpub/placeholder.jpg"}
                       alt={pub.titulo}
                     />
                 <h4>{pub.titulo}</h4>
                 <p className="solicitante">
-                  Solicitante: {pub.profesional?.usuario?.nombreCompleto}
+                  Nombre: {pub.profesional?.usuario?.nombreCompleto}
                 </p>
                 <button type="button" onClick={() => editarPublicacion(pub)}>
                   ✏️
@@ -253,7 +253,7 @@ export default function SidebarCrearPub({
             alt={pub.titulo}
           />
           <h4>{pub.titulo}</h4>
-          <p className="solicitante">Solicitante: {pub.profesional?.usuario?.nombreCompleto}</p>
+          <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
           <button type="button" onClick={() => editarPublicacion(pub)}>
             ✏️
           </button>

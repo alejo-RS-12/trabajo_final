@@ -370,7 +370,7 @@ export default function CrearPub() {
           <div className="post-info">
           <h4>{pub.titulo}</h4>
           <p className="ubicacion">Ubicación: {formatUbicacion(pub.ubicacion)}</p>
-          <p className="solicitante">Solicitante: {pub.profesional?.usuario?.nombreCompleto}</p>
+          <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
           <button type="button" onClick={() => editarPublicacion(pub)}>
             ✏️
           </button>

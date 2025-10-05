@@ -107,20 +107,23 @@ export default function PublicacionesPage({ categorias = {} }) {
                     : `/imagenes/placeholder.jpg`;
 
                 return (
-                  <div className="post-card" key={pub.idPublicacion}>
+                    <Link
+                          to={`/publicacion/${pub.idPublicacion}`}
+                        state={{ publicacion: pub }}
+                        className="post-card"
+                        key={pub.idPublicacion}
+                      >         
                     <div className="post-img">
-                      <Link to={`/publicacion/${pub.idPublicacion}`} state={{publicacion: pub}}>
                         <img src={imgSrc} alt={pub.titulo} />
-                      </Link>
                     </div>
                     <div className="post-info">
                       <h4>{pub.titulo}</h4>
                       <p className="ubicacion">Ubicación: {formatUbicacion(pub.ubicacion)}</p>
                       <p className="solicitante">
-                        Solicitante: {pub.profesional?.usuario?.nombreCompleto}
+                        Nombre: {pub.profesional?.usuario?.nombreCompleto}
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>

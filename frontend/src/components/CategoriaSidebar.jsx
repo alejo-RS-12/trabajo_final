@@ -52,9 +52,9 @@ export default function CategoriaSidebar({
                       : `/imagenes/placeholder.jpg`;
 
                   return (
-                    <div className="post-card" key={pub.idPublicacion}>
+                    <div className="post-card" key={pub.idPublicacion} >
                       <div className="post-img">
-                        <a href={`/publicacion.html?id=${pub.idPublicacion}`}>
+                        <a href={`/publicacion/${pub.idPublicacion}`} state={{ publicacion: pub }}>
                           <img src={imgSrc} alt={pub.titulo} />
                         </a>
                       </div>
