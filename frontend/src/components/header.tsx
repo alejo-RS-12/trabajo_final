@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../assets/css/index.css";
+
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,8 +10,7 @@ export default function Header() {
           <a href="index.html" className="logo">
            <img src="imagenes/logo.png" alt="logo" />
           </a>
-        <button
-          className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}> ☰ </button>
+        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}> ☰ </button>
 
         <ul className={`navbar ${menuOpen ? "show" : ""}`}>
           <li><a href="/formacion">Formación</a></li>

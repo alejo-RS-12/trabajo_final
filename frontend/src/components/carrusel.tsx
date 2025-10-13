@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../assets/css/index.css";
+
 
 const images: string[] = [
   "/imagenes/isft130.webp",

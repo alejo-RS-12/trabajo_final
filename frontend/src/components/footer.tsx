@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import "../assets/css/index.css";
+
 
 export default function Footer() {
   return (
@@ -22,10 +22,8 @@ export default function Footer() {
         </div>
         <div className="footer-col subscribe">
           <h3>Suscríbete</h3>
-          <form>
             <input type="email" placeholder="Ingrese su email" required />
             <button type="submit">→</button>
-          </form>
         </div>
       </div>
       <div className="footer-bottom">

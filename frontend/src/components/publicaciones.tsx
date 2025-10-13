@@ -1,5 +1,5 @@
 // components/Publicaciones.tsx
-import "../assets/css/index.css";
+
 
 const publicaciones = [
   { titulo: "Albañil", ubicacion: "Olavarría", solicitante: "Juan Pérez", img: "/imagenes/trabajos/albaniles.jpg", link:"/" },

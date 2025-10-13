@@ -1,14 +1,17 @@
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  background-color: #7fd1d1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centra verticalmente */
+  height: 100vh; /* ocupa toda la altura de la pantalla */
+}
+ 
+
+.cuadro-blanco {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -27,19 +30,20 @@ h4 {
 .btn {
   padding: 12px 25px;
   background-color: #45b8c5;
-  border-color: transparent;
+  border: none;
   color: black;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .btn:hover {
   background-color: #379aa6;
+  transform: scale(1.05);
 }
 
-/* 📱 Estilos para Tablet (>=768px) */
+/* Tablet */
 @media (min-width: 768px) {
   h4 {
     font-size: 28px;
@@ -55,7 +59,7 @@ h4 {
   }
 }
 
-/* 💻 Estilos para Desktop (>=1024px) */
+/* Desktop */
 @media (min-width: 1024px) {
   h4 {
     font-size: 32px;
