@@ -265,3 +265,26 @@ nav {
 .navbar.show a:hover {
   background: #f0f0f0;
 }
+
+/* partes que se repiten de mas*/
+/*botones*/
+button {
+  padding: 12px 25px;
+  background-color: #45b8c5;
+  border-color: transparent;
+  color: black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #3aa5b4;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+  color: black;
+}

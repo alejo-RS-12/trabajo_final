@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 
 const images: string[] = [
-  "/imagenes/isft130.webp",
-  "/imagenes/iteco20.png",
-  "/imagenes/santotomas.png",
-  "/imagenes/usiglo21.png",
+  "./imagenes/isft130.webp",
+  "./imagenes/iteco20.png",
+  "./imagenes/santotomas.png",
+  "./imagenes/usiglo21.png",
 ];
 
 export default function Carousel() {
