@@ -7,8 +7,10 @@ export default function CarruselImagenes({ imagenes }) {
   const next = () => setIndex((i) => (i + 1) % imagenes.length);
 
   return (
-    <div className="carrusel">
+    <div className="carousel-container">
+    <div className="carousel">
       <img src={imagenes[index]} alt={`Imagen ${index + 1}`} />
+      </div>
       <div className="flechas">
         <button onClick={prev}>◀</button>
         <button onClick={next}>▶</button>

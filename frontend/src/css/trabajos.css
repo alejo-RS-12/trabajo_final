@@ -110,6 +110,31 @@ nav {
   to { transform: translateX(0); opacity: 1; }
 }
 
+/* --- BOTONES CREAR PUBLICACIÓN FUNCIONAN!!--- */
+
+#publicar-btn,
+#cancelar-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #45b8c5;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+#publicar-btn:hover,
+#cancelar-btn:hover {
+  background-color: #379aa2;
+}
+
+#publicar-btn:active,
+#cancelar-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 /* HASTA AQUI */
 
 /* Publicaciones */
@@ -928,65 +953,13 @@ a {
   justify-content: center;
 }
 
-
-/* publicacion */
-
-/*MODAL*/
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.modal-contenido {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.chat-window {
-  height: 200px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  padding: 8px;
-  overflow-y: auto;
-  background: #fafafa;
-}
-
-.chat-input {
-  display: flex;
-  gap: 8px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 8px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
-}
-
-.btn-cerrar {
-  background: #ccc;
-  margin-top: 10px;
-}
-
 /*EXCLUSIVO DE PUBLICACION */
 
+.pagina {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* que ocupe toda la ventana */
+}
 
 .barra-superior {
   display: flex;
@@ -1025,38 +998,90 @@ display: flex;
 }
 
 
-
 .publicacion-wrapper2 {
   display: flex;
-  flex-wrap: wrap;      /* para que se acomode en pantallas pequeñas */
+  flex-wrap: wrap;
   gap: 2rem;
+  width: 90%;
   max-width: 1200px;
   min-height: 480px;
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
   margin: 10px auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   align-items: center;
   border: 1px solid #ccc;
 }
 
+/* --- COLUMNA IZQUIERDA (CARRUSEL) --- */
 .contenido-izquierdo {
-  flex: 1 1 400px;      /* ocupa al menos 400px, se expande */
-  
+  flex: 1 1 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.contenido-izquierdo img {
-  max-width: 500px;      /* ancho máximo deseado */
-  max-height: 400px;     /* altura máxima deseada */
-  width: 100%;           /* se adapta al ancho del contenedor si es más pequeño */
-  height: auto;          /* mantiene proporción */
-  object-fit: cover;     /* recorta si es necesario para llenar el contenedor */
-  border-radius: 10px;
+/* Contenedor general del carrusel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;   /* ancho máximo del carrusel */
+  height: auto;       /* altura automática según la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;   /* evita que algo sobresalga */
+}
+
+/* Carrusel interno */
+.carousel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+/* Imágenes del carrusel */
+.carousel img {
+  width: 100%;       /* ocupa todo el ancho del contenedor */
+  height: auto;      /* mantiene proporción de la imagen */
+  max-height: 400px; /* opcional: limita altura máxima */
+  object-fit: contain; /* mantiene la imagen dentro del contenedor sin recortarla */
   display: block;
-  margin: 0 auto;        /* centra la imagen horizontalmente */
+  border-radius: 10px; /* opcional: bordes redondeados */
 }
 
+/* Flechas del carrusel */
+.flechas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0;
+  pointer-events: none;
+}
+
+.flechas button {
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+  transition: background 0.2s;
+}
+
+.flechas button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* --- COLUMNA DERECHA (INFO) --- */
 .contenido-derecho {
   flex: 1 1 400px;
   display: flex;
@@ -1067,39 +1092,498 @@ display: flex;
 }
 
 .titulo-servicio {
-  margin: 0; /* elimina márgenes por defecto */
+  margin: 0;
   font-size: 28px;
   font-weight: 700;
 }
 
+.usuario-calificacion {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: space-between; /* nombre a la izquierda, estrellas a la derecha */
+  margin-bottom: 8px; /* opcional, espacio debajo */
+}
+
 .subtitulo {
-  margin: 0 0; /* margen pequeño entre título y subtítulo */
+  margin: 0;
   font-size: 18px;
   color: #555;
 }
 
-.descripcion {
-  margin-top: 0; /* margen mínimo sobre la descripción */
-  line-height: 1.5; /* hace el texto más legible sin tanta separación */
-  font-size: 16px;
+.fa-star {
+  font-size: 1.2rem;
+  color: #f5a623; /* color dorado para las estrellas */
 }
 
-.mapa {
-  text-align: center; /* centra el contenido horizontalmente */
-  margin: 0;     /* margen arriba y abajo */
+.desc-mapa {
+  display: flex;
+  gap: 20px; /* espacio entre descripción y mapa */
+  align-items: flex-start; /* alineamos arriba */
 }
 
-.publicacion-wrapper2 .mapa img {
-  max-width: 400px; /* ancho máximo deseado */
-  width: 100%;      /* ocupa todo el ancho del contenedor si es menor a 400px */
-  height: auto;     /* mantiene la proporción original */
-  border-radius: 10px; /* opcional, si querés bordes redondeados */
-  display: block;
-  margin: 1px 0;
-  display: inline-block; /* para que text-align: center funcione */
+/* Descripción a la izquierda */
+.desc-mapa .descripcion {
+  flex: 1; /* ocupa el espacio disponible */
 }
 
-.flechas {
-  text-align: center; /* centra el contenido horizontalmente */
-  margin: 0;     /* margen arriba y abajo */
+/* Mapa a la derecha */
+.desc-mapa .mapa {
+  flex: 0 0 auto; /* tamaño fijo o máximo */
+  position: relative; /* para tooltip */
+  display: inline-block;
+}
+
+.desc-mapa .mapa img {
+  width: 250px;        /* tamaño reducido */
+  max-width: 95%;     /* no más del 50% del contenedor */
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;     /* indicamos que se puede hacer clic */
+  transition: transform 0.3s ease;
+}
+
+/* Zoom al hacer hover */
+.desc-mapa .mapa img:hover {
+  transform: scale(1.05);
+}
+
+/* Tooltip */
+
+
+.desc-mapa .mapa[data-ubicacion]:hover::after {
+  content: "Zona de cobertura: " attr(data-ubicacion);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.modal-mapa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+  z-index: 1000;
+}
+
+.modal-mapa img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.select-stilo {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  outline: none;
+  transition: 0.3s ease;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.select-stilo:focus {
+  border-color: #7fd1d1;
+  box-shadow: 0 0 4px rgba(127, 209, 209, 0.5);
+}
+
+
+/* --- TEXTAREA --- */
+.textarea-stilo {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  outline: none;
+  transition: 0.3s ease;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.textarea-stilo:focus {
+  border-color: #7fd1d1;
+  box-shadow: 0 0 4px rgba(127, 209, 209, 0.5);
+}
+
+.textarea-stilo::placeholder {
+  color: #999;
+}
+
+.textarea-stilo:disabled {
+  background-color: #f3f3f3;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* --- BOTÓN ENVIAR --- */
+.btn-enviar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ===========================
+   ESTILOS CHAT MODAL
+=========================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.chat-modal {
+  background: #ffffff;
+  border-radius: 10px;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.chat-header {
+  background-color: #45b8c5;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.chat-header .btn-cerrar {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.chat-header .btn-cerrar:hover {
+  transform: scale(1.2);
+}
+
+.chat-window {
+  flex: 1;
+  padding: 15px;
+  background: #f5fafa;
+  border-top: 1px solid #a1e3d8;
+  border-bottom: 1px solid #a1e3d8;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mensaje {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.mensaje-receptor {
+  background: #a1e3d8;
+  align-self: flex-start;
+}
+
+.mensaje-emisor {
+  background: #45b8c5;
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #fff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.chat-input input:focus {
+  box-shadow: 0 0 8px #45b8c5;
+}
+
+.btn-enviar {
+  background-color: #45b8c5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-enviar:hover {
+  background-color: #379aa2;
+}
+
+.denuncia-window {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 1rem;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Botones en la parte inferior de Denuncia */
+.denuncia-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #eee;
+}
+
+/* Layout mensajes page */
+
+.pagina .mensajes-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #93d8d8;
+  min-height: calc(100vh - 100px); /* compensá el header, no el footer */
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.mensajes-layout {
+  display: flex;
+  width: calc(100% - 4px); /* deja 2px de margen a cada lado */
+  max-width: 1800px;
+  margin: 0 auto; /* centra horizontalmente */
+  height: calc(100vh - 130px); /* header + footer dejan margen */
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.sidebar-conversaciones {
+  width: 30%;
+  max-width: 350px;
+  background-color: #ffffff;
+  border-right: 2px solid #93d8d8;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-header-m,
+.chat-header-panel {
+  background-color: #45b8c5;   /* celeste igual al modal */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  height: 60px;               /* altura uniforme */
+  border-bottom: 2px solid #a1e3d8;
+}
+
+.sidebar-header-m h3,
+.chat-header-panel h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.sidebar-conversaciones {
+  border-right: none;
+}
+
+/* Conversación item */
+.conversaciones-list { overflow-y: auto; }
+.conv-item {
+  display:flex;
+  gap:12px;
+  padding:10px;
+  cursor:pointer;
+  align-items:center;
+  border-bottom:1px solid #fafafa;
+}
+.conv-item:hover { background:#f5f8ff; }
+.conv-item.activo { background:#e8f0ff; }
+.conv-avatar {
+  width:44px;
+  height:44px;
+  border-radius:8px;
+  background:#0077ff;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+.conv-meta { 
+  flex:1; min-width:0;
+ }
+.conv-nombre { 
+  font-weight:600; 
+}
+.conv-ultimo { 
+  font-size:0.85rem;
+  color:#666;
+  display:flex;
+  justify-content:space-between;
+  gap:8px; 
+}
+
+/* Panel chat */
+.panel-chat { 
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #c9f0f0;
+  overflow: hidden;
+}
+
+.chat-vacio {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.chat-contenedor { 
+  display:flex; 
+  flex-direction:column; 
+  height:100%; 
+  background:#fff; 
+  border-radius:10px; 
+  border-left:1px solid #e6e6e6; 
+}
+
+/* Mensajes */
+.mensaje-fecha { 
+  font-size:0.7rem; 
+  color:rgba(0,0,0,0.45); 
+  margin-top:6px; 
+}
+
+.sidebar-conversaciones::-webkit-scrollbar,
+.chat-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-conversaciones::-webkit-scrollbar-thumb,
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: #b3dcdc;
+  border-radius: 10px;
+}
+
+/* responsive */
+@media (max-width: 767px) {
+  /* apilar los paneles en columna */
+  .mensajes-layout {
+    flex-direction: column;
+    width: 96%;
+    height: auto; /* dejar que la altura aumente con el contenido */
+    max-height: none;
+    padding-bottom: 20px;
+  }
+
+  /* sidebar ocupa 100% y no obliga altura fija */
+  .sidebar-conversaciones {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    border-right: none;
+    border-bottom: 2px solid #93d8d8;
+    order: 1;
+  }
+
+  /* chat panel ocupa 100% y se adapta */
+  .panel-chat {
+    order: 2;
+    width: 100%;
+    height: auto;
+    min-height: 60vh; /* puedes ajustar */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* contenedor de mensajes scrollable internamente */
+  .chat-container, .chat-window {
+    max-height: calc(60vh - 80px); /* deja espacio para header+input */
+    overflow-y: auto;
+  }
+
+  /* input fijo al final del panel chat (no se sale al scrollear) */
+  .chat-input-area, .chat-input {
+    position: sticky;
+    bottom: 0;
+    background: #e9f9f9; /* mismo fondo que tenías */
+    z-index: 5;
+  }
+}
+
+.nuevo-mensaje-indicador {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  margin-left: 6px;
 }

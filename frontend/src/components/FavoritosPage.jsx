@@ -40,7 +40,7 @@ export default function FavoritosPage() {
   return (
     <div className="contenedor-sitio">
       <div className="contenido-principal">
-      <h2>Publicaciones de {usuario.nombreCompleto}</h2>
+      <h2>Tus publicaciones guardadas en FAVORITOS </h2>  
         {publicaciones.length === 0 ? (
           <p>No tienes publicaciones guardadas en favoritos</p>
         ) : (

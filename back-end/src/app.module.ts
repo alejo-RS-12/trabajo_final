@@ -8,7 +8,6 @@ import { ClienteModule } from './cliente/cliente.module';
 import { ProfesionalModule } from './profesional/profesional.module';
 import { ProfesionModule } from './profesion/profesion.module';
 import { PublicacionModule } from './publicacion/publicacion.module';
-import { CalificacionModule } from './calificacion/calificacion.module';
 import { MensajeModule } from './mensaje/mensaje.module';
 import { AuthModule } from './auth/auth.module';
 
@@ -20,7 +19,6 @@ import { Profesional } from './profesional/entities/profesional.entity';
 import { Profesion } from './profesion/entities/profesion.entity';
 import { ProfesionalProfesion } from './profesional/entities/profesionalprofesion.entity';
 import { Publicacion } from './publicacion/entities/publicacion.entity';
-import { Calificacion } from './calificacion/entities/calificacion.entity';
 import { Mensaje } from './mensaje/entities/mensaje.entity';
 
 @Module({
@@ -41,7 +39,6 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
         Profesion,
         ProfesionalProfesion,
         Publicacion,
-        Calificacion,
         Mensaje,
       ],
       synchronize: false,
@@ -55,7 +52,6 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
     ProfesionalModule,
     ProfesionModule,
     PublicacionModule,
-    CalificacionModule,
     MensajeModule,
   ],
   controllers: [AppController],

@@ -7,7 +7,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Profesional } from '../../profesional/entities/profesional.entity';
-import { Calificacion } from '../../calificacion/entities/calificacion.entity';
 
 export enum EstadoPublicacion {
   ACTIVA = 'activa',
@@ -50,7 +49,4 @@ export class Publicacion {
   @JoinColumn({ name: 'idProfesional' })
   profesional: Profesional;
 
-  // Relación con Calificaciones
-  @OneToMany(() => Calificacion, (calificacion) => calificacion.publicacion)
-  calificaciones: Calificacion[];
 }

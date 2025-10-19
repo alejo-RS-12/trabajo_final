@@ -3,7 +3,7 @@
     "idPublicacion": 1,
     "titulo": "Arquitecto - Planos de obra",
     "descripcion": "Se realizan planos y dirección de proyectos de obra",
-    "ubicacion": "Hinojo",
+    "ubicacion": "Partido",
     "imagenes": ["/uploads/publicaciones/arquitecto1.JPG"],
     "fechaPublicacion": "2025-09-20T05:51:09.000Z",
     "estado": "activa",
@@ -11,7 +11,7 @@
       "idProfesional": 1,
       "matricula": "1234",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "0.00"
     }
   },
   {
@@ -23,38 +23,38 @@
     "fechaPublicacion": "2025-09-21T09:30:00.000Z",
     "estado": "activa",
     "profesional": {
-      "idProfesional": 1,
-      "matricula": "1234",
-      "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "idProfesional": 2,
+      "matricula": "4454",
+     "descripcion": "Trabajo de corrido",
+      "calificacionPromedio": "5.00"
     }
   },
   {
     "idPublicacion": 3,
     "titulo": "Biólogo - Consultoría ambiental",
     "descripcion": "Estudios y análisis de ecosistemas y biodiversidad",
-    "ubicacion": "Olavarría",
+    "ubicacion": "Sierras_Bayas",
     "imagenes": ["/uploads/publicaciones/biologia1.JPG"],
     "fechaPublicacion": "2025-09-22T10:00:00.000Z",
     "estado": "activa",
     "profesional": {
-      "idProfesional": 1,
-      "matricula": "1234",
+      "idProfesional": 3,
+      "matricula": "7423",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "5.00"
     }
   },
   {
     "idPublicacion": 4,
     "titulo": "Carpintero - Muebles a medida",
     "descripcion": "Fabricación y reparación de muebles de madera según diseño",
-    "ubicacion": "Olavarría",
+    "ubicacion": "Villa_Alfredo_Fortabat",
     "imagenes": ["/uploads/publicaciones/carpinteria1.JPG"],
     "fechaPublicacion": "2025-09-23T11:15:00.000Z",
     "estado": "activa",
     "profesional": {
-      "idProfesional": 1,
-      "matricula": "1234",
+      "idProfesional": 4,
+      "matricula": "3435",
       "descripcion": "Trabajo de tarde",
       "calificacionPromedio": "3.00"
     }
@@ -63,13 +63,13 @@
     "idPublicacion": 5,
     "titulo": "Diseñador gráfico - Identidad visual",
     "descripcion": "Creación de logos, flyers y contenidos digitales",
-    "ubicacion": "Olavarría",
+    "ubicacion": "Hinojo",
     "imagenes": ["/uploads/publicaciones/diseno1.JPG"],
     "fechaPublicacion": "2025-09-24T12:30:00.000Z",
     "estado": "activa",
     "profesional": {
-      "idProfesional": 1,
-      "matricula": "1234",
+      "idProfesional": 5,
+      "matricula": "4945",
       "descripcion": "Trabajo de tarde",
       "calificacionPromedio": "3.00"
     }
@@ -78,22 +78,22 @@
     "idPublicacion": 6,
     "titulo": "Electricista - Instalaciones domésticas",
     "descripcion": "Montaje y mantenimiento de instalaciones eléctricas",
-    "ubicacion": "Olavarría",
+    "ubicacion": "Colonia_Hinojo",
     "imagenes": ["/uploads/publicaciones/electricista1.JPG"],
     "fechaPublicacion": "2025-09-25T08:45:00.000Z",
     "estado": "activa",
     "profesional": {
-      "idProfesional": 1,
-      "matricula": "1234",
+      "idProfesional": 6,
+      "matricula": "1111",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "2.00"
     }
   },
   {
     "idPublicacion": 7,
     "titulo": "Enfermero - Atención domiciliaria",
     "descripcion": "Cuidados de salud a pacientes en su hogar",
-    "ubicacion": "Olavarría",
+    "ubicacion": "Sierra_Chica",
     "imagenes": ["/uploads/publicaciones/enfermeria1.JPG"],
     "fechaPublicacion": "2025-09-26T09:00:00.000Z",
     "estado": "activa",
@@ -101,7 +101,7 @@
       "idProfesional": 1,
       "matricula": "1234",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "0.00"
     }
   },
   {
@@ -116,7 +116,7 @@
       "idProfesional": 1,
       "matricula": "1234",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "0.00"
     }
   },
   {
@@ -131,7 +131,7 @@
       "idProfesional": 1,
       "matricula": "1234",
       "descripcion": "Trabajo de tarde",
-      "calificacionPromedio": "3.00"
+      "calificacionPromedio": "0.00"
     }
   },
   {
@@ -144,9 +144,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2001",
-    "descripcion": "Clases técnicas certificadas",
-    "calificacionPromedio": "4.50"
+    "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -159,9 +159,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2002",
-    "descripcion": "Docente especializado en refuerzos escolares",
-    "calificacionPromedio": "4.20"
+    "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -174,9 +174,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2003",
-    "descripcion": "Experiencia en docencia",
-    "calificacionPromedio": "4.00"
+    "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -189,9 +189,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2004",
-    "descripcion": "Academia certificada en artes escénicas",
-    "calificacionPromedio": "4.70"
+    "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -204,9 +204,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2005",
-    "descripcion": "Programador senior dictando capacitaciones",
-    "calificacionPromedio": "4.80"
+    "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -219,9 +219,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2006",
-    "descripcion": "Profesor bilingüe con certificación TOEFL",
-    "calificacionPromedio": "4.90"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -234,9 +234,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2007",
-    "descripcion": "Profesor de música con experiencia en conservatorio",
-    "calificacionPromedio": "4.60"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -249,9 +249,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2008",
-    "descripcion": "Instructor certificado en salud y seguridad",
-    "calificacionPromedio": "4.75"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -264,9 +264,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3001",
-    "descripcion": "Entrenador físico certificado",
-    "calificacionPromedio": "4.40"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -279,9 +279,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3002",
-    "descripcion": "Especialista en nutrición clínica y deportiva",
-    "calificacionPromedio": "4.85"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -294,9 +294,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3003",
-    "descripcion": "Equipo de kinesiólogos matriculados",
-    "calificacionPromedio": "4.70"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -309,9 +309,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3004",
-    "descripcion": "Psicóloga con especialización en terapia cognitiva",
-    "calificacionPromedio": "4.95"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -324,9 +324,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3005",
-    "descripcion": "Cosmetóloga certificada",
-    "calificacionPromedio": "4.65"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -339,9 +339,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3006",
-    "descripcion": "Instructora de yoga certificada",
-    "calificacionPromedio": "4.80"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -354,9 +354,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3007",
-    "descripcion": "Preparador físico con experiencia",
-    "calificacionPromedio": "4.50"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -369,9 +369,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3008",
-    "descripcion": "Centro de rehabilitación especializado",
-    "calificacionPromedio": "4.75"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -384,9 +384,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "3009",
-    "descripcion": "Masajista profesional",
-    "calificacionPromedio": "4.60"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -399,9 +399,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2010",
-    "descripcion": "Chef profesional con experiencia internacional",
-    "calificacionPromedio": "4.85"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -414,9 +414,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2011",
-    "descripcion": "Artista plástico con trayectoria docente",
-    "calificacionPromedio": "4.70"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -429,9 +429,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2001",
-    "descripcion": "Clases pedagógicas certificadas",
-    "calificacionPromedio": "4.50"
+  "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 },
 {
@@ -444,9 +444,9 @@
   "estado": "activa",
   "profesional": {
     "idProfesional": 1,
-    "matricula": "2003",
-    "descripcion": "Experiencia en docencia",
-    "calificacionPromedio": "4.00"
+   "matricula": "1234",
+      "descripcion": "Trabajo de tarde",
+      "calificacionPromedio": "0.00"
   }
 }
 

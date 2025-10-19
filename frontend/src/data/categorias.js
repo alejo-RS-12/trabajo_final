@@ -24,7 +24,7 @@ export const categoriasTrabajos = {
 export const categoriasFormacion = {
   Institutos: ["Instituto", "Institutos", "Centro educativo"],
   Escuelas: ["Escuela", "Escuelas", "Colegio", "Colegios"],
-  "Centros de Formación": [ "Centro de Formación", "Centros de Formación", "CFP", "Capacitación", "Capacitaciones"],
+  "Centros de Formación": [ "Centro Formación", "CFP", "Capacitación", "Capacitaciones"],
   Academias: ["Academia", "Academias", "Curso", "Cursos", "Taller", "Talleres"],
   Docencia: ["Docencia", "Profesor", "Profesora", "Maestro", "Maestra", "Docente"],
   Tecnología: [ "Tecnología", "Programación", "Programador", "Programadora", "Desarrollo", "Desarrollador", "Desarrolladora",
@@ -39,13 +39,13 @@ export const categoriasFormacion = {
 };
 
 export const categoriasBienestar = {
-   Gimnasio: [ "Gimnasio", "Gimnasios", "Entrenador", "Entrenadora","Personal Trainer", "Fitness", "Crossfit", "Musculación", "Calistenia"],
+   Gimnasio: [ "Gimnasio", "Gimnasios", "Entrenador", "Entrenadora","Trainer", "Fitness", "Crossfit", "Musculación", "Calistenia"],
    Nutrición: ["Nutrición", "Nutricionista", "Alimentación", "Dieta", "Dietas", "Comida Saludable", "Coach Nutricional"],
-   Clínicas: ["Clínica", "Clínicas", "Consultorio", "Sanatorio", "Centro Médico", "Hospital Privado"],
+   Clínicas: ["Clínica", "Clínicas", "Consultorio", "Sanatorio", "Médico", "Hospital Privado"],
    Psicología: ["Psicología", "Psicólogo", "Psicóloga", "Terapia", "Terapias", "Salud Mental", "Counseling"],
    Estética: [ "Estética", "Spa", "Masajes", "Masajista", "Tratamientos Faciales", "Tratamientos Corporales", "Depilación", "Cosmetología"],
-   Yoga: ["Yoga", "Meditación", "Mindfulness", "Instructor de Yoga", "Clases de Yoga"],
-   ActividadFisica: [ "Actividad Física", "Deporte", "Ejercicio", "Entrenamiento", "Pilates", "Zumba", "Clases Grupales"],
+   Yoga: ["Yoga", "Meditación", "Mindfulness"],
+   ActividadFisica: [ "Actividad Física", "Deporte", "Ejercicio", "Entrenamiento", "Pilates", "Zumba"],
    Rehabilitación: ["Rehabilitación", "Kinesiología", "Kinesiólogo", "Kinesióloga", "Fisioterapia", "Terapia Física"],
-   "Bienestar General": [ "Bienestar", "Vida Saludable", "Hábitos Saludables", "Cuidado Personal", "Salud Integral"]
+   "Bienestar General": [ "Bienestar", "Vida Saludable", "Hábitos Saludables", "Salud Integral"]
 };  

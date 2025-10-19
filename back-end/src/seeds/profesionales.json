@@ -1,13 +1,68 @@
 [
   {
     "idProfesional": 1,
-    "usuarioId": 3,
+    "usuarioId": 5,
     "matricula": "1234",
+    "descripcion": "Trabajo de tarde",
+    "calificacionPromedio": "0.00",
+    "usuario": {
+    "idUsuario": 5
+    },
+    "profesiones": [21]
+  },
+  {
+    "idProfesional": 2,
+    "usuarioId": 6,
+    "matricula": "4454",
+    "descripcion": "Trabajo de corrido",
+    "calificacionPromedio": "5.00",
+    "usuario": {
+    "idUsuario": 6
+    },
+    "profesiones": [20]
+  },
+  {
+    "idProfesional": 3,
+    "usuarioId": 7,
+    "matricula": "7423",
+    "descripcion": "Trabajo de tarde",
+    "calificacionPromedio": "5.00",
+    "usuario": {
+    "idUsuario": 7
+    },
+    "profesiones": [19]
+  },
+  {
+    "idProfesional": 4,
+    "usuarioId": 8,
+    "matricula": "3435",
     "descripcion": "Trabajo de tarde",
     "calificacionPromedio": "3.00",
     "usuario": {
-    "idUsuario": 3
+    "idUsuario": 8
     },
-    "profesiones": [21]
+    "profesiones": [18]
+  },
+  {
+    "idProfesional": 5,
+    "usuarioId": 9,
+    "matricula": "4945",
+    "descripcion": "Trabajo de tarde",
+    "calificacionPromedio": "3.00",
+    "usuario": {
+    "idUsuario": 9
+    },
+    "profesiones": [17]
+  },
+  {
+    "idProfesional": 6,
+    "usuarioId": 10,
+    "matricula": "1111",
+    "descripcion": "Trabajo de tarde",
+    "calificacionPromedio": "2.00",
+    "usuario": {
+    "idUsuario": 10
+    },
+    "profesiones": [16]
   }
 ]

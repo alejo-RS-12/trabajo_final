@@ -7,6 +7,7 @@ import CrearPub from "./components/CrearPub";
 import PublicacionPage from "../src/components/PublicacionPage";
 import Login from "../src/components/Login";
 import FavoritosPage from "./components/FavoritosPage";
+import MensajesPage from "./components/MensajesPage";
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/crear-publicacion" element={<CrearPub />} />
           <Route path="/publicacion/:id" element={<PublicacionPage />} />
           <Route path="/favoritos" element={<FavoritosPage />} />
+          <Route path="/mensajes" element={<MensajesPage />} />
         </Route>
         </Routes>
       </Router>

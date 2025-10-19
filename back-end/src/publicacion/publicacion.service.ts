@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Publicacion, EstadoPublicacion } from './entities/publicacion.entity';
@@ -12,6 +12,8 @@ export class PublicacionService {
   constructor(
     @InjectRepository(Publicacion)
     private readonly publicacionRepository: Repository<Publicacion>,
+    @InjectRepository(Profesional)
+    private readonly profesionalRepository: Repository<Profesional>,
   ) {}
 
   async create(dto: CreatePublicacionDto, files?: Express.Multer.File[]) {
@@ -95,6 +97,33 @@ async buscarPorTitulo(titulo: string): Promise<Publicacion[]> {
 
   Object.assign(publicacion, dto);
   return this.publicacionRepository.save(publicacion);
+}
+
+async calificarPublicacion(idPublicacion: number, puntuacion: number) {
+  const publicacion = await this.publicacionRepository.findOne({
+    where: { idPublicacion },
+    relations: ['profesional'],
+  });
+
+  if (!publicacion) throw new NotFoundException('Publicación no encontrada');
+
+  const profesional = publicacion.profesional;
+
+  // Si no tiene calificaciones aún
+  const cantidadActual = profesional.cantidadCalificaciones || 0;
+  const promedioActual = Number(profesional.calificacionPromedio) || 0;
+
+  // Nuevo promedio ponderado
+  const nuevaCantidad = cantidadActual + 1;
+  const nuevoPromedio = ((promedioActual * cantidadActual) + puntuacion) / nuevaCantidad;
+
+  // Guardar
+  profesional.cantidadCalificaciones = nuevaCantidad;
+  profesional.calificacionPromedio = nuevoPromedio;
+
+  await this.profesionalRepository.save(profesional);
+
+  return { calificacionPromedio: nuevoPromedio };
 }
 
   async remove(id: number) {

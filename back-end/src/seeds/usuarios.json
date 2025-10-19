@@ -1,5 +1,12 @@
 [
   { "idUsuario":1, "nombreCompleto": "Jose Luis Labourdette", "nombreDeUsuario": "jose", "email": "jose@mail.com", "contrasena": "dev1234", "idRol": 1},
-  { "idUsuario":2, "nombreCompleto": "Pedro de Mendoza", "nombreDeUsuario": "pedro", "email": "pedro@mail.com", "contrasena": "pedro1234",  "idRol": 2},
-  { "idUsuario":3, "nombreCompleto": "Pepe Argento", "nombreDeUsuario": "pepe", "email": "pepe@mail.com", "contrasena": "pepe1234", "idRol": 3}
+  { "idUsuario":2, "nombreCompleto": "Alejo Rua", "nombreDeUsuario": "alejo", "email": "alejo@mail.com", "contrasena": "alejo1234",  "idRol": 1},
+  { "idUsuario":3, "nombreCompleto": "Santiago Pedraza", "nombreDeUsuario": "santi", "email": "santi@mail.com", "contrasena": "santi1234", "idRol": 1},
+  { "idUsuario":4, "nombreCompleto": "Pedro de Mendoza", "nombreDeUsuario": "pedro", "email": "pedro@mail.com", "contrasena": "pedro1234",  "idRol": 2},
+  { "idUsuario":5, "nombreCompleto": "Pepe Argento", "nombreDeUsuario": "pepe", "email": "pepe@mail.com", "contrasena": "pepe1234", "idRol": 3},
+  { "idUsuario":6, "nombreCompleto": "Dardo Fuseneco", "nombreDeUsuario": "dardo", "email": "dardo@mail.com", "contrasena": "dardo1234", "idRol": 3},
+  { "idUsuario":7, "nombreCompleto": "Homero Simpsons", "nombreDeUsuario": "homero", "email": "homero@mail.com", "contrasena": "homero1234", "idRol": 3},
+  { "idUsuario":8, "nombreCompleto": "Marge Bouvier", "nombreDeUsuario": "marge", "email": "marge@mail.com", "contrasena": "marge1234",  "idRol": 3},
+  { "idUsuario":9, "nombreCompleto": "Moni Argento", "nombreDeUsuario": "moni", "email": "moni@mail.com", "contrasena": "moni1234", "idRol": 3},
+  { "idUsuario":10, "nombreCompleto": "Mara E. Fuseneco", "nombreDeUsuario": "maria", "email": "maria@mail.com", "contrasena": "maria1234", "idRol": 3}
 ]

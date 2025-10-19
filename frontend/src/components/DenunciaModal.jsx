@@ -1,46 +1,91 @@
 import { useState } from "react";
-import "../css/trabajos.css"; // mismo archivo de estilos
+import  ToastContainer from "./ToastContainer";
+import "../css/trabajos.css";
 
-export default function DenunciaModal({ isOpen, onClose, publicacionId }) {
+export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor }) {
   const [motivo, setMotivo] = useState("");
   const [detalle, setDetalle] = useState("");
 
   if (!isOpen) return null;
 
-  const handleSubmit = () => {
-    if (!motivo) return alert("Seleccioná un motivo.");
-    console.log("Denuncia enviada:", { publicacionId, motivo, detalle });
-    // Lógica para guardar denuncia
-    onClose();
+  const handleSubmit = async () => {
+    if (!motivo) {
+      showToast("❌ Seleccioná un motivo antes de enviar.", "error");
+      return;
+    }
+
+    // Crear el contenido del mensaje
+    const contenido = `🚩 Denuncia sobre publicación #${publicacionId}\nMotivo: ${motivo}\nDetalle: ${detalle || "(sin detalle)"}`;
+
+    const nuevoMensaje = {
+      contenido,
+      idEmisor,  // el usuario actual
+      idReceptor: 1, // el administrador
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/mensaje", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nuevoMensaje),
+      });
+
+      if (!res.ok) throw new Error("Error al enviar la denuncia");
+
+      showToast("✅ Denuncia enviada correctamente al administrador.");
+      setTimeout(() => {
+      setMotivo("");
+      setDetalle("");
+      onClose();
+      }, 1000); // cierra después de 1 segundo porque si se cierra antes no se ve el toast. 
+                // Habria que cargarlo en un contexto global, en APP o Main al import y al  <ToastContainer />
+                // De paso se podria reutilizar en otras paginas el mismo ToastContainer y el cartel de confirmacion/advertencia
+    } catch (error) {
+      console.error("Error enviando denuncia:", error);
+      showToast("❌ Ocurrió un error al enviar la denuncia.", "error");
+    }
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-contenido">
-        <h2>Denunciar publicación</h2>
+      <ToastContainer />
+      <div className="chat-modal">
+        <div className="chat-header">
+          <h2>🚩 Denunciar publicación</h2>
+          <button className="btn-cerrar" onClick={onClose}>✖</button>
+        </div>
 
-        <label>Motivo:</label>
-        <select value={motivo} onChange={(e) => setMotivo(e.target.value)}>
-          <option value="">-- Seleccioná un motivo --</option>
-          <option value="spam">Spam</option>
-          <option value="ofensivo">Contenido ofensivo</option>
-          <option value="engano">Engaño / estafa</option>
-          <option value="otro">Otro</option>
-        </select>
+        <div className="chat-window denuncia-window">
+          <p className="texto-intro">
+            Si encontrás contenido inapropiado, ofensivo o engañoso, podés enviar una denuncia.
+          </p>
 
-        <label>Detalle (opcional):</label>
-        <textarea
-          rows="3"
-          value={detalle}
-          onChange={(e) => setDetalle(e.target.value)}
-          placeholder="Explicá el problema..."
-        />
+          <label className="label-denuncia">Motivo:</label>
+          <select
+            className="select-stilo"
+            value={motivo}
+            onChange={(e) => setMotivo(e.target.value)}
+          >
+            <option value="">-- Seleccioná un motivo --</option>
+            <option value="spam">Spam</option>
+            <option value="ofensivo">Contenido ofensivo</option>
+            <option value="engano">Engaño / estafa</option>
+            <option value="otro">Otro</option>
+          </select>
 
-        <div className="modal-actions">
-          <button onClick={handleSubmit}>Enviar denuncia</button>
-          <button className="btn-cerrar" onClick={onClose}>
-            Cancelar
-          </button>
+          <label className="label-denuncia">Detalle (opcional):</label>
+          <textarea
+            className="textarea-stilo"
+            rows="8"
+            value={detalle}
+            onChange={(e) => setDetalle(e.target.value)}
+            placeholder="Explicá el problema..."
+          />
+
+          <div className="chat-input denuncia-actions">
+            <button className="btn-enviar" onClick={handleSubmit}>Enviar denuncia</button>
+            <button className="btn-enviar" onClick={onClose}>Cancelar</button>
+          </div>
         </div>
       </div>
     </div>

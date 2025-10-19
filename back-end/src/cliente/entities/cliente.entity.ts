@@ -8,7 +8,6 @@ import {
   Unique,
 } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
-import { Calificacion } from '../../calificacion/entities/calificacion.entity';
 
 @Entity('Cliente')
 @Unique(['usuario'])
@@ -22,6 +21,4 @@ export class Cliente {
   @JoinColumn({ name: 'idUsuario' })
   usuario: Usuario;
 
-  @OneToMany(() => Calificacion, (calificacion) => calificacion.cliente)
-  calificaciones: Calificacion[];
 }

@@ -21,6 +21,9 @@ export class Profesional {
   @Column({ type: 'text', nullable: true })
   descripcion?: string;
 
+  @Column({ type: 'int', default: 0 })
+  cantidadCalificaciones: number;
+
   @Column({ type: 'decimal', precision: 3, scale: 2, default: 0 })
   calificacionPromedio: number;
 

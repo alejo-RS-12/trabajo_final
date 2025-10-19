@@ -1,41 +1,113 @@
-import { useState } from "react";
-import "../css/trabajos.css"; // usa los mismos estilos que ya tenés
+import { useState, useEffect, useRef } from "react";
 
-export default function ChatModal({ isOpen, onClose, receptor }) {
-  const [mensaje, setMensaje] = useState("");
+export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
+  const [mensaje, setMensaje] = useState("Estoy interesado en tu publicación.");
+  const [mensajes, setMensajes] = useState([]);
+  const inputRef = useRef(null);
+  const chatWindowRef = useRef(null);
 
-  if (!isOpen) return null;
+  // ✅ Cargar los mensajes al abrir el chat
+ useEffect(() => {
+  if (!idEmisor || !idReceptor) return;
 
-  const handleSend = () => {
+  const fetchMensajes = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/mensaje/conversacion/${idEmisor}/${idReceptor}`);
+      if (!res.ok) throw new Error("Error al obtener mensajes");
+      const data = await res.json();
+
+      setMensajes(
+        data.map((m) => ({
+          tipo: m.emisor.idUsuario === idEmisor ? "emisor" : "receptor",
+          texto: m.contenido,
+        }))
+      );
+    } catch (error) {
+      console.error("Error cargando mensajes:", error);
+    }
+  };
+
+  fetchMensajes();
+  inputRef.current?.focus();
+}, [idEmisor, idReceptor]);
+
+
+
+  // ✅ Scroll automático al final
+  useEffect(() => {
+    chatWindowRef.current?.scrollTo({
+      top: chatWindowRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [mensajes]);
+
+  // ✅ Enviar mensaje
+  const handleSend = async () => {
     if (mensaje.trim() === "") return;
-    console.log("Mensaje enviado a:", receptor, mensaje);
-    setMensaje("");
-    // Acá podés agregar la lógica de envío real (API, socket, etc.)
+
+    const nuevoMensaje = {
+      contenido: mensaje,
+      idEmisor,
+      idReceptor,
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/mensaje", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nuevoMensaje),
+      });
+
+      if (!res.ok) throw new Error("Error al enviar mensaje");
+
+      setMensajes((prev) => [...prev, { tipo: "emisor", texto: mensaje }]);
+      setMensaje("");
+      inputRef.current?.focus();
+    } catch (error) {
+      console.error("Error enviando mensaje:", error);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-contenido">
-        <h2>Chat con {receptor}</h2>
+      <div className="chat-modal">
+        <div className="chat-header">
+          <h2>Chat con {receptor}</h2>
+          <button className="btn-cerrar" onClick={onClose}>✖</button>
+        </div>
 
-        <div className="chat-window">
-          {/* Acá se mostrarían los mensajes anteriores */}
-          <p className="placeholder">Historial de chat...</p>
+        <div className="chat-window" ref={chatWindowRef}>
+           <div className="mensaje mensaje-receptor">
+              Hola, ¿en qué puedo ayudarte?
+            </div>
+            
+          {mensajes.map((m, index) => (
+            <div key={index} className={`mensaje mensaje-${m.tipo}`}>
+              {m.texto}
+            </div>
+          ))}
         </div>
 
         <div className="chat-input">
           <input
+            ref={inputRef}
             type="text"
             value={mensaje}
             onChange={(e) => setMensaje(e.target.value)}
+            onKeyDown={handleKeyPress}
             placeholder="Escribí tu mensaje..."
           />
-          <button onClick={handleSend}>Enviar</button>
+          <button className="btn-enviar" onClick={handleSend}>
+            Enviar
+          </button>
         </div>
-
-        <button className="btn-cerrar" onClick={onClose}>
-          Cerrar
-        </button>
       </div>
     </div>
   );

@@ -106,6 +106,8 @@ export class ProfesionalService {
 // Actualizar profesional y sus profesiones
   async update(id: number, dto: UpdateProfesionalDto): Promise<Profesional> {
     const profesional = await this.findOne(id);
+    if (dto.cantidadCalificaciones !== undefined)
+    profesional.cantidadCalificaciones = Number(dto.cantidadCalificaciones);
     if (dto.calificacionPromedio !== undefined) {
       profesional.calificacionPromedio = Number(dto.calificacionPromedio);
     }

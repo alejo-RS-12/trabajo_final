@@ -1,7 +1,7 @@
 export class CreateMensajeDto {
-  idMensaje: number;
+  // idMensaje: number;
   contenido: string;
-  fecha: Date;
+  // fecha: Date;
   idEmisor: number;
   idReceptor: number;
 }

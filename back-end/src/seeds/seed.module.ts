@@ -8,7 +8,6 @@ import { Profesional } from '../profesional/entities/profesional.entity';
 import { Publicacion } from '../publicacion/entities/publicacion.entity';
 import { Cliente } from '../cliente/entities/cliente.entity';
 import { ProfesionalProfesion } from '../profesional/entities/profesionalprofesion.entity';
-import { Calificacion } from '../calificacion/entities/calificacion.entity';
 import { Mensaje } from '../mensaje/entities/mensaje.entity';
 
 @Module({
@@ -28,7 +27,6 @@ import { Mensaje } from '../mensaje/entities/mensaje.entity';
         Profesion,
         ProfesionalProfesion,
         Publicacion,
-        Calificacion,
         Mensaje,
       ],
       synchronize: false,

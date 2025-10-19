@@ -174,13 +174,14 @@ export default function SidebarCrearPub({
 
             <label htmlFor="ubicacion">Ubicación</label>
             <select
+              className="select-stilo"
               id="ubicacion"
               value={ubicacion}
               onChange={(e) => setUbicacion(e.target.value)}
               required
             >
               <option value="">-- Selecciona la zona de tu servicio --</option>
-              <option value="Partido">Olavarría y la zona</option>
+              <option value="Partido_De_Olavarria">Olavarría y la zona</option>
               <option value="Olavarría">Ciudad de Olavarría</option>
               <option value="Sierras_Bayas">Sierras Bayas</option>
               <option value="Villa_Alfredo_Fortabat">Villa Alfredo Fortabat</option>

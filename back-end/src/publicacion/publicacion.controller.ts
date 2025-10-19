@@ -81,6 +81,14 @@ export class PublicacionController {
     return this.publicacionService.update(Number(id), dto , files);
   }
 
+  @Patch(':idPublicacion/calificar')
+  async calificarPublicacion(
+    @Param('idPublicacion') idPublicacion: number,
+    @Body('puntuacion') puntuacion: number
+  ) {
+    return this.publicacionService.calificarPublicacion(idPublicacion, puntuacion);
+  }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
