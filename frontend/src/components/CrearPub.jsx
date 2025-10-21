@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import SidebarCrearPub from "./SidebarCrearPub";
 import ToastContainer from "./ToastContainer";
 import ConfirmModal from "./ConfirmModal";
-import "../css/trabajos.css";
 
 export default function CrearPub() {
   const { usuario } = useAuth();

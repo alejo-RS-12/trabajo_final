@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../css/trabajos.css"; // tu CSS con .toast y .toast-container
 
 export default function ToastContainer() {
   const [toasts, setToasts] = useState([]);

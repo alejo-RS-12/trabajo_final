@@ -2,7 +2,6 @@ import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import CategoriaSidebar from "./CategoriaSidebar";
 import { Link } from "react-router-dom";
-import "../css/trabajos.css";
 
 export default function PublicacionesPage({ categorias = {} }) {
   const { usuario } = useAuth();

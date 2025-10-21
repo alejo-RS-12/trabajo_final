@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import ConversacionesList from "./ConversacionesList";
 import ChatView from "./ChatView";
-import "../css/trabajos.css";
 
 export default function MensajesPage() {
   const { usuario } = useAuth();

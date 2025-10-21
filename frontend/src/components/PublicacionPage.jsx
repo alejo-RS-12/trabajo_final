@@ -6,7 +6,6 @@ import CarruselImagenes from "./CarruselImagenes";
 import Calificacion from "./Calificacion";
 import ChatModal from "./ChatModal";
 import DenunciaModal from "./DenunciaModal";
-import "../css/trabajos.css";
 
 export default function PublicacionPage() {
   const { usuario } = useAuth();

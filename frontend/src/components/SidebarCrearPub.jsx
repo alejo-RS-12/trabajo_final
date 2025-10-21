@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../css/trabajos.css";
 
 export default function SidebarCrearPub({
   modo,

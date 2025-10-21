@@ -1,6 +1,5 @@
 import { useState } from "react";
 import  ToastContainer from "./ToastContainer";
-import "../css/trabajos.css";
 
 export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor }) {
   const [motivo, setMotivo] = useState("");

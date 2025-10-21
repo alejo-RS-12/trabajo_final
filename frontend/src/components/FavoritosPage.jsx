@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../css/trabajos.css";
 import { useAuth } from "../context/AuthContext";
 
 export default function FavoritosPage() {
