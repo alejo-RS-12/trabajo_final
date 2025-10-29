@@ -1,0 +1,100 @@
+/* Imagen decorativa */
+.imagen-fija {
+  position: fixed;
+  top: 35%;
+  right: 10px;
+  width: 30%;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Carrusel */
+.carousel-container {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: 5%;
+}
+
+.carousel img {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.carousel img.active {
+  display: block;
+}
+
+.flechas {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+}
+
+.flechas button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+.flechas button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Publicaciones */
+.publicaciones {
+  background: #cdf3f3;
+  padding: 1rem;
+}
+
+.publicaciones h4 {
+  text-align: center;
+}
+
+.publicaciones-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.post-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.post-img img {
+  width: 100%;
+  height: auto;
+}
+
+.post-info {
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .publicaciones-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .imagen-fija {
+    top: 15%;
+    width: 20%;
+  }
+
+  .publicaciones-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

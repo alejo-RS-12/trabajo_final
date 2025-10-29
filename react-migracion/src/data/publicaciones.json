@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "titulo": "Albañil",
+    "ubicacion": "Olavarría",
+    "solicitante": "Juan Pérez",
+    "imagen": "/imagenes/trabajos/albaniles.jpg"
+  },
+  {
+    "id": 2,
+    "titulo": "Electricista",
+    "ubicacion": "Azul",
+    "solicitante": "Ana Gómez",
+    "imagen": "/imagenes/trabajos/electricistas.jpg"
+  },
+  {
+    "id": 3,
+    "titulo": "Plomero",
+    "ubicacion": "Loma Negra",
+    "solicitante": "Juan Rutia",
+    "imagen": "/imagenes/trabajos/plomeros.jpg"
+  },
+  {
+    "id": 4,
+    "titulo": "Personal Trainer",
+    "ubicacion": "Olavarría",
+    "solicitante": "Laura Gimenez",
+    "imagen": "/imagenes/trabajos/personaltrainers.jpg"
+  },
+  {
+    "id": 5,
+    "titulo": "Albañil",
+    "ubicacion": "Sierra Chica",
+    "solicitante": "Marcos Gutierrez",
+    "imagen": "/imagenes/trabajos/albaniles2.jpg"
+  },
+  {
+    "id": 6,
+    "titulo": "Electricista",
+    "ubicacion": "Olavarría",
+    "solicitante": "Néstor Díaz",
+    "imagen": "/imagenes/trabajos/electricistas2.jpg"
+  },
+  {
+    "id": 7,
+    "titulo": "Plomero",
+    "ubicacion": "Sierras Bayas",
+    "solicitante": "Gustavo Álvarez",
+    "imagen": "/imagenes/trabajos/plomeros2.jpg"
+  },
+  {
+    "id": 8,
+    "titulo": "Personal Trainer",
+    "ubicacion": "Olavarría",
+    "solicitante": "Diego Zamudio",
+    "imagen": "/imagenes/trabajos/personaltrainers2.jpg"
+  }
+]
