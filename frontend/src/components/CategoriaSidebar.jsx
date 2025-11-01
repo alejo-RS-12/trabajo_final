@@ -1,3 +1,5 @@
+import "../assets/css/trabajos.css";
+
 export default function CategoriaSidebar({
   categorias = [],
   onSearch,
@@ -35,7 +37,7 @@ export default function CategoriaSidebar({
               <span>
                 {categoriaSeleccionada || "Resultados de búsqueda"}
               </span>
-              <button onClick={onVolverCategorias}>+ Categorías</button>
+              <button className="btn-accion" onClick={onVolverCategorias}>+ Categorías</button>
             </div>
 
             <div className="publicaciones-grid">

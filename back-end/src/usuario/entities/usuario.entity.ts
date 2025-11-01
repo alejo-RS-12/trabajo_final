@@ -29,6 +29,9 @@ export class Usuario {
   @Column({ length: 255 })
   contrasena: string;
 
+  //  @Column({ default: false })
+  // esGoogle: boolean;
+
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   fechaRegistro: Date;
 

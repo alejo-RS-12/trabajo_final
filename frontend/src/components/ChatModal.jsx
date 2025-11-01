@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "../assets/css/trabajos.css";
 
 export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
   const [mensaje, setMensaje] = useState("Estoy interesado en tu publicación.");

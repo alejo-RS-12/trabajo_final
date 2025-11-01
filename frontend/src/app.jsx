@@ -1,13 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import  Layout  from "../src/components/Layout";
-import PublicacionesPage from "./components/PublicacionesPage";
+import Home from "../src/pages/Index";
+import AdminPanel from "./pages/Control-admin";
+import BotonesRol from "./pages/Botones-rol";
+import PublicacionesPage from "./pages/PublicacionesPage";
 import { categoriasTrabajos, categoriasFormacion, categoriasBienestar } from "./data/categorias";
-import CrearPub from "./components/CrearPub";
-import PublicacionPage from "../src/components/PublicacionPage";
-import Login from "../src/components/Login";
-import FavoritosPage from "./components/FavoritosPage";
-import MensajesPage from "./components/MensajesPage";
+import CrearPub from "./pages/CrearPub";
+import PublicacionPage from "../src/pages/PublicacionPage";
+import Login from "../src/pages/Login";
+import FavoritosPage from "./pages/FavoritosPage";
+import MensajesPage from "./pages/MensajesPage";
 
 
 export default function App() {
@@ -15,8 +18,15 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
-           <Route element={<Layout />}>
-          <Route path="/" element={<Login />} />
+          
+          {/* Rutas SIN Layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/botones-rol" element={<BotonesRol />} />
+          
+          {/* Rutas CON Layout */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/trabajos" element={<PublicacionesPage categorias={categoriasTrabajos} titulo="Trabajos" />} />
           <Route path="/formacion" element={<PublicacionesPage categorias={categoriasFormacion} titulo="Formación" />} />
           <Route path="/bienestar" element={<PublicacionesPage categorias={categoriasBienestar} titulo="Bienestar" />} />
@@ -25,6 +35,7 @@ export default function App() {
           <Route path="/favoritos" element={<FavoritosPage />} />
           <Route path="/mensajes" element={<MensajesPage />} />
         </Route>
+        
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
+import "../assets/css/trabajos.css";
 
 export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevoMensaje = () => {} }) {
   const [mensajes, setMensajes] = useState([]);

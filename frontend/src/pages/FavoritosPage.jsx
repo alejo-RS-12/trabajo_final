@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../assets/css/trabajos.css";
 
 export default function FavoritosPage() {
   const { usuario } = useAuth();
@@ -51,14 +52,11 @@ export default function FavoritosPage() {
                   : `/imagenes/placeholder.jpg`;
 
               return (
-                <div className="post-card" key={pub.idPublicacion}>
-                  <div className="post-img">
-                    <Link
+                <Link
                       to={`/publicacion/${pub.idPublicacion}`}
-                      state={{ publicacion: pub }}
-                    >
-                      <img src={imgSrc} alt={pub.titulo} />
-                    </Link>
+                      state={{ publicacion: pub }} className="post-card" key={pub.idPublicacion}>
+                  <div className="post-img">
+                    <img src={imgSrc} alt={pub.titulo} />
                   </div>
                   <div className="post-info">
                     <h4>{pub.titulo}</h4>
@@ -66,10 +64,10 @@ export default function FavoritosPage() {
                       Ubicación: {formatUbicacion(pub.ubicacion)}
                     </p>
                     <p className="solicitante">
-                      Solicitante: {pub.profesional?.usuario?.nombreCompleto}
+                      Nombre: {pub.profesional?.usuario?.nombreCompleto}
                     </p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

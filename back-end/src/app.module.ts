@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -23,14 +27,21 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'frontend'),
+      serveRoot: '',   
+    }),
     //conexión a la base de datos
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'Admin',
-      database: 'ropo2beta',
+      host: process.env.DB_HOST || 'localhost',
+      port: Number(process.env.DB_PORT) || 3306,
+      username: process.env.DB_USER || 'root',
+      password: process.env.DB_PASS || 'Admin',
+      database: process.env.DB_NAME || 'ropo2beta',
+      autoLoadEntities: true,
       entities: [
         Usuario,
         Rol,
@@ -42,6 +53,7 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
         Mensaje,
       ],
       synchronize: false,
+      logging: false,
     }),
 
     //esto es lo que había antes

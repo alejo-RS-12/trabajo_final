@@ -1,8 +1,9 @@
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
-import SidebarCrearPub from "./SidebarCrearPub";
-import ToastContainer from "./ToastContainer";
-import ConfirmModal from "./ConfirmModal";
+import SidebarCrearPub from "../components/SidebarCrearPub";
+import ToastContainer from "../components/ToastContainer";
+import ConfirmModal from "../components/ConfirmModal";
+import "../assets/css/trabajos.css";
 
 export default function CrearPub() {
   const { usuario } = useAuth();
@@ -30,13 +31,13 @@ export default function CrearPub() {
   const [confirmData, setConfirmData] = useState(null);
 
   const mapaUbicaciones = {
-  Partido_De_Olavarria: "/crearpub/mapa-partido.jpg",
-  Olavarría: "/crearpub/mapa-olavarria.jpg",
-  Sierras_Bayas: "/crearpub/mapa-sierrasbayas.jpg",
-  Villa_Alfredo_Fortabat: "/crearpub/mapa-villaalfredofortabat.jpg",
-  Hinojo: "/crearpub/mapa-hinojo.jpg",
-  Colonia_Hinojo: "/crearpub/mapa-coloniahinojo.jpg",
-  Sierra_Chica: "/crearpub/mapa-sierrachica.jpg",
+  Partido_De_Olavarria: "/imagenes/crearpub/mapa-partido.jpg",
+  Olavarría: "/imagenes/crearpub/mapa-olavarria.jpg",
+  Sierras_Bayas: "/imagenes/crearpub/mapa-sierrasbayas.jpg",
+  Villa_Alfredo_Fortabat: "/imagenes/crearpub/mapa-villaalfredofortabat.jpg",
+  Hinojo: "/imagenes/crearpub/mapa-hinojo.jpg",
+  Colonia_Hinojo: "/imagenes/crearpub/mapa-coloniahinojo.jpg",
+  Sierra_Chica: "/imagenes/crearpub/mapa-sierrachica.jpg",
   }
 
     // función para formatear ubicaciones
@@ -249,7 +250,7 @@ export default function CrearPub() {
                 >
                   <div className="post-img">
                     <img
-                      src="/crearpub/trabajo.jpg"
+                      src="/imagenes/crearpub/trabajo.jpg"
                       alt="Imagen de trabajos"
                     />
                   </div>
@@ -274,7 +275,7 @@ export default function CrearPub() {
                 >
                   <div className="post-img">
                     <img
-                      src="/crearpub/formacion.jpg"
+                      src="/imagenes/crearpub/formacion.jpg"
                       alt="Imagen de formación"
                     />
                   </div>
@@ -299,7 +300,7 @@ export default function CrearPub() {
                 >
                   <div className="post-img">
                     <img
-                      src="/crearpub/bienestar.jpg"
+                      src="/imagenes/crearpub/bienestar.jpg"
                       alt="Imagen de bienestar"
                     />
                   </div>
@@ -323,7 +324,7 @@ export default function CrearPub() {
               <div className="imagen-principal" id="vp-fotos">
                 <img
                   src={fotos[0] ? (fotos[0] instanceof File ? URL.createObjectURL(fotos[0]) : fotos[0]?.startsWith("/uploads")
-        ? `http://localhost:3000${fotos[0]}` : fotos[0]) : "/crearpub/placeholder.jpg"}
+        ? `http://localhost:3000${fotos[0]}` : fotos[0]) : "/imagenes/crearpub/placeholder.jpg"}
                   alt="Imagen principal"
                 />
               </div>
@@ -333,7 +334,7 @@ export default function CrearPub() {
                 <p>{descripcion || "La descripción aparecerá aquí."}</p>
                 <div id="vp-mapa" className="mapa-previa">
                   <img
-                    src={ubicacion && mapaUbicaciones[ubicacion] ? mapaUbicaciones[ubicacion] : "/crearpub/mapa.JPG"}
+                    src={ubicacion && mapaUbicaciones[ubicacion] ? mapaUbicaciones[ubicacion] : "/imagenes/crearpub/mapa.JPG"}
                     alt={`Mapa de ${ubicacion || "cobertura"}`}
                   />
                 </div>
@@ -362,7 +363,7 @@ export default function CrearPub() {
               ? `http://localhost:3000${pub.imagenes[0]}` // 👈 ajustá el host si tu backend corre en otro puerto/dominio
               : pub.imagenes[0])
           : pub.imagenes[0].url)
-      : "/crearpub/placeholder.jpg"}
+      : "/imagenes/crearpub/placeholder.jpg"}
             alt={pub.titulo}
           />
           </div>
@@ -370,10 +371,10 @@ export default function CrearPub() {
           <h4>{pub.titulo}</h4>
           <p className="ubicacion">Ubicación: {formatUbicacion(pub.ubicacion)}</p>
           <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
-          <button type="button" onClick={() => editarPublicacion(pub)}>
+          <button className="buttonEditar" type="button" onClick={() => editarPublicacion(pub)}>
             ✏️
           </button>
-          <button type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
+          <button className="buttonEditar" type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
             🗑️
           </button>
         </div>

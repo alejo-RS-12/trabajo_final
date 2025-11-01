@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../assets/css/trabajos.css";
 
 export default function CarruselImagenes({ imagenes }) {
   const [index, setIndex] = useState(0);

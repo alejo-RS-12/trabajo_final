@@ -40,14 +40,14 @@ async findByProfesional(idProfesional: number) {
 
   findAll() {
     return this.publicacionRepository.find({
-      relations: ['profesional'],
+      relations: ['profesional', "profesional.usuario"],
     });
   }
 
   async findOne(id: number) {
       return await this.publicacionRepository.findOne({
       where: { idPublicacion: id },
-      relations: ['profesional'],
+      relations: ['profesional', "profesional.usuario"],
     });
   }
 

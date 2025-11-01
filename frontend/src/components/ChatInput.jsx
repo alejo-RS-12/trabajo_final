@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import "../assets/css/trabajos.css";
 
 export default function ChatInput({ idEmisor, idReceptor, onSent }) {
   const [texto, setTexto] = useState("");

@@ -1,0 +1,76 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centra verticalmente */
+  height: 100vh; /* ocupa toda la altura de la pantalla */
+}
+ 
+
+.cuadro-blanco {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h4 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: black;
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  padding: 12px 25px;
+  background-color: #45b8c5;
+  border: none;
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #379aa6;
+  transform: scale(1.05);
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  h4 {
+    font-size: 28px;
+  }
+
+  .btn {
+    padding: 14px 30px;
+    font-size: 18px;
+  }
+
+  .botones {
+    gap: 30px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  h4 {
+    font-size: 32px;
+  }
+
+  .btn {
+    padding: 16px 40px;
+    font-size: 20px;
+  }
+
+  .botones {
+    gap: 40px;
+  }
+}

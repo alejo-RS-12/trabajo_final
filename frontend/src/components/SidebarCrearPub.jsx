@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "../assets/css/trabajos.css";
 
 export default function SidebarCrearPub({
   modo,
@@ -127,13 +128,10 @@ export default function SidebarCrearPub({
                 <p className="solicitante">
                   Nombre: {pub.profesional?.usuario?.nombreCompleto}
                 </p>
-                <button type="button" onClick={() => editarPublicacion(pub)}>
+                <button className="buttonEditar" type="button" onClick={() => editarPublicacion(pub)}>
                   ✏️
                 </button>
-                <button
-                  type="button"
-                  onClick={() => eliminarPublicacion(pub.idPublicacion)}
-                >
+                <button className="buttonEditar" type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}               >
                   🗑️
                 </button>
               </div>
@@ -154,7 +152,7 @@ export default function SidebarCrearPub({
             </span>
           </p>
 
-          <form onSubmit={publicar}>
+          <form className="trabajos-form" onSubmit={publicar}>
             <label>Título</label>
             <input
               type="text"
@@ -254,10 +252,10 @@ export default function SidebarCrearPub({
           />
           <h4>{pub.titulo}</h4>
           <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
-          <button type="button" onClick={() => editarPublicacion(pub)}>
+          <button className="buttonEditar" type="button" onClick={() => editarPublicacion(pub)}>
             ✏️
           </button>
-          <button type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
+          <button className="buttonEditar" type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
             🗑️
           </button>
         </div>

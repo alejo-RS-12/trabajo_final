@@ -1,3 +1,5 @@
+import "../assets/css/trabajos.css";
+
 export default function ConfirmModal({ message, onConfirm, onCancel }) {
   return (
     <div className="toast-container"> {/* reutiliza tu container */}

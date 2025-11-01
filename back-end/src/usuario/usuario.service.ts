@@ -1,7 +1,7 @@
 import {
   NotFoundException,
   BadRequestException,
-  Injectable,
+  Injectable, UnauthorizedException
 } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -12,6 +12,7 @@ import { Rol } from 'src/rol/entities/rol.entity';
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Profesional } from 'src/profesional/entities/profesional.entity';
 import { ProfesionalProfesion } from 'src/profesional/entities/profesionalprofesion.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
@@ -28,6 +29,86 @@ export class UsuarioService {
     @InjectRepository(Profesional)
     private profesionalRepository: Repository<Profesional>,
   ) {}
+ // 📌 Registro
+  async register(data: Partial<Usuario>) {
+    // Validar email único
+    const existeEmail = await this.usuarioRepository.findOne({ where: { email: data.email } });
+    if (existeEmail) throw new BadRequestException('El email ya está registrado');
+
+    // Validar nombre de usuario único
+    const existeUser = await this.usuarioRepository.findOne({ where: { nombreDeUsuario: data.nombreDeUsuario } });
+    if (existeUser) throw new BadRequestException('El nombre de usuario ya está en uso');
+
+    // Buscar rol por defecto (Usuario común → idRol = 1)
+    const rolDefault = await this.rolRepository.findOne({ where: { idRol: 1 } });
+    if (!rolDefault) {
+      throw new BadRequestException('El rol por defecto no existe en la base de datos');
+    }
+
+    // Hashear contraseña
+    if (!data.contrasena) {
+      throw new BadRequestException('La contraseña es obligatoria');
+    }
+    const hashedPass = await bcrypt.hash(data.contrasena, 10);
+
+    // Crear usuario
+    const nuevoUsuario = this.usuarioRepository.create({
+      ...data,
+      contrasena: hashedPass,
+      rol: rolDefault, // ⚡ ya validado, nunca null
+    });
+
+    const usuarioGuardado = await this.usuarioRepository.save(nuevoUsuario);
+
+    // No devolver la contraseña
+    const { contrasena, ...resto } = usuarioGuardado;
+
+    return { message: 'Usuario registrado correctamente', usuario: resto };
+  }
+
+
+  // 📌 Login
+  async login(email: string, contrasena: string) {
+    const usuario = await this.usuarioRepository.findOne({ where: { email }, relations: ['rol'] });
+    if (!usuario) throw new UnauthorizedException('Credenciales inválidas');
+
+    const match = await bcrypt.compare(contrasena, contrasena);
+    if (!match) throw new UnauthorizedException('Credenciales inválidas');
+
+    const { contrasena: _, ...resto } = usuario;
+    return { message: 'Login exitoso', usuario: resto };
+  }
+
+  // 📌 Login con Google
+
+  async googleLogin(googleUser: { email: string; nombre: string }) {
+    let usuario = await this.usuarioRepository.findOne({
+      where: { email: googleUser.email },
+      relations: ['rol'],
+    });
+
+    if (!usuario) {
+      // 👉 Buscar rol por defecto y validar que exista
+      const rolDefault = await this.rolRepository.findOne({ where: { idRol: 1 } });
+      if (!rolDefault) {
+        throw new BadRequestException('El rol por defecto no existe en la base de datos');
+      }
+
+      // 👉 Crear nuevo usuario con rol válido
+      usuario = this.usuarioRepository.create({
+        email: googleUser.email,
+        nombreCompleto: googleUser.nombre,
+        //contrasena: null,   // permitido porque en la entidad es nullable
+        //esGoogle: true,
+        rol: rolDefault,    // ahora siempre es un Rol, nunca null
+      });
+
+      await this.usuarioRepository.save(usuario);
+    }
+
+    const { contrasena, ...resto } = usuario;
+    return { message: 'Login con Google exitoso', usuario: resto };
+  }
 
   async crearUsuarioConRol(data: CreateUsuarioDto): Promise<Usuario> {
     // 1. Buscar rol

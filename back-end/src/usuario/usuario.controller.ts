@@ -11,6 +11,8 @@ import { UsuarioService } from './usuario.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { AddFavoritoDto, RemoveFavoritoDto } from './dto/favoritos.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -19,6 +21,16 @@ export class UsuarioController {
   @Post()
   async crearUsuario(@Body() body: any) {
     return this.usuarioService.crearUsuarioConRol(body);
+  }
+
+  @Post('register')
+  register(@Body() body: RegisterUserDto) {
+    return this.usuarioService.register(body);
+  }
+
+  @Post('login')
+  login(@Body() body: LoginUserDto) {
+    return this.usuarioService.login(body.email, body.contrasena);
   }
 
   @Get()

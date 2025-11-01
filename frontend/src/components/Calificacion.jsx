@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import "../css/trabajos.css";
+import "../assets/css/trabajos.css";
 
 export default function Calificacion({ valorInicial = 0, onClick }) {
   const [valor, setValor] = useState(0);

@@ -1,11 +1,12 @@
 import { useAuth } from "../context/AuthContext";
 import { useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ToastContainer from "./ToastContainer";
-import CarruselImagenes from "./CarruselImagenes";
-import Calificacion from "./Calificacion";
-import ChatModal from "./ChatModal";
-import DenunciaModal from "./DenunciaModal";
+import ToastContainer from "../components/ToastContainer";
+import CarruselImagenes from "../components/CarruselImagenes";
+import Calificacion from "../components/Calificacion";
+import ChatModal from "../components/ChatModal";
+import DenunciaModal from "../components/DenunciaModal";
+import "../assets/css/trabajos.css";
 
 export default function PublicacionPage() {
   const { usuario } = useAuth();
@@ -179,13 +180,13 @@ export default function PublicacionPage() {
 
   // para cargar los mapas
   const mapaUbicaciones = {
-  Partido_De_Olavarria: "/crearpub/mapa-partido.jpg",
-  Olavarría: "/crearpub/mapa-olavarria.jpg",
-  Sierras_Bayas: "/crearpub/mapa-sierrasbayas.jpg",
-  Villa_Alfredo_Fortabat: "/crearpub/mapa-villaalfredofortabat.jpg",
-  Hinojo: "/crearpub/mapa-hinojo.jpg",
-  Colonia_Hinojo: "/crearpub/mapa-coloniahinojo.jpg",
-  Sierra_Chica: "/crearpub/mapa-sierrachica.jpg",
+  Partido_De_Olavarria: "/imagenes/crearpub/mapa-partido.jpg",
+  Olavarría: "/imagenes/crearpub/mapa-olavarria.jpg",
+  Sierras_Bayas: "/imagenes/crearpub/mapa-sierrasbayas.jpg",
+  Villa_Alfredo_Fortabat: "/imagenes/crearpub/mapa-villaalfredofortabat.jpg",
+  Hinojo: "/imagenes/crearpub/mapa-hinojo.jpg",
+  Colonia_Hinojo: "/imagenes/crearpub/mapa-coloniahinojo.jpg",
+  Sierra_Chica: "/imagenes/crearpub/mapa-sierrachica.jpg",
   };
 
   const handleEnviarMensaje = async () => {
@@ -269,7 +270,7 @@ export default function PublicacionPage() {
             <img
               src={publicacion.ubicacion && mapaUbicaciones[publicacion.ubicacion]
                   ? mapaUbicaciones[publicacion.ubicacion]
-                  : "/crearpub/mapa.JPG"
+                  : "/imagenes/crearpub/mapa.JPG"
               }
               alt={`Mapa de ${publicacion.ubicacion || "cobertura"}`}
               onClick={() => setMapaGrande(true)}
@@ -281,7 +282,7 @@ export default function PublicacionPage() {
               <img
                 src={publicacion.ubicacion && mapaUbicaciones[publicacion.ubicacion]
                     ? mapaUbicaciones[publicacion.ubicacion]
-                    : "/crearpub/mapa.JPG"
+                    : "/imagenes/crearpub/mapa.JPG"
                 }
                 alt={`Mapa de ${publicacion.ubicacion || "cobertura"}`}
               />
