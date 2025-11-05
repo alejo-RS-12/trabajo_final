@@ -6,7 +6,7 @@ import CarruselImagenes from "../components/CarruselImagenes";
 import Calificacion from "../components/Calificacion";
 import ChatModal from "../components/ChatModal";
 import DenunciaModal from "../components/DenunciaModal";
-import "../assets/css/trabajos.css";
+
 
 export default function PublicacionPage() {
   const { usuario } = useAuth();
@@ -29,8 +29,8 @@ export default function PublicacionPage() {
   Number(publicacion?.profesional?.calificacionPromedio) || 0
 );
 
-  // Este useEffect para cargar FontAwesome (íconos estrellas). Lo ideal sería hacerlo una sola vez en index.html y
-  // lo podriamos aprovechaerr en otros componentes / paginas. Habria que agregar la siguiente lienea en <head>:
+  // Este useEffect para cargar FontAwesome (íconos estrellas).
+  // podriamos hacerlo una sola vez en index.html y aprovechaerr en otros componentes / paginas. En <head>:
   // <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   // y de esa forma no tener que cargarlo en este ni en cada componente que use iconos. 
         useEffect(() => {
@@ -68,8 +68,6 @@ export default function PublicacionPage() {
       if (!res.ok) throw new Error("No se pudieron obtener favoritos");
       const data = await res.json();
 
-      // Ajusta según lo que devuelva tu backend:
-      // Si devuelve [{idPublicacion: 1}, ...] → data.map(f => f.idPublicacion)
       // Si devuelve [1, 2, 3] → data directamente
       const idsFavoritos = data.map(fav => fav.idPublicacion ?? fav);
       setFavorito(idsFavoritos.includes(Number(id)));
@@ -153,10 +151,10 @@ export default function PublicacionPage() {
   };
 
 
-// Si no viene la publicación desde location.state, la traemos desde la base de datos
+// Traemos desde la base de datos
   useEffect(() => {
     if (!publicacionState) {
-      fetch(`http://localhost:3000/publicacion/${id}`) // endpoint real
+      fetch(`http://localhost:3000/publicacion/${id}`)
         .then(res => {
           if (!res.ok) throw new Error("No se encontró la publicación");
           return res.json();
@@ -208,7 +206,7 @@ export default function PublicacionPage() {
 
       if (!res.ok) throw new Error("Error al enviar mensaje");
 
-      setMensajeTexto(""); // limpiar textarea
+      setMensajeTexto(""); 
       showToast("✅ Mensaje enviado correctamente");
     } catch (err) {
       console.error(err);
@@ -246,7 +244,7 @@ export default function PublicacionPage() {
             imagenes={
               publicacion.imagenes && publicacion.imagenes.length > 0
                 ? publicacion.imagenes.map(img => `http://localhost:3000/${img.replace(/^\/?/, "")}`)
-                : [`/imagenes/placeholder.jpg`] // imagen por defecto si no hay imágenes
+                : [`/imagenes/placeholder.jpg`] 
             }
           />
         </div>
@@ -298,16 +296,16 @@ export default function PublicacionPage() {
                 ? "Escribe aquí un mensaje para el prestador del servicio"
                 : "Debes iniciar sesión para comentar"
             }
-            disabled={!usuario} // 👉 desactiva el textarea si no está logueado
+            disabled={!usuario} // desactiva el textarea si no está logueado
             value={mensajeTexto}
             onChange={(e) => setMensajeTexto(e.target.value)}
           ></textarea>
 
           <button
             className="btn-accion"
-            disabled={!usuario} // 👉 también desactiva el botón si no está logueado
+            disabled={!usuario} // también desactiva el botón si no está logueado
             title={!usuario ? "Inicia sesión para enviar un mensaje" : "Enviar mensaje"}
-            onClick={handleEnviarMensaje} // 👉 aquí llamamos a la función
+            onClick={handleEnviarMensaje} 
           >
             Enviar
           </button>

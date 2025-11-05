@@ -2,11 +2,10 @@ import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import CategoriaSidebar from "../components/CategoriaSidebar";
 import { Link } from "react-router-dom";
-import "../assets/css/trabajos.css";
+
 
 export default function PublicacionesPage({ categorias = {} }) {
   const { usuario } = useAuth();
-  const usuarioId = usuario?.idUsuario;
   const [publicaciones, setPublicaciones] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
@@ -32,7 +31,7 @@ export default function PublicacionesPage({ categorias = {} }) {
 
     const controller = new AbortController();
 
-    setCategoriaSeleccionada(null); // limpia categoría seleccionada
+    setCategoriaSeleccionada(null); 
 
     fetch(
       `http://localhost:3000/publicacion/buscar?titulo=${encodeURIComponent(

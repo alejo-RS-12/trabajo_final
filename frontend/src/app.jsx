@@ -12,6 +12,7 @@ import Login from "../src/pages/Login";
 import FavoritosPage from "./pages/FavoritosPage";
 import MensajesPage from "./pages/MensajesPage";
 
+import  ToastContainer from "./components/ToastContainer";
 
 export default function App() {
   return (
@@ -35,9 +36,9 @@ export default function App() {
           <Route path="/favoritos" element={<FavoritosPage />} />
           <Route path="/mensajes" element={<MensajesPage />} />
         </Route>
-        
         </Routes>
       </Router>
+      <ToastContainer />
     </AuthProvider>
   );
 }

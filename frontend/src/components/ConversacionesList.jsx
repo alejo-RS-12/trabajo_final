@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import "../assets/css/trabajos.css";
+
 
 export default function ConversacionesList({ conversaciones, seleccionado, onSelect, mensajesNuevos }) {
   const { usuario } = useAuth();

@@ -3,12 +3,12 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // 🔹 Cargamos usuario desde localStorage al iniciar
+  // Cargamos usuario desde localStorage al iniciar
   const [usuario, setUsuario] = useState(() => {
     const saved = localStorage.getItem("usuario");
     return saved ? JSON.parse(saved) : null;
   });
-
+  
   const login = async ({ nombreDeUsuario, contrasena }) => {
     try {
       const res = await fetch("http://localhost:3000/auth/login", {
@@ -18,10 +18,10 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (!res.ok) return false;
-
+      console.log(res);
       const usuarioData = await res.json();
-
-      // 🔹 Guardamos en estado + localStorage
+      console.log(usuarioData);
+      // Guardamos en estado + localStorage
       setUsuario(usuarioData);
       localStorage.setItem("usuario", JSON.stringify(usuarioData));
 
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUsuario(null);
-    localStorage.removeItem("usuario"); // 🔹 Limpia storage
+    localStorage.removeItem("usuario"); // Limpia storage
   };
 
   return (

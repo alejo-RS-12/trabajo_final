@@ -1,6 +1,5 @@
 import { useState } from "react";
-import  ToastContainer from "./ToastContainer";
-import "../assets/css/trabajos.css";
+
 
 export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor }) {
   const [motivo, setMotivo] = useState("");
@@ -38,8 +37,6 @@ export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor
       setDetalle("");
       onClose();
       }, 1000); // cierra después de 1 segundo porque si se cierra antes no se ve el toast. 
-                // Habria que cargarlo en un contexto global, en APP o Main al import y al  <ToastContainer />
-                // De paso se podria reutilizar en otras paginas el mismo ToastContainer y el cartel de confirmacion/advertencia
     } catch (error) {
       console.error("Error enviando denuncia:", error);
       showToast("❌ Ocurrió un error al enviar la denuncia.", "error");
@@ -48,7 +45,6 @@ export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor
 
   return (
     <div className="modal-overlay">
-      <ToastContainer />
       <div className="chat-modal">
         <div className="chat-header">
           <h2>🚩 Denunciar publicación</h2>

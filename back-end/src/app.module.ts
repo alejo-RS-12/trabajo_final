@@ -6,14 +6,14 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsuarioModule } from './usuario/usuario.module';
-import { RolModule } from './rol/rol.module';
-import { ClienteModule } from './cliente/cliente.module';
-import { ProfesionalModule } from './profesional/profesional.module';
-import { ProfesionModule } from './profesion/profesion.module';
-import { PublicacionModule } from './publicacion/publicacion.module';
-import { MensajeModule } from './mensaje/mensaje.module';
-import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './usuario/module/usuario.module';
+import { RolModule } from './rol/module/rol.module';
+import { ClienteModule } from './cliente/module/cliente.module';
+import { ProfesionalModule } from './profesional/module/profesional.module';
+import { ProfesionModule } from './profesion/module/profesion.module';
+import { PublicacionModule } from './publicacion/module/publicacion.module';
+import { MensajeModule } from './mensaje/module/mensaje.module';
+import { AuthModule } from './auth/module/auth.module';
 
 // entidades
 import { Usuario } from './usuario/entities/usuario.entity';

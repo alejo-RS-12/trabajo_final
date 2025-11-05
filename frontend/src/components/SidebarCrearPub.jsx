@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import "../assets/css/trabajos.css";
+
 
 export default function SidebarCrearPub({
   modo,
   setModo,
   usuario,
-  profesional,
   categoriaSeleccionada,
   titulo,
   setTitulo,
@@ -39,7 +38,7 @@ export default function SidebarCrearPub({
   setFotos([]);
   setEditandoId(null);
   setCategoriaSeleccionada(null);
-  setModo("menu"); // 👈 vuelve al menú inicial 
+  setModo("menu"); 
   } 
 
   return (
@@ -57,7 +56,7 @@ export default function SidebarCrearPub({
                     setShowCategorias(!showCategorias);
                      if (!showCategorias) setShowTus(false);
                   } else {
-                    setModo("menu");           // Desktop: categorías en main
+                    setModo("menu");           
                     setCategoriaSeleccionada(null);
                   }
                 }}
@@ -68,11 +67,11 @@ export default function SidebarCrearPub({
         onClick={(e) => {
           e.preventDefault();
           if (isMobile) {
-            // 📱 Mobile → tus publicaciones en sidebar
+            // Mobile → tus publicaciones en sidebar
             setShowTus(!showTus);
              if (!showTus) setShowCategorias(false);
           } else {
-            // 💻 Desktop → tus publicaciones en main
+            // Desktop → tus publicaciones en main
             setModo("tus");
           }
         }}
@@ -95,7 +94,7 @@ export default function SidebarCrearPub({
               onClick={() => {
                 setModo("crear");
                 setCategoriaSeleccionada(cat);
-                setShowCategorias(false); // opcional: se cierran al elegir
+                setShowCategorias(false); 
               }}
             >
               {cat}

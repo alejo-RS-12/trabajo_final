@@ -9,7 +9,7 @@ export default function Layout() {
     <>
       <Header />
       <main>
-        <Outlet /> {/* Aquí se inyecta PublicacionesPage con sus props */}
+        <Outlet /> {/* Acá se inyecta PublicacionesPage con sus props */}
       </main>
       <Footer />
     </>

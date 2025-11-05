@@ -1,4 +1,4 @@
-import "../assets/css/trabajos.css";
+
 
 export default function CategoriaSidebar({
   categorias = [],

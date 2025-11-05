@@ -53,7 +53,7 @@ nav {
 /* Contenedor principal */
 
 .sidebar-header {
-  padding: 0px;      /* margen interno en todas las pantallas */
+  padding: 0px;      
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -78,7 +78,7 @@ nav {
 }
 
 .toast {
-  background-color: #a1e3d8; /* color similar al header */
+  background-color: #a1e3d8; 
   color: #013d3f;
   padding: 1rem 1.5rem;
   border-radius: 8px;
@@ -162,14 +162,14 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between; 
-  height: 100%; /* ocupa todo el alto del grid */
-  min-height: 280px; /* puedes ajustar según tu diseño */
+  height: 100%; 
+  min-height: 280px; 
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease;
-  align-self: start; /* evita que se estire verticalmente */
+  align-self: start; 
 }
 
 .post-card:hover {
@@ -284,21 +284,21 @@ nav {
 /* Mobile: barra lateral ocupa todo el ancho */
 @media (max-width: 767px) {
   .contenido-principal {
-    display: none !important; /* ocultar publicaciones desktop */
+    display: none !important; 
   }
 
   .barra-lateral-izquierda {
     width: 100% !important;
     text-align: center;
     padding: 15px;
-    box-sizing: border-box; /* 👉 evita que padding sume más ancho */
+    box-sizing: border-box; 
     overflow-x: hidden;
   }
 
   .search-box {
     width: 100%;
     display: flex;
-    justify-content: center; /* 👉 centra el input horizontalmente */
+    justify-content: center; 
   }
 
   .search-box input {
@@ -396,10 +396,10 @@ nav {
   }
 
   .contenido-principal {
-  flex: 1;          /* ocupa todo el espacio sobrante */
+  flex: 1;          
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;        /* separación entre las cards */
+  gap: 20px;        
   padding: 20px;
   box-sizing: border-box;
 }
@@ -407,12 +407,12 @@ nav {
 .search-box {
   width: 100%;
   display: flex;
-  justify-content: center; /* centra el input dentro de la caja */
+  justify-content: center; 
 }
 
 .search-box input {
-  width: calc(100% - 20px); /* deja margen interno a ambos lados */
-  margin: 0 10px;           /* margen izquierdo y derecho iguales */
+  width: calc(100% - 20px); 
+  margin: 0 10px;           
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -422,7 +422,6 @@ nav {
 
   .publicaciones-grid {
     grid-template-columns: repeat(2, 1fr);
-    /* grid-auto-rows: min-content; */
   }
 }
 
@@ -457,7 +456,6 @@ nav {
 
   .publicaciones-grid {
     grid-template-columns: repeat(4, 1fr);
-    /* grid-auto-rows: min-content;  */
     gap: 20px;
   }
 
@@ -468,6 +466,7 @@ nav {
     cursor: pointer;
     border-radius: 8px;
     transition: transform 0.2s ease;
+    height: 100%;
   }
 
   .desktop-only:hover {
@@ -515,7 +514,6 @@ nav {
 
 }
 
-/* === Estilos globales === */
 /* === Estilos globales === */
 .oculto {
   display: none !important;
@@ -677,14 +675,14 @@ nav {
   position: absolute;
   top: 2px;
   right: 2px;
-  background: #00bcd4;       /* celeste */
+  background: #00bcd4;       
   border: none;
   color: white;
   border-radius: 50%;
-  width: 30px;               /* más grande y fijo */
+  width: 30px;               
   height: 18px;
   cursor: pointer;
-  font-size: 14px;           /* agranda la X */
+  font-size: 14px;           
   display: flex;
   justify-content: center;
   align-items: center;
@@ -717,6 +715,10 @@ nav {
     text-align: center;
     border-bottom: 1px solid #ddd;
     padding: 10px;
+    height: 100%;            
+    display: flex;           
+    flex-direction: column;
+    border-radius: 8px;
   }
 
  .barra-lateral-izquierda .categoria-card:hover {
@@ -786,42 +788,37 @@ a {
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
- align-self: start;
- width: 100%;          /* ✅ ocupa todo el ancho disponible */
-  max-width: 100%;      /* ✅ no se pasa del contenedor */
-  height: auto;         /* ✅ altura automática */
+  align-self: start;
+  width: 100%;          
+  max-width: 100%;      
+  height: auto;         
 }
 
-/* Aseguramos que #vp-fotos ocupe todo el contenedor */
 .imagen-principal {
   position:relative ;
-
   flex: 2;
-  /* padding: 20px; */
-  min-height: 200px; /* altura mínima para que se vea la placeholder */
+  min-height: 200px; 
 }
 
 /* Contenedor de la vista previa */
 #vp-fotos {
-  width: 100%;          /* ✅ se adapta al ancho disponible */
-  max-width: 600px;      /* ✅ elimina el límite fijo */
-  height: 450px;         /* ✅ altura flexible */
-          /* altura fija para todas las imágenes y mapas */
-  border-radius: 8px;   /* opcional, bordes redondeados */
-  display: flex;            /* para centrar la imagen placeholder */
+  width: 100%;          
+  max-width: 600px;      
+  height: 450px;         
+  border-radius: 8px;   
+  display: flex;            
   align-items: center;
   justify-content: center;
-  overflow: hidden;     /* evita que algo se salga del contenedor */
-  /*object-fit: cover; /* cubre todo el contenedor sin deformarse */
+  overflow: hidden;
 }
 
 
 #vp-mapa {
-  width: 100%;          /* ocupa todo el ancho disponible del área de vista previa */
-  max-width: 400px;     /* opcional, para no crecer demasiado en pantallas grandes */
-  max-height: 1000px;        /* altura fija para todas las imágenes y mapas */
-  border-radius: 8px;   /* opcional, bordes redondeados */
-  overflow: hidden;     /* evita que algo se salga del contenedor */
+  width: 100%;          
+  max-width: 400px;     
+  max-height: 1000px;        
+  border-radius: 8px;   
+  overflow: hidden;     
   display: flex;
   align-items: center;
   justify-content: center;
@@ -832,8 +829,8 @@ a {
 #vp-fotos img {
   width: 90%;
   height: 90%;
-  object-fit: contain ;    /* mantiene proporción y recorta si es necesario */
-  display: block;       /* elimina espacios debajo de la imagen */
+  object-fit: contain ;    
+  display: block;       
   margin-left: 0;
    border-radius: 8px;
 }
@@ -841,8 +838,8 @@ a {
  #vp-mapa img {
   width: 90%;
   height: 90%;
-  object-fit: contain;    /* mantiene proporción y recorta si es necesario */
-  display: block;       /* elimina espacios debajo de la imagen */
+  object-fit: contain;    
+  display: block;       
 }
 
 .imagen-principal img {
@@ -951,14 +948,7 @@ a {
 }
 
 /* HASTA AQUI EXCLUSIVO CREAR PUBLICACION */
-/* 
-.ubicacion {
-  font-weight: bold;
-}
 
-.solicitante {
-  font-weight:bolder;
-} */
 
 /* Clase auxiliar para ocultar cualquier cosa */
 .oculto {
@@ -990,28 +980,28 @@ a {
 .pagina {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* que ocupe toda la ventana */
+  min-height: 100vh; 
 }
 
 .barra-superior {
   display: flex;
-  justify-content: space-between; /* izquierda y derecha */
+  justify-content: space-between; 
   align-items: center;
-  padding: 10px 20px; /* separa del borde izquierdo/derecho */
-  gap: 10px;          /* espacio interno entre elementos */
-  background-color: #fff; /* opcional */
+  padding: 10px 20px; 
+  gap: 10px;          
+  background-color: #fff; 
   border-bottom: 1px solid #ddd;
 }
 
 .acciones-superior {
   display: flex;
   align-items: center;
-  gap: 10px; /* espacio entre botones volver, chat y denunciar */
+  gap: 10px; 
 }
 
 .iconos-superiores {
 display: flex;
-  gap: 10px; /* espacio entre todos los botones de la derecha */
+  gap: 10px; 
 }
 
 .btn-volver, .btn-accion {
@@ -1058,12 +1048,12 @@ display: flex;
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 500px;   /* ancho máximo del carrusel */
-  height: auto;       /* altura automática según la imagen */
+  max-width: 500px;   
+  height: auto;       
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;   /* evita que algo sobresalga */
+  overflow: hidden;   
 }
 
 /* Carrusel interno */
@@ -1075,12 +1065,12 @@ display: flex;
 
 /* Imágenes del carrusel */
 .carousel img {
-  width: 100%;       /* ocupa todo el ancho del contenedor */
-  height: auto;      /* mantiene proporción de la imagen */
-  max-height: 400px; /* opcional: limita altura máxima */
-  object-fit: contain; /* mantiene la imagen dentro del contenedor sin recortarla */
+  width: 100%;       
+  height: auto;      
+  max-height: 400px; 
+  object-fit: contain; 
   display: block;
-  border-radius: 10px; /* opcional: bordes redondeados */
+  border-radius: 10px; 
 }
 
 /* Flechas del carrusel */
@@ -1131,9 +1121,9 @@ display: flex;
 
 .usuario-calificacion {
   display: flex;
-  align-items: center; /* centra verticalmente */
-  justify-content: space-between; /* nombre a la izquierda, estrellas a la derecha */
-  margin-bottom: 8px; /* opcional, espacio debajo */
+  align-items: center; 
+  justify-content: space-between; 
+  margin-bottom: 8px; 
 }
 
 .subtitulo {
@@ -1144,33 +1134,33 @@ display: flex;
 
 .fa-star {
   font-size: 1.2rem;
-  color: #f5a623; /* color dorado para las estrellas */
+  color: #f5a623; 
 }
 
 .desc-mapa {
   display: flex;
-  gap: 20px; /* espacio entre descripción y mapa */
-  align-items: flex-start; /* alineamos arriba */
+  gap: 20px; 
+  align-items: flex-start; 
 }
 
 /* Descripción a la izquierda */
 .desc-mapa .descripcion {
-  flex: 1; /* ocupa el espacio disponible */
+  flex: 1;
 }
 
 /* Mapa a la derecha */
 .desc-mapa .mapa {
-  flex: 0 0 auto; /* tamaño fijo o máximo */
-  position: relative; /* para tooltip */
+  flex: 0 0 auto; 
+  position: relative; 
   display: inline-block;
 }
 
 .desc-mapa .mapa img {
-  width: 250px;        /* tamaño reducido */
-  max-width: 95%;     /* no más del 50% del contenedor */
+  width: 250px;        
+  max-width: 95%;     
   height: auto;
   border-radius: 10px;
-  cursor: pointer;     /* indicamos que se puede hacer clic */
+  cursor: pointer;     
   transition: transform 0.3s ease;
 }
 
@@ -1273,9 +1263,7 @@ display: flex;
   opacity: 0.7;
 }
 
-/* ===========================
-   ESTILOS CHAT MODAL
-=========================== */
+/* ESTILOS CHAT MODAL */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -1431,17 +1419,17 @@ display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #93d8d8;
-  min-height: calc(100vh - 100px); /* compensá el header, no el footer */
+  min-height: calc(100vh - 100px); 
   padding: 10px 0;
   box-sizing: border-box;
 }
 
 .mensajes-layout {
   display: flex;
-  width: calc(100% - 4px); /* deja 2px de margen a cada lado */
+  width: calc(100% - 4px); 
   max-width: 1800px;
-  margin: 0 auto; /* centra horizontalmente */
-  height: calc(100vh - 130px); /* header + footer dejan margen */
+  margin: 0 auto; 
+  height: calc(100vh - 130px); 
   background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
@@ -1461,14 +1449,14 @@ display: flex;
 
 .sidebar-header-m,
 .chat-header-panel {
-  background-color: #45b8c5;   /* celeste igual al modal */
+  background-color: #45b8c5;   
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   font-size: 1.1rem;
-  height: 60px;               /* altura uniforme */
+  height: 60px;               
   border-bottom: 2px solid #a1e3d8;
 }
 
@@ -1571,7 +1559,7 @@ display: flex;
   .mensajes-layout {
     flex-direction: column;
     width: 96%;
-    height: auto; /* dejar que la altura aumente con el contenido */
+    height: auto; 
     max-height: none;
     padding-bottom: 20px;
   }
@@ -1591,7 +1579,7 @@ display: flex;
     order: 2;
     width: 100%;
     height: auto;
-    min-height: 60vh; /* puedes ajustar */
+    min-height: 60vh; 
     display: flex;
     flex-direction: column;
   }
@@ -1606,7 +1594,7 @@ display: flex;
   .chat-input-area, .chat-input {
     position: sticky;
     bottom: 0;
-    background: #e9f9f9; /* mismo fondo que tenías */
+    background: #e9f9f9; 
     z-index: 5;
   }
 }
@@ -1654,3 +1642,19 @@ display: flex;
 .buttonEditar:hover {
   background-color:#c0bfbf
 }
+
+/* Favoritos */
+
+.contenido-favoritos {
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;
+  padding: 2px 2px; /* opcional: espacio interior */
+}
+
+.contenido-favoritos h2 {
+  margin: 20px;
+  align-self: center;
+  color: #000;
+}
+

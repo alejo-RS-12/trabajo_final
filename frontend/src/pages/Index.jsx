@@ -1,7 +1,7 @@
 // pages/Home.tsx
 
 import Carrusel from "../components/Carrusel";
-import Publicaciones from "../components/Publicaciones";
+import PublicacionesDestacadas from "../components/PublicacionesDestacadas";
 
 
 
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Carrusel />
-      <Publicaciones />
+      <PublicacionesDestacadas />
     </>
   );
 }

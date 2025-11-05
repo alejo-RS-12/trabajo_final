@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
-import "../assets/css/trabajos.css";
+
 
 export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevoMensaje = () => {} }) {
   const [mensajes, setMensajes] = useState([]);
@@ -41,7 +41,7 @@ export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevo
     return () => clearInterval(interval);
   }, [idEmisor, idReceptor]);
 
-  // Scroll al final solo **una vez** al cargar la conversación
+  // Scroll al final solo una vez al cargar la conversación
   useEffect(() => {
     if (!mensajes.length) return;
 

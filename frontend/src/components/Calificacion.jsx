@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "../assets/css/trabajos.css";
+import { useState, useEffect } from "react";
+
 
 export default function Calificacion({ valorInicial = 0, onClick }) {
   const [valor, setValor] = useState(0);
@@ -12,7 +12,7 @@ export default function Calificacion({ valorInicial = 0, onClick }) {
 
   const handleStarClick = (n) => {
     setValor(n);
-    if (onClick) onClick(n); // 👈 ahora llama al padre
+    if (onClick) onClick(n);  
   };
 
   return (
@@ -21,7 +21,7 @@ export default function Calificacion({ valorInicial = 0, onClick }) {
         <i
           key={n}
           className={`fa-star ${n <= (hover || valor) ? "fa-solid" : "fa-regular"}`}
-          onClick={() => handleStarClick(n)}  // 👈 usa la función nueva
+          onClick={() => handleStarClick(n)}  
           onMouseEnter={() => setHover(n)}
           onMouseLeave={() => setHover(0)}
         ></i>

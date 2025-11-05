@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import "../assets/css/trabajos.css";
+
 
 export default function FavoritosPage() {
   const { usuario } = useAuth();
@@ -20,7 +20,7 @@ export default function FavoritosPage() {
     fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`)
       .then((res) => res.json())
       .then(async (ids) => {
-        // Si el backend devuelve solo IDs → hacemos fetch de cada publicación
+        // El backend devuelve solo IDs → hacemos fetch de cada publicación
         const pubs = await Promise.all(
           ids.map((idPub) =>
             fetch(`http://localhost:3000/publicacion/${idPub}`).then((r) => r.json())
@@ -39,7 +39,7 @@ export default function FavoritosPage() {
 
   return (
     <div className="contenedor-sitio">
-      <div className="contenido-principal">
+      <div className="contenido-favoritos">
       <h2>Tus publicaciones guardadas en FAVORITOS </h2>  
         {publicaciones.length === 0 ? (
           <p>No tienes publicaciones guardadas en favoritos</p>

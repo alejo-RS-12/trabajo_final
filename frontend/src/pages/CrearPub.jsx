@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import SidebarCrearPub from "../components/SidebarCrearPub";
 import ToastContainer from "../components/ToastContainer";
 import ConfirmModal from "../components/ConfirmModal";
-import "../assets/css/trabajos.css";
+
 
 export default function CrearPub() {
   const { usuario } = useAuth();
   const usuarioId = usuario?.idUsuario;
+
   // Modo principal: "menu", "crear", "tus"
   const [modo, setModo] = useState("menu");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
   // Datos usuario y profesional
-  //const [usuario, setUsuario] = useState(null);
   const [profesional, setProfesional] = useState(null);
 
   // Publicaciones y formulario
@@ -24,10 +24,10 @@ export default function CrearPub() {
   const [fotos, setFotos] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
 
-  // Detecta si es mobile o desktop
+  // Mobile o desktop
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
-  // Modal de confirmacion con estilos
+  // Modal de confirmacion
   const [confirmData, setConfirmData] = useState(null);
 
   const mapaUbicaciones = {
@@ -51,7 +51,6 @@ export default function CrearPub() {
       try {
         const resUser = await fetch(`http://localhost:3000/usuario/${usuarioId}`);
         const user = await resUser.json();
-       // setUsuario(user);
 
         if (user.rol.idRol !== 3 && user.rol.idRol !== 1) {
           showToast("Su usuario no puede crear publicaciones");
@@ -123,7 +122,7 @@ export default function CrearPub() {
       const res = await fetch(url, { method, body: formData });
       if (!res.ok) throw new Error("Error en publicar");
 
-      showToast(editandoId ? "Publicación actualizada ✅" : "Publicación creada ✅");
+      showToast(editandoId ? "✅ Publicación actualizada " : "✅ Publicación creada");
 
       // Reset formulario
       setModo("menu");
@@ -360,7 +359,7 @@ export default function CrearPub() {
             src={pub.imagenes?.[0]
       ? (typeof pub.imagenes[0] === "string"
           ? (pub.imagenes[0].startsWith("/uploads")
-              ? `http://localhost:3000${pub.imagenes[0]}` // 👈 ajustá el host si tu backend corre en otro puerto/dominio
+              ? `http://localhost:3000${pub.imagenes[0]}` 
               : pub.imagenes[0])
           : pub.imagenes[0].url)
       : "/imagenes/crearpub/placeholder.jpg"}

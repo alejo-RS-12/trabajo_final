@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../assets/css/trabajos.css";
+
 
 export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
   const [mensaje, setMensaje] = useState("Estoy interesado en tu publicación.");
@@ -7,7 +7,7 @@ export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
   const inputRef = useRef(null);
   const chatWindowRef = useRef(null);
 
-  // ✅ Cargar los mensajes al abrir el chat
+  // Cargar los mensajes al abrir el chat
  useEffect(() => {
   if (!idEmisor || !idReceptor) return;
 
@@ -34,7 +34,7 @@ export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
 
 
 
-  // ✅ Scroll automático al final
+  // Scroll automático al final
   useEffect(() => {
     chatWindowRef.current?.scrollTo({
       top: chatWindowRef.current.scrollHeight,
@@ -42,7 +42,7 @@ export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
     });
   }, [mensajes]);
 
-  // ✅ Enviar mensaje
+  // Enviar mensaje
   const handleSend = async () => {
     if (mensaje.trim() === "") return;
 

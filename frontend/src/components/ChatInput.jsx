@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import "../assets/css/trabajos.css";
+
 
 export default function ChatInput({ idEmisor, idReceptor, onSent }) {
   const [texto, setTexto] = useState("");
@@ -20,13 +20,12 @@ export default function ChatInput({ idEmisor, idReceptor, onSent }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Error al enviar mensaje");
-      const nuevo = await res.json(); // si backend devuelve el mensaje creado con id/fecha
+      const nuevo = await res.json(); 
       onSent(nuevo || { contenido: texto });
       setTexto("");
       inputRef.current?.focus();
     } catch (err) {
       console.error("Error enviando mensaje:", err);
-      // fallback local:
       onSent({ contenido: texto });
       setTexto("");
     }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import ConversacionesList from "../components/ConversacionesList";
 import ChatView from "../components/ChatView";
-import "../assets/css/trabajos.css";
+
 
 export default function MensajesPage() {
   const { usuario } = useAuth();
@@ -10,13 +10,13 @@ export default function MensajesPage() {
 
   const [conversaciones, setConversaciones] = useState([]);
   const [seleccionado, setSeleccionado] = useState(null);
-  const [mensajesNuevos, setMensajesNuevos] = useState({}); // {idUsuario: true}
+  const [mensajesNuevos, setMensajesNuevos] = useState({}); 
 
   const handleSelect = (conv) => {
     setSeleccionado(conv);
   };
 
-  // Limpiar indicador de mensaje nuevo al seleccionar conversación
+  // Limpia el indicador de mensaje nuevo al seleccionar una conversación
   useEffect(() => {
     if (!seleccionado) return;
     setMensajesNuevos(prev => {
@@ -26,7 +26,7 @@ export default function MensajesPage() {
     });
   }, [seleccionado]);
 
-  // Cargar conversaciones iniciales
+  // Carga conversaciones iniciales
   useEffect(() => {
     if (!idUsuario) return;
 
