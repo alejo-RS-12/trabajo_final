@@ -269,14 +269,14 @@ nav {
 /* partes que se repiten de mas*/
 /*botones*/
 button {
-  padding: 12px 25px;
   background-color: #45b8c5;
-  border-color: transparent;
-  color: black;
-  border-radius: 4px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
   cursor: pointer;
-  font-size: 16px;
   transition: background-color 0.2s ease;
+  font-weight: 500;
 }
 
 button:hover {

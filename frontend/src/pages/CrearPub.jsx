@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SidebarCrearPub from "../components/SidebarCrearPub";
 import ToastContainer from "../components/ToastContainer";
 import ConfirmModal from "../components/ConfirmModal";
@@ -30,6 +31,9 @@ export default function CrearPub() {
   // Modal de confirmacion
   const [confirmData, setConfirmData] = useState(null);
 
+  // Función para mostrar toasts en trabajos cuando es usuario 2
+  const navigate = useNavigate();
+
   const mapaUbicaciones = {
   Partido_De_Olavarria: "/imagenes/crearpub/mapa-partido.jpg",
   Olavarría: "/imagenes/crearpub/mapa-olavarria.jpg",
@@ -53,8 +57,8 @@ export default function CrearPub() {
         const user = await resUser.json();
 
         if (user.rol.idRol !== 3 && user.rol.idRol !== 1) {
-          showToast("Su usuario no puede crear publicaciones");
-          window.location.href = "/perfil";
+          showToast("❌ Su usuario no puede crear publicaciones", "error");
+          navigate("/trabajos");
           return;
         }
 
@@ -98,7 +102,7 @@ export default function CrearPub() {
   async function publicar(e) {
     e.preventDefault();
     if (!titulo.trim() || !descripcion.trim() || !ubicacion) {
-      showToast("Todos los campos son obligatorios");
+      showToast("❌ Todos los campos son obligatorios", "error");
       return;
     }
 
@@ -141,7 +145,7 @@ export default function CrearPub() {
       setPublicaciones(pubs);
     } catch (err) {
       console.error("Error publicar:", err);
-      showToast("No se pudo publicar ❌");
+      showToast("❌ No se pudo publicar");
     }
   }
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 
 export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
-  const [mensaje, setMensaje] = useState("Estoy interesado en tu publicación.");
+  const [mensaje, setMensaje] = useState(receptor === "Administrador ROPO" ? "" : "Estoy interesado en tu publicación.");
   const [mensajes, setMensajes] = useState([]);
   const inputRef = useRef(null);
   const chatWindowRef = useRef(null);

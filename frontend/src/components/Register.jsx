@@ -122,7 +122,7 @@ export default function RegisterLogin() {
             <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
             {errors.password && <small className="error-text">{errors.password}</small>}
 
-            <button type="submit">Registrarse</button>
+            <button type="submit" className="btn-login">Registrarse</button>
           </form>
         </div>
 
@@ -132,7 +132,7 @@ export default function RegisterLogin() {
             <h1>Iniciar Sesión</h1>
             <input type="text" placeholder="Usuario" value={loginUsuario} onChange={(e) => setLoginUsuario(e.target.value)} />
             <input type="password" placeholder="Contraseña" value={loginContrasena} onChange={(e) => setLoginContrasena(e.target.value)} />
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" className="btn-login">Iniciar Sesión</button>
           </form>
         </div>
 
