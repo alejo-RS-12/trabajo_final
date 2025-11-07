@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 
 export default function SidebarCrearPub({
   modo,
@@ -78,7 +78,7 @@ export default function SidebarCrearPub({
       >
         Tus publicaciones
       </li>
-            <li href="/trabajo">Volver a tu perfil </li>
+            <li> <Link to="/trabajos">Volver a tu perfil</Link> </li>
           </ul>
         </div>
       )}

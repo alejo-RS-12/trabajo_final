@@ -90,11 +90,11 @@ a {
 
 /*ESTO ES EL NUEVO BOTON CON EL FORMATO DEL BOTON DE PUBLICACIÒN */
 button {
-  padding: 12px 25px;
+  padding:  8px 12px;
   background-color: #45b8c5;
   border-color: transparent;
-  color: black;
-  border-radius: 4px;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s ease;
@@ -108,6 +108,10 @@ button.ghost {
   background-color: transparent;
   border-color: #ffffff;
   color: black;
+}
+
+button.ghost:hover {
+  background-color: #9de6f0;
 }
 
 form {

@@ -1,4 +1,14 @@
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import ChatModal from "../components/ChatModal";
+
+
 export default function Footer() {
+  const { usuario } = useAuth();
+  const [mostrarChat, setMostrarChat] = useState(false);
+
+  const ADMIN_ID = 1;
+
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -8,7 +18,7 @@ export default function Footer() {
         </div>
         <div className="footer-col">
           <h3>Contáctanos</h3>
-          <p><a href="#">Escríbenos</a></p>
+          <p><a href="#" onClick={() => setMostrarChat(true)}>Escríbenos</a></p>
           <p><a href="mailto:ropo@example.com">ropo@example.com</a></p>
         </div>
         <div className="footer-col">
@@ -29,6 +39,16 @@ export default function Footer() {
         <a href="#">Cookies</a>
         <a href="/nosotros">Nosotros</a>
       </div>
+       {/* Modal de chat con el admin */}
+      {mostrarChat && (
+        <ChatModal
+          isOpen={mostrarChat}
+          onClose={() => setMostrarChat(false)}
+          receptor="Administrador ROPO"
+          idReceptor={ADMIN_ID}
+          idEmisor={usuario?.idUsuario}
+        />
+      )}
     </footer>
   );
 }
