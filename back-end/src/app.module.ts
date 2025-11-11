@@ -39,8 +39,8 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
       host: process.env.DB_HOST || 'localhost',
       port: Number(process.env.DB_PORT) || 3306,
       username: process.env.DB_USER || 'root',
-      password: process.env.DB_PASS || 'Admin',
-      database: process.env.DB_NAME || 'ropo2beta',
+      password: process.env.DB_PASS || 'THEspectre12!',
+      database: process.env.DB_NAME || 'ropo2',
       autoLoadEntities: true,
       entities: [
         Usuario,

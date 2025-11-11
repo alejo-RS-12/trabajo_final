@@ -37,10 +37,10 @@ export class Usuario {
 
   @Column({ type: 'json', nullable: true })
   favoritos: number[];
-  
-  @ManyToOne(() => Rol, (rol) => rol.usuarios, { nullable: false })
+
+  @ManyToOne(() => Rol, (rol) => rol.usuarios, { nullable: true })
   @JoinColumn({ name: 'idRol' })
-  rol: Rol;
+  rol: Rol | null;
 
   @OneToOne(() => Cliente, (cliente) => cliente.usuario)
   cliente: Cliente;
@@ -53,4 +53,10 @@ export class Usuario {
 
   @OneToMany(() => Mensaje, (mensaje) => mensaje.receptor)
   mensajesRecibidos: Mensaje[];
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  tokenVerificacion: string | null;
+
+  @Column({ default: false })
+  verificado: boolean;
 }

@@ -95,7 +95,7 @@ export default function RegisterLogin() {
 
     if (logueado) {
       showToast("✅ Login correcto");
-      navigate("/trabajos");
+     
     } else {
       showToast("❌ Usuario o contraseña incorrectos", "error");
     }

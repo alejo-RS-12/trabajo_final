@@ -1,46 +1,91 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
-import { AuthGuard } from '@nestjs/passport';
 import { CreateUsuarioDto } from '../../usuario/dto/create-usuario.dto';
-import type { Request } from 'express'; // 👈 importar Request
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // Login tradicional
-
-  @Post('login')
-  async login(@Body() body: { nombreDeUsuario: string; contrasena: string }) {
-    const usuario = await this.authService.validateUser(body.nombreDeUsuario, body.contrasena);
-    if (!usuario) {
-      throw new HttpException('Usuario o contraseña incorrectos', HttpStatus.UNAUTHORIZED);
-    }
-    return usuario; // Devuelve datos del usuario (sin contraseña)
-  }
-
-
-// Login con Google
-
-  @Get('google')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req: Request) {
-    // Este endpoint redirige a Google, no devuelve nada
-  }
-
-  @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req: Request & { user?: any }) { //agregue del & en adelante por que me tiraba error en req.user
-    // Acá recibís los datos de Google después del login
-    return {
-      message: 'Login con Google exitoso',
-      user: req.user, // 👈 ya no marca error
-    };
-  }
-
-  @Post('register') // 🔹 esto habilita /auth/register
+  /**
+   * ✅ Registro de usuario + envío de email de verificación
+   */
+  @Post('register')
   async register(@Body() createUserDto: CreateUsuarioDto) {
     return this.authService.register(createUserDto);
   }
 
+  /**
+   * ✅ Verificación de cuenta mediante token recibido por correo
+   * Ejemplo de uso: GET /auth/verify?token=abc123
+   */
+  @Get('verify')
+  async verifyAccount(@Query('token') token: string) {
+    return this.authService.verifyAccount(token);
+  }
+
+  /**
+   * ✅ Login tradicional
+   * Si el usuario no tiene rol asignado, se indica al frontend que debe elegir uno.
+   */
+  @Post('login')
+  async login(@Body() body: { nombreDeUsuario: string; contrasena: string }) {
+    const usuario = await this.authService.validateUser(
+      body.nombreDeUsuario,
+      body.contrasena,
+    );
+
+    if (!usuario) {
+      throw new HttpException(
+        'Usuario o contraseña incorrectos',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    // Si el usuario aún no tiene rol asignado
+    if (!usuario.rol) {
+      return {
+        message: 'Primera vez iniciando sesión. Debes elegir tu rol.',
+        needsRoleSelection: true,
+        userId: usuario.idUsuario,
+      };
+    }
+
+    // Si ya tiene rol asignado
+    return {
+      message: 'Login exitoso',
+      user: usuario,
+    };
+  }
+
+  /**
+   * ✅ Asignación de rol al usuario después del login
+   * Ejemplo: POST /auth/asignar-rol { idUsuario: 1, idRol: 2 }
+   */
+  @Post('asignar-rol')
+  async asignarRol(@Body() body: { idUsuario: number; idRol: number }) {
+    if (!body.idUsuario || !body.idRol) {
+      throw new HttpException(
+        'Datos incompletos: idUsuario e idRol son requeridos.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const usuarioActualizado = await this.authService.asignarRol(
+      body.idUsuario,
+      body.idRol,
+    );
+
+    return {
+      message: 'Rol asignado correctamente',
+      user: usuarioActualizado,
+    };
+  }
 }
