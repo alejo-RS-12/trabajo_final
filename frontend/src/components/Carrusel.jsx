@@ -26,7 +26,7 @@ export default function Carousel() {
   }, []);
 
   return (
-    <div className="carousel-container">
+    <div className="publicidad-inicio">
       {/* Flechas */}
       <div className="flechas">
         <button onClick={showPrevImage}>◀</button>
@@ -34,7 +34,7 @@ export default function Carousel() {
       </div>
 
       {/* Imágenes */}
-      <div className="carousel">
+      <div className="publicidad">
         {images.map((src, i) => (
           <img
             key={i}

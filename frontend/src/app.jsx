@@ -30,33 +30,9 @@ export default function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminPanel />} />
-            <Route
-              path="/trabajos"
-              element={
-                <PublicacionesPage
-                  categorias={categoriasTrabajos}
-                  titulo="Trabajos"
-                />
-              }
-            />
-            <Route
-              path="/formacion"
-              element={
-                <PublicacionesPage
-                  categorias={categoriasFormacion}
-                  titulo="Formación"
-                />
-              }
-            />
-            <Route
-              path="/bienestar"
-              element={
-                <PublicacionesPage
-                  categorias={categoriasBienestar}
-                  titulo="Bienestar"
-                />
-              }
-            />
+            <Route path="/trabajos"element={<PublicacionesPage categorias={categoriasTrabajos} titulo="Trabajos"/>  } />
+            <Route path="/formacion" element={<PublicacionesPage  categorias={categoriasFormacion} titulo="Formación"/>}/>
+            <Route path="/bienestar" element={<PublicacionesPage categorias={categoriasBienestar} titulo="Bienestar"/> }/>
             <Route path="/crear-publicacion" element={<CrearPub />} />
             <Route path="/publicacion/:id" element={<PublicacionPage />} />
             <Route path="/favoritos" element={<FavoritosPage />} />

@@ -86,6 +86,7 @@ export default function PublicacionesDestacadas() {
   
   return (
     <div className="contenido-p">
+      <h3 className="Destacados">publicaiones Destacadas</h3>;
         <div className="publicaciones-grid">
           {publicaciones.map((pub) => {
             const imgSrc =

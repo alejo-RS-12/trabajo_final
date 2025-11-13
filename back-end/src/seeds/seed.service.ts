@@ -21,24 +21,26 @@ export class SeedService {
     private profesionalRepo: Repository<Profesional>,
     @InjectRepository(Publicacion)
     private publicacionRepo: Repository<Publicacion>,
-  ) {}
+  ) { }
 
   async runSeed() {
     const roles = JSON.parse(fs.readFileSync('src/seeds/roles.json', 'utf8'));
     await this.rolRepo.save(roles);
 
     const usuariosJson = JSON.parse(fs.readFileSync('src/seeds/usuarios.json', 'utf8'));
-    
+
     for (const u of usuariosJson) {
       const rol = roles.find(r => r.idRol === u.idRol);
       if (!rol) throw new Error(`Rol con id ${u.idRol} no existe`);
-      
+
       await this.usuarioRepo.save({
         nombreCompleto: u.nombreCompleto,
         nombreDeUsuario: u.nombreDeUsuario,
         email: u.email,
         contrasena: u.contrasena,
-        rol, 
+        rol,
+        verificado: u.verificado,
+        tokenVerificacion: u.tokenVerificacion,
       });
     }
 

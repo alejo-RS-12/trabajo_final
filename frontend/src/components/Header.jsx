@@ -7,9 +7,7 @@ export default function Header() {
   return (
     <header>
       <nav>
-          <a href="index.html" className="logo">
-           <img src="imagenes/logo.png" alt="logo" />
-          </a>
+          <a href="/" className="logo"> <img src="imagenes/logo.png" alt="logo" /> </a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}> ☰ </button>
 
         <ul className={`navbar ${menuOpen ? "show" : ""}`}>
