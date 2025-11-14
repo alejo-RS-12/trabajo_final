@@ -91,16 +91,19 @@ export default function CrearPub() {
   // Handlers de fotos
   function handleFileChange(e) {
     const files = Array.from(e.target.files).slice(0, 10 - fotos.length);
-    setFotos([...fotos, ...files]);
+    // setFotos([...fotos, ...files]);
+    setFotos((prev) => [...prev, ...files]);
   }
 
   function removeFoto(index) {
-    setFotos(fotos.filter((_, i) => i !== index));
+    // setFotos(fotos.filter((_, i) => i !== index));
+    setFotos((prev) => prev.filter((_, i) => i !== index));
   }
 
   // Publicar o editar
   async function publicar(e) {
     e.preventDefault();
+    window.scrollTo(0, 50);
     if (!titulo.trim() || !descripcion.trim() || !ubicacion) {
       showToast("❌ Todos los campos son obligatorios", "error");
       return;
@@ -114,9 +117,16 @@ export default function CrearPub() {
       formData.append("estado", "activa");
       formData.append("idProfesional", profesional.idProfesional);
 
-      fotos.forEach((foto) => {
-        if (foto instanceof File) formData.append("imagenes", foto);
-      });
+      // esto es lo nuevo
+      const nuevasFotos = fotos.filter(f => f instanceof File);
+      const fotosExistentes = fotos.filter(f => typeof f === "string");
+
+      nuevasFotos.forEach(foto => formData.append("imagenes", foto));
+      formData.append("imagenesExistentes", JSON.stringify(fotosExistentes));
+
+      // fotos.forEach((foto) => {
+      //   if (foto instanceof File) formData.append("imagenes", foto);
+      // });
 
       const url = editandoId
         ? `http://localhost:3000/publicacion/${editandoId}`
@@ -150,6 +160,7 @@ export default function CrearPub() {
   }
 
   function editarPublicacion(pub) {
+    window.scrollTo(0, 50);
     setCategoriaSeleccionada(pub.categoria || "null");
     setModo("crear");
     setEditandoId(pub.idPublicacion);

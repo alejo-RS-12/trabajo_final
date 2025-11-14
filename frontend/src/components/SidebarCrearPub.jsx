@@ -32,6 +32,7 @@ export default function SidebarCrearPub({
   const categorias = ["Trabajo", "Formación", "Bienestar"];
 
   function cancelar() {
+  window.scrollTo(0, 50);
   setTitulo("");
   setDescripcion("");
   setUbicacion("");

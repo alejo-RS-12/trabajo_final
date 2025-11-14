@@ -5,7 +5,8 @@ import { Publicacion, EstadoPublicacion } from '../entities/publicacion.entity';
 import { CreatePublicacionDto } from '../dto/create-publicacion.dto';
 import { UpdatePublicacionDto } from '../dto/update-publicacion.dto';
 import { Profesional } from 'src/profesional/entities/profesional.entity';
-
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class PublicacionService {
@@ -68,24 +69,64 @@ async buscarPorTitulo(titulo: string): Promise<Publicacion[]> {
   return await query.getMany();
 }
 
-  async update(id: number, dto: UpdatePublicacionDto, files?: Express.Multer.File[]) {
-  const publicacion = await this.publicacionRepository.findOne({ where: { idPublicacion: id } });
-  if (!publicacion) throw new Error("Publicación no encontrada");
+  async update(id: number, dto: any, files?: Express.Multer.File[]) {
+    const publicacion = await this.publicacionRepository.findOne({
+      where: { idPublicacion: id },
+    });
 
-  // Si hay imágenes nuevas
-  if (files && files.length > 0) {
-    dto.imagenes = files.map(f => `/uploads/publicaciones/${f.filename}`);
+    if (!publicacion) throw new NotFoundException('Publicación no encontrada');
+
+    // Parsear imágenes existentes enviadas desde el frontend
+    let imagenesExistentes: string[] = [];
+    if (dto.imagenesExistentes) {
+      try {
+        imagenesExistentes = JSON.parse(dto.imagenesExistentes);
+      } catch {
+        imagenesExistentes = [];
+      }
+    }
+
+    // Generar rutas de nuevas imágenes subidas
+    const nuevas = files?.map(f => `/uploads/publicaciones/${f.filename}`) ?? [];
+
+    // Combinar las existentes con las nuevas
+    const nuevasImagenes = [...imagenesExistentes, ...nuevas];
+
+    // Eliminar archivos que estaban antes y ya no se conservaron
+    const carpetaUploads = path.resolve(process.cwd(), 'uploads', 'publicaciones');
+    const imagenesViejas = publicacion.imagenes || [];
+
+    for (const img of imagenesViejas) {
+      if (!nuevasImagenes.includes(img)) {
+        const rutaArchivo = path.join(carpetaUploads, path.basename(img));
+        if (fs.existsSync(rutaArchivo)) {
+          try {
+            fs.unlinkSync(rutaArchivo);
+            console.log(`🗑️ Imagen eliminada: ${rutaArchivo}`);
+          } catch (err) {
+            console.error(`❌ Error al eliminar ${rutaArchivo}:`, err);
+          }
+        }
+      }
+    }
+
+    // Actualizar campos del objeto
+    publicacion.titulo = dto.titulo ?? publicacion.titulo;
+    publicacion.descripcion = dto.descripcion ?? publicacion.descripcion;
+    publicacion.ubicacion = dto.ubicacion ?? publicacion.ubicacion;
+    publicacion.estado = dto.estado ?? publicacion.estado;
+    publicacion.imagenes = nuevasImagenes;
+
+    // Reasignar profesional si viene en el DTO
+    if (dto.idProfesional) {
+      publicacion.profesional = { idProfesional: dto.idProfesional } as Profesional;
+    }
+
+    // Guardar cambios en la base de datos
+    return await this.publicacionRepository.save(publicacion);
   }
 
-  // Si viene idProfesional, asignar relación
-  if (dto.idProfesional) {
-    publicacion.profesional = { idProfesional: dto.idProfesional } as Profesional;
-    delete dto.idProfesional; // para que no choque con TypeORM
-  }
 
-  Object.assign(publicacion, dto);
-  return this.publicacionRepository.save(publicacion);
-}
 
 async calificarPublicacion(idPublicacion: number, puntuacion: number) {
   const publicacion = await this.publicacionRepository.findOne({
@@ -115,6 +156,33 @@ async calificarPublicacion(idPublicacion: number, puntuacion: number) {
 }
 
   async remove(id: number) {
-    return await this.publicacionRepository.delete(id);
+    // Busca la publicación antes de eliminarla
+  const publicacion = await this.publicacionRepository.findOne({
+    where: { idPublicacion: id },
+  });
+
+  if (!publicacion) throw new NotFoundException('Publicación no encontrada');
+
+  // Elimina imágenes asociadas en el sistema de archivos
+  const carpetaUploads = path.resolve(process.cwd(), 'uploads', 'publicaciones');
+
+  if (publicacion.imagenes && publicacion.imagenes.length > 0) {
+    for (const img of publicacion.imagenes) {
+      const rutaArchivo = path.join(carpetaUploads, path.basename(img));
+      if (fs.existsSync(rutaArchivo)) {
+        try {
+          fs.unlinkSync(rutaArchivo);
+          console.log(`🗑️ Imagen eliminada al borrar publicación: ${rutaArchivo}`);  
+        } catch (err) {
+          console.error(`❌ Error al eliminar imagen ${rutaArchivo}:`, err);
+        }
+      }
+    }
   }
+
+  // Elimina el registro de la base de datos
+  await this.publicacionRepository.delete(id);
+
+  return { message: 'Publicación y sus imágenes eliminadas correctamente' }; 
+}
 }
