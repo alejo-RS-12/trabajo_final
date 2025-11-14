@@ -61,10 +61,9 @@ export class MensajeService {
       { receptor: { idUsuario } },
     ],
     relations: ['emisor', 'receptor'],
-    order: { fecha: 'DESC' }, // el más nuevo primero
+    order: { fecha: 'DESC' },
   });
 
-  // Mapa para guardar la última conversación con cada usuario
   const conversacionesMap = new Map<number, {
     idUsuario: number;
     nombreCompleto: string;
@@ -73,11 +72,21 @@ export class MensajeService {
   }>();
 
   for (const msg of mensajes) {
-    // Identificamos al "otro" usuario de la conversación
-    const otroUsuario =
-      msg.emisor.idUsuario === idUsuario ? msg.receptor : msg.emisor;
 
-    // Si todavía no lo tenemos en el mapa, lo agregamos (solo el último mensaje)
+    // *** Fijamos siempre quién es el otro ***
+    let otroUsuario: Usuario | null = null;
+
+    if (msg.emisor.idUsuario === idUsuario) {
+      // Yo soy emisor → el otro es el receptor
+      otroUsuario = msg.receptor;
+    } else {
+      // Yo soy receptor → el otro es el emisor
+      otroUsuario = msg.emisor;
+    }
+
+    if (!otroUsuario) continue;
+
+    // Guardamos solo el mensaje más nuevo por cada conversación
     if (!conversacionesMap.has(otroUsuario.idUsuario)) {
       conversacionesMap.set(otroUsuario.idUsuario, {
         idUsuario: otroUsuario.idUsuario,
@@ -88,12 +97,9 @@ export class MensajeService {
     }
   }
 
-  // Convertimos el mapa a un array ordenado por fecha descendente
-  const conversaciones = Array.from(conversacionesMap.values()).sort(
-    (a, b) => new Date(b.ultimaFecha).getTime() - new Date(a.ultimaFecha).getTime(),
+  return Array.from(conversacionesMap.values()).sort(
+    (a, b) => new Date(b.ultimaFecha).getTime() - new Date(a.ultimaFecha).getTime()
   );
-
-  return conversaciones;
 }
 
   async update(id: number, updateMensajeDto: UpdateMensajeDto) {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe} from '@nestjs/common';
 import { MensajeService } from '../service/mensaje.service';
 import { CreateMensajeDto } from '../dto/create-mensaje.dto';
 import { UpdateMensajeDto } from '../dto/update-mensaje.dto';
@@ -31,7 +31,7 @@ export class MensajeController {
   }
   
   @Get('conversaciones/:idUsuario')
-  findConversaciones(@Param('idUsuario') idUsuario: number) {
+  findConversaciones(@Param('idUsuario', ParseIntPipe) idUsuario: number) {
   return this.mensajeService.findConversaciones(idUsuario);
 }
 

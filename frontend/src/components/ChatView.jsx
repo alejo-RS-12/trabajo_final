@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
 
 
-export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevoMensaje = () => {} }) {
+export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevoMensaje = () => {}, refrescarConversaciones }) {
   const [mensajes, setMensajes] = useState([]);
   const [loading, setLoading] = useState(true);
   const chatWindowRef = useRef(null);
@@ -63,6 +63,10 @@ export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevo
       fecha: nuevo.fecha || new Date().toISOString(),
     };
     setMensajes(prev => [...prev, mensajeConId]);
+
+    if (refrescarConversaciones) {
+    refrescarConversaciones();
+    }
 
     // Solo hacer scroll si estamos al final
     const cont = chatWindowRef.current;

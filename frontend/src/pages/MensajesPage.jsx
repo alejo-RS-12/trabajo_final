@@ -36,7 +36,7 @@ export default function MensajesPage() {
         if (!res.ok) throw new Error("Error al obtener conversaciones");
         const data = await res.json();
 
-        const conversacionesData = (Array.isArray(data) ? data : []).filter(c => c.idUsuario !== idUsuario);
+        const conversacionesData = (Array.isArray(data) ? data : []) 
         setConversaciones(conversacionesData);
 
         if (!seleccionado && conversacionesData.length > 0) {
@@ -62,8 +62,8 @@ export default function MensajesPage() {
         const res = await fetch(`http://localhost:3000/mensaje/conversaciones/${idUsuario}`);
         if (!res.ok) throw new Error("Error al obtener conversaciones");
         const data = await res.json();
-        const conversacionesData = (Array.isArray(data) ? data : []).filter(c => c.idUsuario !== idUsuario);
-        // console.log("📦 Conversaciones recibidas del backend:", conversacionesData);
+        const conversacionesData = (Array.isArray(data) ? data : [])
+        // console.log("Conversaciones recibidas del backend:", conversacionesData);
         setConversaciones(prev => {
           const nuevosIndicadores = {};
 
@@ -77,7 +77,7 @@ export default function MensajesPage() {
 
             if (previa && fechaPrev !== fechaAct) {
               if (seleccionado?.idUsuario !== conv.idUsuario) {
-            // console.log("💬 Nuevo mensaje detectado en conversación con idUsuario:", conv.idUsuario, conv);
+            // console.log("Nuevo mensaje detectado en conversación con idUsuario:", conv.idUsuario, conv);
                 nuevosIndicadores[conv.idUsuario] = true;
               }
             }
@@ -121,7 +121,7 @@ export default function MensajesPage() {
         <main className="panel-chat">
           {seleccionado ? (
             <ChatView
-              key={seleccionado.idUsuario} // reinicia componente al cambiar conversación
+              key={seleccionado.idUsuario} 
               idEmisor={idUsuario}
               idReceptor={seleccionado.idUsuario}
               receptorNombre={seleccionado.nombreCompleto}
@@ -133,6 +133,11 @@ export default function MensajesPage() {
                 if (seleccionado?.idUsuario !== emisorId) {
                   setMensajesNuevos(prev => ({ ...prev, [emisorId]: true }));
                 }
+              }}
+               refrescarConversaciones={async () => {
+                const res = await fetch(`http://localhost:3000/mensaje/conversaciones/${idUsuario}`);
+                const data = await res.json();
+                setConversaciones(data);
               }}
             />
           ) : (
