@@ -1,0 +1,5 @@
+[
+  { "idRol": 1, "nombreRol": "Admin" },
+  { "idRol": 2, "nombreRol": "Cliente" },
+  { "idRol": 3, "nombreRol": "Profesional" }
+]

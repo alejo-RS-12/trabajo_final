@@ -1,0 +1,12 @@
+1. crear tabla vacia en Workbench:
+
+CREATE DATABASE IF NOT EXISTS ropo2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE ropo2;
+
+
+2. ejecutar "npm run start:dev" (en app.module.ts debe estar synchronize: true,)
+Esto crea las tablas y las relaciones. (vacias)
+
+3. Luego modificar en app.module.ts debe estar synchronize: false,
+
+4. Ejecutar "ts-node src/seeds/main.ts". Este comando carga roles / usuarios / profesiones, por defecto.
