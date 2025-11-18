@@ -5,6 +5,10 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Rol } from '../../rol/entities/rol.entity';
+import { Cliente } from '../../cliente/entities/cliente.entity';
+import { Profesional } from '../../profesional/entities/profesional.entity';
+
 import { AuthController } from '../controller/auth.controller';
 import { AuthService } from '../service/auth.service';
 import { EmailService } from '../service/email.service';
@@ -12,9 +16,15 @@ import { JwtStrategy } from '../service/jwt.strategy';
 
 @Module({
   imports: [
-    ConfigModule, // Necesario si usamos registerAsync
+    ConfigModule,
 
-    TypeOrmModule.forFeature([Usuario]),
+    // 👇 AQUI INYECTAMOS TODAS LAS ENTIDADES QUE USA AuthService
+    TypeOrmModule.forFeature([
+      Usuario,
+      Rol,
+      Cliente,
+      Profesional,
+    ]),
 
     PassportModule,
 
@@ -27,12 +37,15 @@ import { JwtStrategy } from '../service/jwt.strategy';
       }),
     }),
   ],
+
   controllers: [AuthController],
+
   providers: [
     AuthService,
     EmailService,
     JwtStrategy,
   ],
+
   exports: [AuthService],
 })
 export class AuthModule {}

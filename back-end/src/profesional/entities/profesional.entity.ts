@@ -29,6 +29,7 @@ export class Profesional {
 
   @OneToOne(() => Usuario, (usuario) => usuario.profesional, {
     onDelete: 'CASCADE',
+    eager: false,
   })
   @JoinColumn({ name: 'idUsuario' })
   usuario: Usuario;

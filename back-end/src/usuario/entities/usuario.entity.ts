@@ -7,6 +7,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
+
 import { Rol } from '../../rol/entities/rol.entity';
 import { Cliente } from '../../cliente/entities/cliente.entity';
 import { Profesional } from '../../profesional/entities/profesional.entity';
@@ -29,24 +30,28 @@ export class Usuario {
   @Column({ length: 255 })
   contrasena: string;
 
-  //  @Column({ default: false })
-  // esGoogle: boolean;
-
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   fechaRegistro: Date;
 
   @Column({ type: 'json', nullable: true })
   favoritos: number[];
 
+  // ✔ Rol opcional
   @ManyToOne(() => Rol, (rol) => rol.usuarios, { nullable: true })
   @JoinColumn({ name: 'idRol' })
   rol: Rol | null;
 
-  @OneToOne(() => Cliente, (cliente) => cliente.usuario)
-  cliente: Cliente;
+  // ✔ Relación opcional para cliente
+  @OneToOne(() => Cliente, (cliente) => cliente.usuario, {
+    nullable: true,
+  })
+  cliente: Cliente | null;
 
-  @OneToOne(() => Profesional, profesional => profesional.usuario)
-  profesional: Profesional;
+  // ✔ Relación opcional para profesional
+  @OneToOne(() => Profesional, (profesional) => profesional.usuario, {
+    nullable: true,
+  })
+  profesional: Profesional | null;
 
   @OneToMany(() => Mensaje, (mensaje) => mensaje.emisor)
   mensajesEnviados: Mensaje[];

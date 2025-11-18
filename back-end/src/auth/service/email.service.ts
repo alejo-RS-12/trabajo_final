@@ -33,24 +33,74 @@ export class EmailService {
     });
   }
 
-  /**
-   * ✔ Envío de email de verificación de cuenta
-   */
-  async sendVerificationEmail(to: string, token: string) {
+  async sendVerificationEmail(to: string, token: string, nombreUsuario: string, contrasena: string) {
     const verifyLink = `${this.backendUrl}/auth/verify?token=${token}`;
 
     const html = `
-      <h2>¡Bienvenido/a a Ropo!</h2>
-      <p>Para activar tu cuenta, hacé clic en el siguiente enlace:</p>
-      <a href="${verifyLink}"
-         style="display:inline-block;padding:10px 20px;background-color:#4CAF50;
-         color:white;text-decoration:none;border-radius:5px;">
-         Verificar cuenta
-      </a>
-      <br/>
-      <p>Si no creaste esta cuenta, podés ignorar este correo.</p>
-    `;
+    <div style="
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      padding: 30px;
+      color: #333;
+    ">
+      <div style="
+        max-width: 600px;
+        background: white;
+        margin: auto;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      ">
+        <h2 style="text-align:center; color:#4a90e2;">¡Bienvenido/a a <strong>Ropo</strong>! 🎉</h2>
 
-    await this.sendMail(to, 'Verificá tu cuenta', html);
+        <p style="font-size: 16px;">
+          Estamos muy contentos de tenerte con nosotros. Tu cuenta fue creada exitosamente.
+        </p>
+
+        <div style="
+          background: #f0f4ff;
+          padding: 15px;
+          border-left: 4px solid #4a90e2;
+          border-radius: 8px;
+          margin: 20px 0;
+        ">
+          <p style="margin:0; font-size: 15px;"><strong>🧑 Nombre de usuario:</strong> ${nombreUsuario}</p>
+          <p style="margin:0; font-size: 15px;"><strong>🔑 Contraseña:</strong> ${contrasena}</p>
+        </div>
+
+        <p style="font-size: 16px;">
+          Para activar tu cuenta, hacé clic en el siguiente botón:
+        </p>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <a href="${verifyLink}"
+            style="
+              background: #4CAF50;
+              color: white;
+              padding: 12px 20px;
+              text-decoration: none;
+              font-size: 16px;
+              border-radius: 6px;
+              display: inline-block;
+            ">
+            ✔ Verificar mi cuenta
+          </a>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 14px; color:#777;">
+          Si no creaste esta cuenta, simplemente ignorá este mensaje.
+        </p>
+
+        <p style="text-align:center; font-size: 12px; color:#aaa; margin-top: 40px;">
+          © ${new Date().getFullYear()} Ropo — Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  `;
+
+    await this.sendMail(to, '¡Confirmá tu cuenta en Ropo!', html);
   }
+
+
+
 }

@@ -126,6 +126,7 @@ export class UsuarioService {
       // 1️⃣ Crear primero el profesional vacío asociado al usuario
       let profesional = this.profesionalRepository.create({
         usuario,
+        profesiones: [],
       });
 
       // Guardar para generar idProfesional
@@ -141,12 +142,15 @@ export class UsuarioService {
       }
 
       // 3️⃣ Crear relaciones profesional-profesion
-      const profesionesIntermedias = ids.map((id) =>
-        this.profesionalRepository.manager.create(ProfesionalProfesion, {
-          profesion: { idProfesion: id },
-          profesional: { idProfesional: profesional.idProfesional },
-        }),
-      );
+      const profesionesIntermedias = ids.map((id) => {
+        const pp = new ProfesionalProfesion();
+        pp.profesion = { idProfesion: id } as any;
+        pp.profesional = profesional;
+        return pp;
+      });
+
+    
+
 
       // 4️⃣ Asignarlas al profesional
       profesional.profesiones = profesionesIntermedias;
@@ -178,72 +182,70 @@ export class UsuarioService {
   // 6) UPDATE USUARIO
   // ======================================================
   async update(id: number, updateDto: UpdateUsuarioDto): Promise<Usuario> {
-  let usuario = await this.usuarioRepository.findOne({
-    where: { idUsuario: id },
-    relations: ['rol'],
-  });
-
-  if (!usuario)
-    throw new NotFoundException(`Usuario ${id} no existe`);
-
-  // ================================
-  // CAMBIO DE ROL
-  // ================================
-  if (updateDto.idRol) {
-    const rol = await this.rolRepository.findOneBy({
-      idRol: updateDto.idRol,
+    let usuario = await this.usuarioRepository.findOne({
+      where: { idUsuario: id },
+      relations: ['rol'],
     });
 
-    if (!rol)
-      throw new BadRequestException(
-        `El rol ${updateDto.idRol} no existe`,
-      );
+    if (!usuario)
+      throw new NotFoundException(`Usuario ${id} no existe`);
 
-    usuario.rol = rol;
-
-    // -----------------------------------
-    // SI AHORA ES CLIENTE → CREAR CLIENTE
-    // -----------------------------------
-    if (rol.idRol === 2) {
-      const existeCliente = await this.clienteRepository.findOne({
-        where: { usuario: { idUsuario: usuario.idUsuario } },
+    // ================================
+    // CAMBIO DE ROL
+    // ================================
+    if (updateDto.idRol) {
+      const rol = await this.rolRepository.findOneBy({
+        idRol: updateDto.idRol,
       });
 
-      if (!existeCliente) {
-        await this.clienteRepository.save(
-          this.clienteRepository.create({ usuario }),
+      if (!rol)
+        throw new BadRequestException(
+          `El rol ${updateDto.idRol} no existe`,
         );
+
+      usuario.rol = rol;
+
+      // -----------------------------------
+      // SI AHORA ES CLIENTE → CREAR CLIENTE
+      // -----------------------------------
+      if (rol.idRol === 2) {
+        const existeCliente = await this.clienteRepository.findOne({
+          where: { usuario: { idUsuario: usuario.idUsuario } },
+        });
+
+        if (!existeCliente) {
+          await this.clienteRepository.save(
+            this.clienteRepository.create({ usuario }),
+          );
+        }
+      }
+
+      // -------------------------------------------
+      // SI AHORA ES PROFESIONAL → CREAR PROFESIONAL
+      // -------------------------------------------
+      if (rol.idRol === 3) {
+        const existeProfesional = await this.profesionalRepository.findOne({
+          where: { usuario: { idUsuario: usuario.idUsuario } },
+        });
+
+        if (!existeProfesional) {
+          await this.profesionalRepository.save(
+            this.profesionalRepository.create({
+              usuario,
+            }),
+          );
+        }
       }
     }
 
-    // -------------------------------------------
-    // SI AHORA ES PROFESIONAL → CREAR PROFESIONAL
-    // -------------------------------------------
-    if (rol.idRol === 3) {
-      const existeProfesional = await this.profesionalRepository.findOne({
-        where: { usuario: { idUsuario: usuario.idUsuario } },
-      });
+    // =====================================
+    // ACTUALIZAR CAMPOS QUE NO SON idRol
+    // =====================================
+    const { idRol, ...resto } = updateDto;
+    Object.assign(usuario, resto);
 
-      if (!existeProfesional) {
-        await this.profesionalRepository.save(
-          this.profesionalRepository.create({
-            usuario,
-            matricula: null,
-            descripcion: null,
-          }),
-        );
-      }
-    }
+    return this.usuarioRepository.save(usuario);
   }
-
-  // =====================================
-  // ACTUALIZAR CAMPOS QUE NO SON idRol
-  // =====================================
-  const { idRol, ...resto } = updateDto;
-  Object.assign(usuario, resto);
-
-  return this.usuarioRepository.save(usuario);
-}
 
   // ======================================================
   // 7) DELETE USUARIO
