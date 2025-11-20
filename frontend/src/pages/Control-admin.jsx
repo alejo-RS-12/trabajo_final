@@ -1,29 +1,89 @@
-import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import ConfirmModal from "../components/ConfirmModal";
 import "../assets/css/admin.css";
 
 export default function AdminPanel() {
   const [selectedOption, setSelectedOption] = useState("usuarios");
+  const [usuarios, setUsuarios] = useState([]);
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [confirmData, setConfirmData] = useState(null); 
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const { usuario } = useAuth();
+  const usuarioId = usuario?.idUsuario;
+  const navigate = useNavigate();
+    useEffect(() => {
+        if (!usuario) return;
 
-  // Datos simulados
-  const usuarios = [
-    { id: 1, nombre: "Alejo", email: "alejo@mail.com" },
-    { id: 2, nombre: "Carla", email: "carla@mail.com" },
-  ];
+        if (usuario.rol.idRol !== 1) {
+          showToast("❌ Su rol de usuario no le permite acceder", "error");
+          navigate("/trabajos");
+        }
+      }, [usuario, navigate]);
 
-  const publicaciones = [
-    { id: 1, titulo: "Mi primer post", autor: "Alejo" },
-    { id: 2, titulo: "Diseño Web", autor: "Carla" },
-  ];
+  // Cargar usuario y publicaciones
+    const cargarDatos = async () => {
+        try {
+          const resUsuario = await fetch(`http://localhost:3000/usuario`);
+          const datosUsuarios = await resUsuario.json();
+          setUsuarios(datosUsuarios);
+  
+          const resPubs = await fetch("http://localhost:3000/publicacion");
+          const dataPubs = await resPubs.json();
+          setPublicaciones(dataPubs);
 
-  const mensajes = [
-    { id: 1, de: "Carla", para: "Alejo", texto: "Hola!" },
-    { id: 2, de: "Alejo", para: "Carla", texto: "Todo bien?" },
-  ];
+        } catch (err) {
+          showToast("Error cargando datos del panel admin:", err);
+        }
+      };
+   
+    useEffect(() => {
+    cargarDatos();
+       }, []);
 
-  const denuncias = [
-    { id: 1, publicacion: "Mi primer post", motivo: "Contenido inapropiado" },
-    { id: 2, publicacion: "Diseño Web", motivo: "Spam" },
-  ];
+
+    const confirmarEliminacion = (tipo, id) => {
+    setItemToDelete({ tipo, id });
+
+    setConfirmData({
+      message:
+        tipo === "usuario"
+          ? "¿Seguro que querés eliminar este usuario?"
+          : "¿Seguro que querés eliminar esta publicación?",
+    });
+  };
+
+
+  const handleConfirmDelete = async () => {
+    if (!itemToDelete) return;
+
+    const { tipo, id } = itemToDelete;
+
+    try {
+      const endpoint =
+        tipo === "usuario"
+          ? `http://localhost:3000/usuario/${id}`
+          : `http://localhost:3000/publicacion/${id}`;
+
+      const res = await fetch(endpoint, { method: "DELETE" });
+
+      if (!res.ok) throw new Error("Error al eliminar");
+ 
+      await cargarDatos();
+
+    } catch (err) {
+      showToast("Error eliminando:", "error");
+    }
+    setConfirmData(null);
+    setItemToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmData(null);
+    setItemToDelete(null);
+  };
+
 
   const renderTable = () => {
     switch (selectedOption) {
@@ -40,12 +100,12 @@ export default function AdminPanel() {
             </thead>
             <tbody>
               {usuarios.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.nombre}</td>
+                <tr key={u.idUsuario}>
+                  <td>{u.idUsuario}</td>
+                  <td>{u.nombreCompleto}</td>
                   <td>{u.email}</td>
                   <td>
-                    <button className="btn-eliminar">Eliminar</button>
+                    <button className="btn-eliminar" onClick={() => confirmarEliminacion("usuario", u.idUsuario)}>Eliminar</button>
                   </td>
                 </tr>
               ))}
@@ -65,74 +125,26 @@ export default function AdminPanel() {
             </thead>
             <tbody>
               {publicaciones.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.id}</td>
+                <tr key={p.idPublicacion}>
+                  <td>{p.idPublicacion}</td>
                   <td>{p.titulo}</td>
-                  <td>{p.autor}</td>
+                  <td>{p.profesional.usuario.nombreCompleto}</td>
                   <td>
-                    <button className="btn-eliminar">Eliminar</button>
+                    <button className="btn-eliminar" onClick={() =>
+                        confirmarEliminacion("publicacion", p.idPublicacion)
+                      }>Eliminar</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        );
-      case "mensajes":
-        return (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>De</th>
-                <th>Para</th>
-                <th>Texto</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mensajes.map((m) => (
-                <tr key={m.id}>
-                  <td>{m.id}</td>
-                  <td>{m.de}</td>
-                  <td>{m.para}</td>
-                  <td>{m.texto}</td>
-                  <td>
-                    <button className="btn-eliminar">Eliminar</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        );
-      case "denuncias":
-        return (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Publicación</th>
-                <th>Motivo</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {denuncias.map((d) => (
-                <tr key={d.id}>
-                  <td>{d.id}</td>
-                  <td>{d.publicacion}</td>
-                  <td>{d.motivo}</td>
-                  <td>
-                    <button className="btn-eliminar">Eliminar</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        );
+        );     
       default:
         return null;
     }
   };
+
+  
 
   return (
     <div className="admin-panel">
@@ -148,12 +160,18 @@ export default function AdminPanel() {
           >
             <option value="usuarios">Usuarios</option>
             <option value="publicaciones">Publicaciones</option>
-            <option value="mensajes">Mensajes</option>
-            <option value="denuncias">Denuncias</option>
           </select>
         </div>
 
         <div className="tabla-container">{renderTable()}</div>
+
+        {confirmData && (
+          <ConfirmModal
+            message={confirmData.message}
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        )}
       </main>
     </div>
   );
