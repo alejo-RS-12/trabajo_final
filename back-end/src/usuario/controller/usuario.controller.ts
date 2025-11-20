@@ -71,6 +71,7 @@ export class UsuarioController {
   @UseGuards(JwtAuthGuard)
   @Post(':id/favoritos')
   addFavorito(@Param('id') idUsuario: number, @Body() dto: AddFavoritoDto) {
+    console.log('ADD FAVORITO -> idUsuario:', idUsuario, 'idPublicacion:', dto.idPublicacion);
     return this.usuarioService.agregarFavorito(idUsuario, dto.idPublicacion);
   }
 
