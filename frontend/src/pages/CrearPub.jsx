@@ -1,109 +1,101 @@
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import SidebarCrearPub from "../components/SidebarCrearPub";
 import ToastContainer from "../components/ToastContainer";
 import ConfirmModal from "../components/ConfirmModal";
-
+import { apiFetch } from "../services/api";
 
 export default function CrearPub() {
   const { usuario } = useAuth();
   const usuarioId = usuario?.idUsuario;
 
-  // Modo principal: "menu", "crear", "tus"
   const [modo, setModo] = useState("menu");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
-  // Datos usuario y profesional
   const [profesional, setProfesional] = useState(null);
-
-  // Publicaciones y formulario
   const [publicaciones, setPublicaciones] = useState([]);
+
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
   const [fotos, setFotos] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
 
-  // Mobile o desktop
+  const [editandoId, setEditandoId] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  
-  // Modal de confirmacion
   const [confirmData, setConfirmData] = useState(null);
 
-  // Función para mostrar toasts en trabajos cuando es usuario 2
   const navigate = useNavigate();
 
   const mapaUbicaciones = {
-  Partido_De_Olavarria: "/imagenes/crearpub/mapa-partido.jpg",
-  Olavarría: "/imagenes/crearpub/mapa-olavarria.jpg",
-  Sierras_Bayas: "/imagenes/crearpub/mapa-sierrasbayas.jpg",
-  Villa_Alfredo_Fortabat: "/imagenes/crearpub/mapa-villaalfredofortabat.jpg",
-  Hinojo: "/imagenes/crearpub/mapa-hinojo.jpg",
-  Colonia_Hinojo: "/imagenes/crearpub/mapa-coloniahinojo.jpg",
-  Sierra_Chica: "/imagenes/crearpub/mapa-sierrachica.jpg",
-  }
-
-    // función para formatear ubicaciones
-  const formatUbicacion = (ubicacion = "") => {
-    return ubicacion.replace(/_/g, " ").toUpperCase();
+    Partido_De_Olavarria: "/imagenes/crearpub/mapa-partido.jpg",
+    Olavarría: "/imagenes/crearpub/mapa-olavarria.jpg",
+    Sierras_Bayas: "/imagenes/crearpub/mapa-sierrasbayas.jpg",
+    Villa_Alfredo_Fortabat: "/imagenes/crearpub/mapa-villaalfredofortabat.jpg",
+    Hinojo: "/imagenes/crearpub/mapa-hinojo.jpg",
+    Colonia_Hinojo: "/imagenes/crearpub/mapa-coloniahinojo.jpg",
+    Sierra_Chica: "/imagenes/crearpub/mapa-sierrachica.jpg",
   };
 
-  // Cargar usuario y profesional
+  const formatUbicacion = (u = "") => u.replace(/_/g, " ").toUpperCase();
+
+  /* ================================
+          CARGA DE DATOS
+     ================================= */
   useEffect(() => {
+    if (!usuarioId) return;
+
     async function cargarDatos() {
       try {
-        const resUser = await fetch(`http://localhost:3000/usuario/${usuarioId}`);
-        const user = await resUser.json();
+        const user = await apiFetch(`/usuario/${usuarioId}`);
 
-        if (user.rol.idRol !== 3 && user.rol.idRol !== 1) {
-          showToast("❌ Su usuario no puede crear publicaciones", "error");
+        if (user.rol.idRol !== 3) {
+          showToast("❌ Solo los profesionales pueden crear publicaciones", "error");
           navigate("/trabajos");
           return;
         }
 
-        const resProf = await fetch(
-          `http://localhost:3000/profesional/usuario/${user.idUsuario}`
-        );
-        const prof = await resProf.json();
+
+        const prof = await apiFetch(`/profesional/usuario/${user.idUsuario}`);
         setProfesional(prof);
 
-        const resPubs = await fetch(
-          `http://localhost:3000/publicacion/profesional/${prof.idProfesional}`
-        );
-        const pubs = await resPubs.json();
+        const pubs = await apiFetch(
+          `/publicacion/profesional/${prof.idProfesional}`);
         setPublicaciones(pubs);
+
       } catch (err) {
         console.error("Error cargando datos:", err);
       }
     }
+
     cargarDatos();
-  }, []);
+  }, [usuarioId]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const resize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
-  
-
-  // Handlers de fotos
+  /* ================================
+           MANEJO DE FOTOS
+     ================================= */
   function handleFileChange(e) {
     const files = Array.from(e.target.files).slice(0, 10 - fotos.length);
-    // setFotos([...fotos, ...files]);
-    setFotos((prev) => [...prev, ...files]);
+    setFotos(prev => [...prev, ...files]);
   }
 
-  function removeFoto(index) {
-    // setFotos(fotos.filter((_, i) => i !== index));
-    setFotos((prev) => prev.filter((_, i) => i !== index));
-  }
+  const removeFoto = (i) =>
+    setFotos(prev => prev.filter((_, index) => index !== i));
 
-  // Publicar o editar
+  /* ================================
+       CREAR O EDITAR PUBLICACIÓN
+     ================================= */
   async function publicar(e) {
     e.preventDefault();
     window.scrollTo(0, 50);
+
     if (!titulo.trim() || !descripcion.trim() || !ubicacion) {
       showToast("❌ Todos los campos son obligatorios", "error");
       return;
@@ -117,130 +109,133 @@ export default function CrearPub() {
       formData.append("estado", "activa");
       formData.append("idProfesional", profesional.idProfesional);
 
-      // esto es lo nuevo
-      const nuevasFotos = fotos.filter(f => f instanceof File);
-      const fotosExistentes = fotos.filter(f => typeof f === "string");
+      const nuevas = fotos.filter(f => f instanceof File);
+      const existentes = fotos.filter(f => typeof f === "string");
 
-      nuevasFotos.forEach(foto => formData.append("imagenes", foto));
-      formData.append("imagenesExistentes", JSON.stringify(fotosExistentes));
+      nuevas.forEach(f => formData.append("imagenes", f));
+      formData.append("imagenesExistentes", JSON.stringify(existentes));
 
-      // fotos.forEach((foto) => {
-      //   if (foto instanceof File) formData.append("imagenes", foto);
-      // });
+      const endpoint = editandoId
+        ? `/publicacion/${editandoId}`
+        : `/publicacion`;
 
-      const url = editandoId
-        ? `http://localhost:3000/publicacion/${editandoId}`
-        : "http://localhost:3000/publicacion";
       const method = editandoId ? "PATCH" : "POST";
 
-      const res = await fetch(url, { method, body: formData });
-      if (!res.ok) throw new Error("Error en publicar");
+      await apiFetch(endpoint, { method, body: formData });
 
-      showToast(editandoId ? "✅ Publicación actualizada " : "✅ Publicación creada");
+      showToast(editandoId ? "✅ Publicación actualizada" : "✅ Publicación creada");
 
-      // Reset formulario
-      setModo("menu");
-      setCategoriaSeleccionada(null);
-      setTitulo("");
-      setDescripcion("");
-      setUbicacion("");
-      setFotos([]);
-      setEditandoId(null);
+      resetFormulario();
 
-      // Recargar publicaciones
-      const resPubs = await fetch(
-        `http://localhost:3000/publicacion/profesional/${profesional.idProfesional}`
+      const pubs = await apiFetch(
+        `/publicacion/profesional/${profesional.idProfesional}`
       );
-      const pubs = await resPubs.json();
       setPublicaciones(pubs);
+
     } catch (err) {
       console.error("Error publicar:", err);
       showToast("❌ No se pudo publicar");
     }
   }
 
-  function editarPublicacion(pub) {
-    window.scrollTo(0, 50);
-    setCategoriaSeleccionada(pub.categoria || "null");
-    setModo("crear");
-    setEditandoId(pub.idPublicacion);
-    setTitulo(pub.titulo || "");
-    setDescripcion(pub.descripcion || "");
-    setUbicacion(pub.ubicacion || "");
-    setFotos(pub.imagenes || []);  
+  function resetFormulario() {
+    setModo("menu");
+    setCategoriaSeleccionada(null);
+    setTitulo("");
+    setDescripcion("");
+    setUbicacion("");
+    setFotos([]);
+    setEditandoId(null);
   }
 
-    function eliminarPublicacion(id) {
-  setConfirmData({
-    id,
-    message: "¿Estás seguro de que quieres eliminar esta publicación?",
-  });
-}
+  /* ================================
+              EDITAR
+     ================================= */
+  function editarPublicacion(pub) {
+    window.scrollTo(0, 50);
+    setModo("crear");
+    setEditandoId(pub.idPublicacion);
 
-    async function handleConfirmDelete() {
-      const id = confirmData.id;
-      try {
-            const res = await fetch(`http://localhost:3000/publicacion/${id}`, {
-              method: "DELETE",
-            });
+    setCategoriaSeleccionada(pub.categoria);
+    setTitulo(pub.titulo);
+    setDescripcion(pub.descripcion);
+    setUbicacion(pub.ubicacion);
+    setFotos(pub.imagenes || []);
+  }
 
-            if (!res.ok) throw new Error("Error al eliminar la publicación");
+  /* ================================
+            ELIMINAR
+     ================================= */
+  function eliminarPublicacion(id) {
+    setConfirmData({
+      id,
+      message: "¿Estás seguro de que quieres eliminar esta publicación?",
+    });
+  }
 
-            setPublicaciones((prevPubs) =>
-              prevPubs.filter((pub) => pub.idPublicacion !== id)
-            );
+  async function handleConfirmDelete() {
+    const id = confirmData.id;
 
-            showToast("Publicación eliminada ✅");
-          } catch (err) {
-            console.error("Error eliminando publicación:", err);
-            showToast("No se pudo eliminar la publicación ❌");
-          }
-          console.log("Eliminar publicación:", id);
-        
-      setConfirmData(null);
+    try {
+      await apiFetch(`/publicacion/${id}`, { method: "DELETE" });
+
+      setPublicaciones(prev =>
+        prev.filter(pub => pub.idPublicacion !== id)
+      );
+
+      showToast("Publicación eliminada ✅");
+
+    } catch (err) {
+      console.error("Error eliminando publicación:", err);
+      showToast("❌ No se pudo eliminar");
     }
 
-    function handleCancelDelete() {
-      setConfirmData(null);
-    }
+    setConfirmData(null);
+  }
 
+  const handleCancelDelete = () => setConfirmData(null);
+
+  /* ================================
+               RENDER
+     ================================= */
   return (
     <div className="contenedor-sitio">
       <ToastContainer />
-      {confirmData && (
-      <ConfirmModal
-        message={confirmData.message}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCancelDelete}
-      />
-    )}
-      {/* Sidebar */}
-      <SidebarCrearPub
 
-  modo={modo}
-  setModo={setModo}
-  usuario={usuario}
-  profesional={profesional}
-  categoriaSeleccionada={categoriaSeleccionada}
-  titulo={titulo}
-  setTitulo={setTitulo}
-  descripcion={descripcion}
-  setDescripcion={setDescripcion}
-  ubicacion={ubicacion}
-  setUbicacion={setUbicacion}
-  fotos={fotos}
-  setFotos={setFotos}
-  handleFileChange={handleFileChange}
-  removeFoto={removeFoto}
-  publicar={publicar}
-  setCategoriaSeleccionada={setCategoriaSeleccionada}
-  editandoId={editandoId}
-  setEditandoId={setEditandoId}
-  editarPublicacion={editarPublicacion}
-  eliminarPublicacion={eliminarPublicacion}
-  isMobile={isMobile}
-  publicaciones={publicaciones}
-/>
+      {confirmData && (
+        <ConfirmModal
+          message={confirmData.message}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
+
+      <SidebarCrearPub
+        modo={modo}
+        setModo={setModo}
+        usuario={usuario}
+        profesional={profesional}
+        publicaciones={publicaciones}
+        categoriaSeleccionada={categoriaSeleccionada}
+        setCategoriaSeleccionada={setCategoriaSeleccionada}
+        titulo={titulo}
+        setTitulo={setTitulo}
+        descripcion={descripcion}
+        setDescripcion={setDescripcion}
+        ubicacion={ubicacion}
+        setUbicacion={setUbicacion}
+        fotos={fotos}
+        setFotos={setFotos}
+        handleFileChange={handleFileChange}
+        removeFoto={removeFoto}
+        publicar={publicar}
+        editandoId={editandoId}
+        setEditandoId={setEditandoId}
+        editarPublicacion={editarPublicacion}
+        eliminarPublicacion={eliminarPublicacion}
+        isMobile={isMobile}
+      />
+
 
 
       {/* Contenido principal */}
@@ -249,9 +244,9 @@ export default function CrearPub() {
         {modo === "menu" && !categoriaSeleccionada && (
           <section id="sectioncateg" className="publicaciones">
             <div className="publicaciones-grid">
-            <div className="section-title">
-              <h4>Elegí el tipo de publicación:</h4>
-            </div>
+              <div className="section-title">
+                <h4>Elegí el tipo de publicación:</h4>
+              </div>
               {/* Categoría 1 */}
               <div className="post-card">
                 <div
@@ -330,73 +325,73 @@ export default function CrearPub() {
           </section>
         )}
 
-          {/* VISTA PREVIA */}
-         {modo === "crear" && categoriaSeleccionada && (
+        {/* VISTA PREVIA */}
+        {modo === "crear" && categoriaSeleccionada && (
           <div id="publicacion-wrapper">
             <div><h3>Vista previa de tu publicación</h3>
-            <div className="card-publicacion">
-              <div className="imagen-principal" id="vp-fotos">
-                <img
-                  src={fotos[0] ? (fotos[0] instanceof File ? URL.createObjectURL(fotos[0]) : fotos[0]?.startsWith("/uploads")
-        ? `http://localhost:3000${fotos[0]}` : fotos[0]) : "/imagenes/crearpub/placeholder.jpg"}
-                  alt="Imagen principal"
-                />
-              </div>
-              <div id="vista-previa">
-                <h2>{titulo || categoriaSeleccionada}</h2>
-                <h4>{usuario?.nombre}</h4>
-                <p>{descripcion || "La descripción aparecerá aquí."}</p>
-                <div id="vp-mapa" className="mapa-previa">
+              <div className="card-publicacion">
+                <div className="imagen-principal" id="vp-fotos">
                   <img
-                    src={ubicacion && mapaUbicaciones[ubicacion] ? mapaUbicaciones[ubicacion] : "/imagenes/crearpub/mapa.JPG"}
-                    alt={`Mapa de ${ubicacion || "cobertura"}`}
+                    src={fotos[0] ? (fotos[0] instanceof File ? URL.createObjectURL(fotos[0]) : fotos[0]?.startsWith("/uploads")
+                      ? `http://localhost:3000${fotos[0]}` : fotos[0]) : "/imagenes/crearpub/placeholder.jpg"}
+                    alt="Imagen principal"
                   />
+                </div>
+                <div id="vista-previa">
+                  <h2>{titulo || categoriaSeleccionada}</h2>
+                  <h4>{usuario?.nombre}</h4>
+                  <p>{descripcion || "La descripción aparecerá aquí."}</p>
+                  <div id="vp-mapa" className="mapa-previa">
+                    <img
+                      src={ubicacion && mapaUbicaciones[ubicacion] ? mapaUbicaciones[ubicacion] : "/imagenes/crearpub/mapa.JPG"}
+                      alt={`Mapa de ${ubicacion || "cobertura"}`}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         )}
 
 
 
         {/* TUS PUBLICACIONES */}
         {modo === "tus" && !isMobile && (
-  <div id="grid-publicaciones" className="publicaciones-grid">
-    {/* <h3>Tus publicaciones</h3> */}
-    {publicaciones.length === 0 ? (
-      <p>No hay publicaciones todavía</p>
-    ) : (
-      publicaciones.map((pub) => (
-        <div key={pub.idPublicacion} className="post-card">
-          <div className="post-img">
-          <img
-            src={pub.imagenes?.[0]
-      ? (typeof pub.imagenes[0] === "string"
-          ? (pub.imagenes[0].startsWith("/uploads")
-              ? `http://localhost:3000${pub.imagenes[0]}` 
-              : pub.imagenes[0])
-          : pub.imagenes[0].url)
-      : "/imagenes/crearpub/placeholder.jpg"}
-            alt={pub.titulo}
-          />
+          <div id="grid-publicaciones" className="publicaciones-grid">
+            {/* <h3>Tus publicaciones</h3> */}
+            {publicaciones.length === 0 ? (
+              <p>No hay publicaciones todavía</p>
+            ) : (
+              publicaciones.map((pub) => (
+                <div key={pub.idPublicacion} className="post-card">
+                  <div className="post-img">
+                    <img
+                      src={pub.imagenes?.[0]
+                        ? (typeof pub.imagenes[0] === "string"
+                          ? (pub.imagenes[0].startsWith("/uploads")
+                            ? `http://localhost:3000${pub.imagenes[0]}`
+                            : pub.imagenes[0])
+                          : pub.imagenes[0].url)
+                        : "/imagenes/crearpub/placeholder.jpg"}
+                      alt={pub.titulo}
+                    />
+                  </div>
+                  <div className="post-info">
+                    <h4>{pub.titulo}</h4>
+                    <p className="ubicacion">Ubicación: {formatUbicacion(pub.ubicacion)}</p>
+                    <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
+                    <button className="buttonEditar" type="button" onClick={() => editarPublicacion(pub)}>
+                      ✏️
+                    </button>
+                    <button className="buttonEditar" type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
-          <div className="post-info">
-          <h4>{pub.titulo}</h4>
-          <p className="ubicacion">Ubicación: {formatUbicacion(pub.ubicacion)}</p>
-          <p className="solicitante">Nombre: {pub.profesional?.usuario?.nombreCompleto}</p>
-          <button className="buttonEditar" type="button" onClick={() => editarPublicacion(pub)}>
-            ✏️
-          </button>
-          <button className="buttonEditar" type="button" onClick={() => eliminarPublicacion(pub.idPublicacion)}>
-            🗑️
-          </button>
-        </div>
-        </div>
-      ))
-    )}
-  </div>
-)}
+        )}
 
       </div>
     </div>

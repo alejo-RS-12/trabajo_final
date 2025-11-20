@@ -1,17 +1,24 @@
 import {
   NotFoundException,
   BadRequestException,
-  Injectable, UnauthorizedException
+  Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUsuarioDto } from '../dto/create-usuario.dto';
-import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Usuario } from '../entities/usuario.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Profesional } from 'src/profesional/entities/profesional.entity';
 import { ProfesionalProfesion } from 'src/profesional/entities/profesionalprofesion.entity';
+
+
+import { CreateUsuarioDto } from '../dto/create-usuario.dto';
+import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
+
+
+
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -24,144 +31,146 @@ export class UsuarioService {
     private readonly rolRepository: Repository<Rol>,
 
     @InjectRepository(Cliente)
-    private clienteRepository: Repository<Cliente>,
+    private readonly clienteRepository: Repository<Cliente>,
 
     @InjectRepository(Profesional)
-    private profesionalRepository: Repository<Profesional>,
-  ) {}
- // 📌 Registro
+    private readonly profesionalRepository: Repository<Profesional>,
+  ) { }
+
+  // ======================================================
+  // 1) REGISTRO
+  // ======================================================
   async register(data: Partial<Usuario>) {
-    // Validar email único
-    const existeEmail = await this.usuarioRepository.findOne({ where: { email: data.email } });
-    if (existeEmail) throw new BadRequestException('El email ya está registrado');
+    // Email único
+    const existeEmail = await this.usuarioRepository.findOne({
+      where: { email: data.email },
+    });
+    if (existeEmail)
+      throw new BadRequestException('El email ya está registrado');
 
-    // Validar nombre de usuario único
-    const existeUser = await this.usuarioRepository.findOne({ where: { nombreDeUsuario: data.nombreDeUsuario } });
-    if (existeUser) throw new BadRequestException('El nombre de usuario ya está en uso');
+    // Usuario único
+    const existeUser = await this.usuarioRepository.findOne({
+      where: { nombreDeUsuario: data.nombreDeUsuario },
+    });
+    if (existeUser)
+      throw new BadRequestException('El nombre de usuario ya está en uso');
 
-    // Buscar rol por defecto (Usuario común → idRol = 1)
-    const rolDefault = await this.rolRepository.findOne({ where: { idRol: 1 } });
-    if (!rolDefault) {
-      throw new BadRequestException('El rol por defecto no existe en la base de datos');
-    }
+    // Rol por defecto (idRol = 1)
+    const rolDefault = await this.rolRepository.findOne({
+      where: { idRol: 1 },
+    });
+    if (!rolDefault)
+      throw new BadRequestException('El rol por defecto no existe');
 
-    // Hashear contraseña
-    if (!data.contrasena) {
+    if (!data.contrasena)
       throw new BadRequestException('La contraseña es obligatoria');
-    }
+
     const hashedPass = await bcrypt.hash(data.contrasena, 10);
 
     // Crear usuario
     const nuevoUsuario = this.usuarioRepository.create({
       ...data,
       contrasena: hashedPass,
-      rol: rolDefault, // ⚡ ya validado, nunca null
+      rol: rolDefault,
     });
 
     const usuarioGuardado = await this.usuarioRepository.save(nuevoUsuario);
-
-    // No devolver la contraseña
     const { contrasena, ...resto } = usuarioGuardado;
 
     return { message: 'Usuario registrado correctamente', usuario: resto };
   }
 
+  // ======================================================
+  // 2) LOGIN
+  // ======================================================
+  async login(email: string, password: string) {
+    const usuario = await this.usuarioRepository.findOne({
+      where: { email },
+      relations: ['rol'],
+    });
 
-  // 📌 Login
-  async login(email: string, contrasena: string) {
-    const usuario = await this.usuarioRepository.findOne({ where: { email }, relations: ['rol'] });
     if (!usuario) throw new UnauthorizedException('Credenciales inválidas');
 
-    const match = await bcrypt.compare(contrasena, contrasena);
+    const match = await bcrypt.compare(password, usuario.contrasena);
     if (!match) throw new UnauthorizedException('Credenciales inválidas');
 
     const { contrasena: _, ...resto } = usuario;
     return { message: 'Login exitoso', usuario: resto };
   }
 
-  // 📌 Login con Google
-
-  async googleLogin(googleUser: { email: string; nombre: string }) {
-    let usuario = await this.usuarioRepository.findOne({
-      where: { email: googleUser.email },
-      relations: ['rol'],
-    });
-
-    if (!usuario) {
-      // 👉 Buscar rol por defecto y validar que exista
-      const rolDefault = await this.rolRepository.findOne({ where: { idRol: 1 } });
-      if (!rolDefault) {
-        throw new BadRequestException('El rol por defecto no existe en la base de datos');
-      }
-
-      // 👉 Crear nuevo usuario con rol válido
-      usuario = this.usuarioRepository.create({
-        email: googleUser.email,
-        nombreCompleto: googleUser.nombre,
-        //contrasena: null,   // permitido porque en la entidad es nullable
-        //esGoogle: true,
-        rol: rolDefault,    // ahora siempre es un Rol, nunca null
-      });
-
-      await this.usuarioRepository.save(usuario);
-    }
-
-    const { contrasena, ...resto } = usuario;
-    return { message: 'Login con Google exitoso', usuario: resto };
-  }
-
+  // ======================================================
+  // 3) CREAR USUARIO DIRECTO CON ROL (ADMIN)
+  // ======================================================
   async crearUsuarioConRol(data: CreateUsuarioDto): Promise<Usuario> {
-    // 1. Buscar rol
-    let rol = await this.rolRepository.findOneBy({ idRol: data.idRol });
-    if (!rol)
-      throw new BadRequestException(`Rol con id ${data.idRol} no existe`);
+    const rol = await this.rolRepository.findOneBy({ idRol: data.idRol });
+    if (!rol) throw new BadRequestException(`Rol ${data.idRol} no existe`);
 
-    // 2. Crear usuario
+    const hashedPass = await bcrypt.hash(data.contrasena, 10);
+
     const usuario = this.usuarioRepository.create({
-      nombreCompleto: data.nombreCompleto,
-      nombreDeUsuario: data.nombreDeUsuario,
-      email: data.email,
-      contrasena: data.contrasena,
+      ...data,
+      contrasena: hashedPass,
       rol,
     });
+
     await this.usuarioRepository.save(usuario);
 
-    // 3. Crear Cliente o Profesional según rol
+    // Crear tabla cliente o profesional
     if (data.idRol === 2) {
-      let cliente = this.clienteRepository.create({ usuario });
-      await this.clienteRepository.save(cliente);
+      await this.clienteRepository.save(
+        this.clienteRepository.create({ usuario }),
+      );
     }
 
     if (data.idRol === 3) {
-      // data.idProfesion puede ser un número o un array de ids
-      let ids: number[] =
-        data.idProfesion != null
-          ? Array.isArray(data.idProfesion)
-            ? data.idProfesion
-            : [data.idProfesion]
-          : [];
-
-      const profesionesIntermedias = ids.map((id) =>
-        this.profesionalRepository.manager.create(ProfesionalProfesion, {
-          profesion: { idProfesion: id },
-          profesional,
-        }),
-      );
-
+      // 1️⃣ Crear primero el profesional vacío asociado al usuario
       let profesional = this.profesionalRepository.create({
         usuario,
-        profesiones: profesionesIntermedias,
+        profesiones: [],
       });
+
+      // Guardar para generar idProfesional
+      profesional = await this.profesionalRepository.save(profesional);
+
+      // 2️⃣ Normalizar profesiones
+      let ids: number[] = [];
+
+      if (data.idProfesion != null) {
+        ids = Array.isArray(data.idProfesion)
+          ? data.idProfesion
+          : [data.idProfesion];
+      }
+
+      // 3️⃣ Crear relaciones profesional-profesion
+      const profesionesIntermedias = ids.map((id) => {
+        const pp = new ProfesionalProfesion();
+        pp.profesion = { idProfesion: id } as any;
+        pp.profesional = profesional;
+        return pp;
+      });
+
+    
+
+
+      // 4️⃣ Asignarlas al profesional
+      profesional.profesiones = profesionesIntermedias;
+
+      // 5️⃣ Guardar todo
       await this.profesionalRepository.save(profesional);
     }
-
     return usuario;
   }
 
+  // ======================================================
+  // 4) FIND ALL
+  // ======================================================
   findAll() {
     return this.usuarioRepository.find({ relations: ['rol'] });
   }
 
+  // ======================================================
+  // 5) FIND ONE
+  // ======================================================
   findOne(id: number) {
     return this.usuarioRepository.findOne({
       where: { idUsuario: id },
@@ -169,60 +178,95 @@ export class UsuarioService {
     });
   }
 
-  async update(
-    id: number,
-    updateUsuarioDto: UpdateUsuarioDto,
-  ): Promise<Usuario> {
-    // Buscar el usuario
+  // ======================================================
+  // 6) UPDATE USUARIO
+  // ======================================================
+  async update(id: number, updateDto: UpdateUsuarioDto): Promise<Usuario> {
     let usuario = await this.usuarioRepository.findOne({
       where: { idUsuario: id },
       relations: ['rol'],
     });
-    if (!usuario) {
-      throw new NotFoundException(`Usuario con id ${id} no existe`);
-    }
 
-    // Validar que exista el rol del body
-    if (updateUsuarioDto.idRol) {
-      let rol = await this.rolRepository.findOneBy({
-        idRol: updateUsuarioDto.idRol,
+    if (!usuario)
+      throw new NotFoundException(`Usuario ${id} no existe`);
+
+    // ================================
+    // CAMBIO DE ROL
+    // ================================
+    if (updateDto.idRol) {
+      const rol = await this.rolRepository.findOneBy({
+        idRol: updateDto.idRol,
       });
-      if (!rol) {
+
+      if (!rol)
         throw new BadRequestException(
-          `El rol con id ${updateUsuarioDto.idRol} no existe en la base de datos`,
+          `El rol ${updateDto.idRol} no existe`,
         );
-      }
+
       usuario.rol = rol;
+
+      // -----------------------------------
+      // SI AHORA ES CLIENTE → CREAR CLIENTE
+      // -----------------------------------
+      if (rol.idRol === 2) {
+        const existeCliente = await this.clienteRepository.findOne({
+          where: { usuario: { idUsuario: usuario.idUsuario } },
+        });
+
+        if (!existeCliente) {
+          await this.clienteRepository.save(
+            this.clienteRepository.create({ usuario }),
+          );
+        }
+      }
+
+      // -------------------------------------------
+      // SI AHORA ES PROFESIONAL → CREAR PROFESIONAL
+      // -------------------------------------------
+      if (rol.idRol === 3) {
+        const existeProfesional = await this.profesionalRepository.findOne({
+          where: { usuario: { idUsuario: usuario.idUsuario } },
+        });
+
+        if (!existeProfesional) {
+          await this.profesionalRepository.save(
+            this.profesionalRepository.create({
+              usuario,
+            }),
+          );
+        }
+      }
     }
 
-    // Actualizar el resto de los campos
-    let { idRol, ...resto } = updateUsuarioDto;
+    // =====================================
+    // ACTUALIZAR CAMPOS QUE NO SON idRol
+    // =====================================
+    const { idRol, ...resto } = updateDto;
     Object.assign(usuario, resto);
+
     return this.usuarioRepository.save(usuario);
   }
 
+  // ======================================================
+  // 7) DELETE USUARIO
+  // ======================================================
   async remove(id: number) {
-    let usuario = await this.findOne(id);
-    if (!usuario) {
-      return null;
-    }
+    const usuario = await this.findOne(id);
+    if (!usuario) return null;
+
     await this.usuarioRepository.remove(usuario);
     return usuario;
   }
 
-    async agregarFavorito(idUsuario: number, idPublicacion: number) {
+  // ======================================================
+  // 8) FAVORITOS
+  // ======================================================
+  async agregarFavorito(idUsuario: number, idPublicacion: number) {
     const usuario = await this.usuarioRepository.findOneBy({ idUsuario });
-    if (!usuario) throw new Error('Usuario no encontrado');
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
 
-    if (!usuario) {
-    throw new NotFoundException("Usuario no encontrado");
-  }
+    usuario.favoritos ??= [];
 
-    if (!usuario.favoritos) {
-    usuario.favoritos = [];
-  }
-
-    // Evitar duplicados
     if (!usuario.favoritos.includes(idPublicacion)) {
       usuario.favoritos.push(idPublicacion);
     }
@@ -232,9 +276,11 @@ export class UsuarioService {
 
   async quitarFavorito(idUsuario: number, idPublicacion: number) {
     const usuario = await this.usuarioRepository.findOneBy({ idUsuario });
-    if (!usuario) throw new Error('Usuario no encontrado');
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
 
-    usuario.favoritos = usuario.favoritos.filter(id => id !== idPublicacion);
+    usuario.favoritos = usuario.favoritos.filter(
+      (id) => id !== idPublicacion,
+    );
 
     return this.usuarioRepository.save(usuario);
   }
@@ -242,12 +288,7 @@ export class UsuarioService {
   async obtenerFavoritos(idUsuario: number) {
     const usuario = await this.usuarioRepository.findOneBy({ idUsuario });
     if (!usuario) throw new NotFoundException('Usuario no encontrado');
-    if (!usuario.favoritos) {
-      usuario.favoritos = [];
-    }
-    return usuario.favoritos;
+
+    return usuario.favoritos ?? [];
   }
 }
-
-
-

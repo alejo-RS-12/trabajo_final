@@ -1,14 +1,11 @@
-import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { Profesional } from './profesional.entity';
 import { Profesion } from '../../profesion/entities/profesion.entity';
 
 @Entity('profesionalprofesion')
 export class ProfesionalProfesion {
-  @PrimaryColumn()
-  idProfesional: number;
-
-  @PrimaryColumn()
-  idProfesion: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ManyToOne(() => Profesional, (profesional) => profesional.profesiones, {
     onDelete: 'CASCADE',

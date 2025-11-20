@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../services/api";  // <<--- IMPORTANTE
 
 export default function RegisterLogin() {
   const [isRegister, setIsRegister] = useState(false);
@@ -19,17 +20,20 @@ export default function RegisterLogin() {
   
   const navigate = useNavigate();
   const { login } = useAuth();
- 
 
   // Validaciones
   const validarRegistro = () => {
     const newErrors = {};
     const regex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-    if (nombreCompleto.trim().length < 3) newErrors.nombreCompleto = "El nombre debe tener al menos 3 caracteres.";
-    if (!regex.test(email)) newErrors.email = "Correo inválido.";
-    if (usuario.length < 4 || usuario.length > 20) newErrors.usuario = "El usuario debe tener entre 4 y 20 caracteres.";
-    if (password.length < 6) newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
+    if (nombreCompleto.trim().length < 3)
+      newErrors.nombreCompleto = "El nombre debe tener al menos 3 caracteres.";
+    if (!regex.test(email))
+      newErrors.email = "Correo inválido.";
+    if (usuario.length < 4 || usuario.length > 20)
+      newErrors.usuario = "El usuario debe tener entre 4 y 20 caracteres.";
+    if (password.length < 6)
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -37,70 +41,63 @@ export default function RegisterLogin() {
 
   // Limpiar formularios
   const limpiarFormularios = () => {
-  // Limpiar login
-  setLoginUsuario("");
-  setLoginContrasena("");
-
-  // Limpiar registro
-  setNombreCompleto("");
-  setEmail("");
-  setUsuario("");
-  setPassword("");
-
-  // Limpiar errores
-  setErrors({});
+    setLoginUsuario("");
+    setLoginContrasena("");
+    setNombreCompleto("");
+    setEmail("");
+    setUsuario("");
+    setPassword("");
+    setErrors({});
   };
 
-  // Registro
+  // Registro con apiFetch
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!validarRegistro()) return;
 
-    const datos = { nombreCompleto, email, nombreDeUsuario: usuario, contrasena: password, idRol: 2  };
+    const datos = {
+      nombreCompleto,
+      email,
+      nombreDeUsuario: usuario,
+      contrasena: password,
+      idRol: 2,
+    };
 
     try {
-      const res = await fetch("http://localhost:3000/auth/register", {
+      const data = await apiFetch("/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos),
       });
 
-      const data = await res.json();
+      showToast("✅ Usuario registrado. Revisá tu email para activar la cuenta");
+      setIsRegister(false);
 
-      if (res.ok) {
-        showToast("✅ Registro exitoso, ahora inicia sesión");
-        setIsRegister(false);
-      } else {
-        showToast("❌ " + data.message, "error");
-      }
     } catch (err) {
-      console.error("Error:", err);
-      showToast("❌ Error al conectar con el servidor", "error");
+      console.error(err);
+      showToast("❌ " + err.message, "error");
     }
   };
 
-  // Login
+  // Login con apiFetch vía AuthContext
   const handleLogin = async (e) => {
     e.preventDefault();
 
-     if (!loginUsuario || !loginContrasena) {
-      showToast("❌ Por favor completa todos los campos", "error");
+    if (!loginUsuario || !loginContrasena) {
+      showToast("❌ Cuenta no verificada o credenciales incorrectas", "error");
       return;
     }
 
-     const logueado = await login({
+    const logueado = await login({
       nombreDeUsuario: loginUsuario,
       contrasena: loginContrasena,
     });
 
     if (logueado) {
       showToast("✅ Login correcto");
-     
     } else {
       showToast("❌ Usuario o contraseña incorrectos", "error");
     }
-      };
-
+  };
 
   return (
     <div className="all-register">
@@ -136,21 +133,22 @@ export default function RegisterLogin() {
           </form>
         </div>
 
-        {/* --- Overlay --- */}
+        {/* Overlay */}
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
               <h1>¿Ya tienes cuenta?</h1>
               <p>Inicia sesión</p>
-              <button className="ghost" onClick={() => {limpiarFormularios(); setIsRegister(false)}}>Iniciar Sesión</button>
+              <button className="ghost" onClick={() => { limpiarFormularios(); setIsRegister(false); }}>Iniciar Sesión</button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1>¡Hola!</h1>
               <p>Ingresa tus datos para registrarte</p>
-              <button className="ghost" onClick={() => {limpiarFormularios(); setIsRegister(true)}}>Registrarse</button>
+              <button className="ghost" onClick={() => { limpiarFormularios(); setIsRegister(true); }}>Registrarse</button>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

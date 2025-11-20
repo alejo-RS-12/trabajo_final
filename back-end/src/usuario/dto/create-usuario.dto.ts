@@ -3,7 +3,6 @@ export class CreateUsuarioDto {
   nombreDeUsuario: string;
   email: string;
   contrasena: string;
-  fechaRegistro: Date;
   idRol: number;
   idProfesion?: number[];
 }

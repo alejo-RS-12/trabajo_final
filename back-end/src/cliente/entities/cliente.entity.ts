@@ -1,9 +1,7 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
-  Column,
   OneToOne,
-  OneToMany,
   JoinColumn,
   Unique,
 } from 'typeorm';
@@ -17,8 +15,8 @@ export class Cliente {
 
   @OneToOne(() => Usuario, (usuario) => usuario.cliente, {
     onDelete: 'CASCADE',
+    eager: false,
   })
   @JoinColumn({ name: 'idUsuario' })
   usuario: Usuario;
-
 }
