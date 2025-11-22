@@ -30,7 +30,7 @@ export default function AdminPanel() {
           setUsuarios(datosUsuarios);
   
           const pubs = await apiFetch("/publicacion");
-          setPublicaciones(dataPubs);
+          setPublicaciones(pubs);
 
         } catch (err) {
           showToast("Error cargando datos del panel admin:", err);
@@ -62,13 +62,11 @@ export default function AdminPanel() {
     try {
       const endpoint =
         tipo === "usuario"
-          ? `${API_URL}/usuario/${id}`
-          : `${API_URL}/publicacion/${id}`;
+          ? `/usuario/${id}`
+          : `/publicacion/${id}`;
 
-      const res = await fetch(endpoint, { method: "DELETE" });
-
-      if (!res.ok) throw new Error("Error al eliminar");
- 
+      await apiFetch(endpoint, { method: "DELETE" });
+      
       await cargarDatos();
 
     } catch (err) {

@@ -17,8 +17,8 @@ import { Mensaje } from '../mensaje/entities/mensaje.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'THEspectre12!',
-      database: 'ropo2',
+      password: 'Admin',
+      database: 'ropo2beta',
       entities: [
         Usuario,
         Rol,
