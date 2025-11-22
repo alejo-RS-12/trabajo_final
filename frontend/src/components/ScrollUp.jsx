@@ -6,7 +6,7 @@ export default function ScrollUp() {
 
   useEffect(() => {
     // Hace scroll al inicio de la página cada vez que cambiamos de pagina
-    window.scrollTo(0, 50);
+    window.scrollTo(0, 20);
   }, [pathname]);
 
   return null;

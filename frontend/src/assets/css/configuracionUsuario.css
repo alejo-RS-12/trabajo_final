@@ -1,0 +1,131 @@
+.configuracion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 80vh;
+  background-color: #7fd1d1;
+}
+
+.configuracion-card {
+  background-color: rgba(30, 30, 30, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 40px 30px;
+  max-width: 800px;
+  width: 100%;
+  color: #f5f5f5;
+  font-family: "Montserrat", sans-serif;
+}
+
+.configuracion-card h2 {
+  text-align: center;
+  color: #03dac6;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 15px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.profile-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid #03dac6;
+  object-fit: cover;
+}
+
+.btn-edit-photo {
+  background: none;
+  border: none;
+  color: #03dac6;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #03dac6;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #444;
+  color: #fff;
+}
+
+textarea {
+  resize: none;
+}
+
+.alert-message {
+  background-color: rgba(255, 204, 0, 0.2);
+  border: 1px solid #ffcc00;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
+  color: #ffcc00;
+}
+
+.resend-confirmation {
+  color: #fff;
+  text-decoration: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-save {
+  background-color: #03dac6;
+  color: #333;
+}
+
+.btn-cancel {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+@media (max-width: 768px) {
+  .configuracion-card {
+    padding: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}

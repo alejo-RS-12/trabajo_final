@@ -3,6 +3,7 @@
     "@nestjs/common": "^11.1.8",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.8",
+    "@nestjs/jwt": "^11.0.1",
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.1.8",
@@ -14,7 +15,9 @@
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "nodemailer": "^7.0.10",
+    "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
     "typeorm": "^0.3.27"
   },
   "devDependencies": {

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch, API_URL } from "../services/api";
 
 
 export default function FavoritosPage() {
-  const { usuario } = useAuth();
+  const { usuario, token } = useAuth();
   const usuarioId = usuario?.idUsuario;
   const [publicaciones, setPublicaciones] = useState([]);
   const [loading, setLoading] = useState(true);
+  
   
 
   // función para formatear ubicaciones
@@ -16,24 +18,29 @@ export default function FavoritosPage() {
   };
 
   useEffect(() => {
-    if (!usuarioId) return;
-    fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`)
-      .then((res) => res.json())
-      .then(async (ids) => {
-        // El backend devuelve solo IDs → hacemos fetch de cada publicación
-        const pubs = await Promise.all(
-          ids.map((idPub) =>
-            fetch(`http://localhost:3000/publicacion/${idPub}`).then((r) => r.json())
-          )
-        );
-        setPublicaciones(pubs);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error cargando favoritos:", err);
-        setLoading(false);
-      });
-  }, [usuarioId]);
+  if (!usuarioId || !token) return;
+
+  const cargarFavoritos = async () => {
+    try {
+      const data = await apiFetch(`/usuario/${usuarioId}/favoritos`);
+      console.log("Favoritos =>", data);
+
+      const idList = data.map(fav => fav.idPublicacion ?? fav);
+
+      const pubs = await Promise.all(
+        idList.map(idPub => apiFetch(`/publicacion/${idPub}`))
+      );
+
+      setPublicaciones(pubs);
+    } catch (err) {
+      console.error("Error cargando favoritos:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  cargarFavoritos();
+}, [usuarioId, token]);
 
   if (loading) return <p>Cargando favoritos...</p>;
 
@@ -46,9 +53,10 @@ export default function FavoritosPage() {
         ) : (
           <div className="publicaciones-grid">
             {publicaciones.map((pub) => {
+              if (!pub) return null;
               const imgSrc =
                 pub.imagenes && pub.imagenes.length > 0
-                  ? `http://localhost:3000/${pub.imagenes[0].replace(/^\/?/, "")}`
+                  ? `${API_URL}/${pub.imagenes[0].replace(/^\/?/, "")}`
                   : `/imagenes/placeholder.jpg`;
 
               return (

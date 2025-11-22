@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { apiFetch, API_URL } from "../services/api";
 
 export default function SidebarCrearPub({
   modo,
@@ -118,7 +119,7 @@ export default function SidebarCrearPub({
                       src={pub.imagenes?.[0]
                 ? (typeof pub.imagenes[0] === "string"
                     ? (pub.imagenes[0].startsWith("/uploads")
-                        ? `http://localhost:3000${pub.imagenes[0]}` 
+                        ? `${API_URL}${pub.imagenes[0]}` 
                         : pub.imagenes[0])
                     : pub.imagenes[0].url)
                 : "/crearpub/placeholder.jpg"}
@@ -198,7 +199,7 @@ export default function SidebarCrearPub({
                     <img
                       src={
                         foto instanceof File
-                          ? URL.createObjectURL(foto) : foto.startsWith("/uploads") ? `http://localhost:3000${foto}` 
+                          ? URL.createObjectURL(foto) : foto.startsWith("/uploads") ? `${API_URL}${foto}` 
                           : foto
                       }
                       alt={`foto-${index}`}

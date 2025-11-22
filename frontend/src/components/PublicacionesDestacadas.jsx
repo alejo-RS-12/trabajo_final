@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { apiFetch, API_URL } from "../services/api";
 
 export default function PublicacionesDestacadas() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -17,11 +18,7 @@ export default function PublicacionesDestacadas() {
   useEffect(() => {
     const fetchPublicaciones = async () => {
       try {
-        const response = await fetch("http://localhost:3000/publicacion");
-        if (!response.ok) {
-          throw new Error("Error al cargar las publicaciones");
-        }
-        const data = await response.json();
+        const data = await apiFetch("/publicacion");       
         
         // Agrupar por profesional (una publicación por profesional)
       const agrupadas = Object.values(
@@ -91,7 +88,7 @@ export default function PublicacionesDestacadas() {
           {publicaciones.map((pub) => {
             const imgSrc =
               pub.imagenes && pub.imagenes.length > 0
-                ? `http://localhost:3000/${pub.imagenes[0].replace(/^\/?/, "")}`
+                ? `${API_URL}/${pub.imagenes[0].replace(/^\/?/, "")}`
                 : `/imagenes/placeholder.jpg`;
 
             return (

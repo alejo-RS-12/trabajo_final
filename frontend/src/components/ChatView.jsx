@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
-
+import { apiFetch } from "../services/api";
 
 export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevoMensaje = () => {}, refrescarConversaciones }) {
   const [mensajes, setMensajes] = useState([]);
@@ -13,9 +13,7 @@ export default function ChatView({ idEmisor, idReceptor, receptorNombre, onNuevo
   const fetchMensajes = async () => {
     if (!idEmisor || !idReceptor) return;
     try {
-      const res = await fetch(`http://localhost:3000/mensaje/conversacion/${idEmisor}/${idReceptor}`);
-      if (!res.ok) throw new Error("Error al cargar mensajes");
-      const data = await res.json();
+      const data = await apiFetch(`/mensaje/conversacion/${idEmisor}/${idReceptor}`);
       const ordenados = data.sort((a,b) => new Date(a.fecha) - new Date(b.fecha));
 
       // Detectar mensajes nuevos para indicador, no para scroll

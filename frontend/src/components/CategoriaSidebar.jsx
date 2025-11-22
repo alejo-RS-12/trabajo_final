@@ -1,4 +1,4 @@
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function CategoriaSidebar({
   categorias = [],
@@ -47,7 +47,7 @@ export default function CategoriaSidebar({
                 publicaciones.map((pub) => {
                   const imgSrc =
                     pub.imagenes && pub.imagenes.length > 0
-                      ? `http://localhost:3000/${pub.imagenes[0].replace(
+                      ? `${API_URL}/${pub.imagenes[0].replace(
                           /^\/?/,
                           ""
                         )}`

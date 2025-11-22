@@ -2,7 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import CategoriaSidebar from "../components/CategoriaSidebar";
 import { Link } from "react-router-dom";
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function PublicacionesPage({ categorias = {} }) {
   const { usuario } = useAuth();
@@ -33,15 +33,11 @@ export default function PublicacionesPage({ categorias = {} }) {
 
     setCategoriaSeleccionada(null); 
 
-    fetch(
-      `http://localhost:3000/publicacion/buscar?titulo=${encodeURIComponent(
-        searchTerm
-      )}`,
+    apiFetch(
+      `/publicacion/buscar?titulo=${encodeURIComponent(searchTerm)}`,
       { signal: controller.signal }
     )
-      .then((res) => res.json())
-      .then((data) => {
-        setPublicaciones(data);
+       .then((data) => {setPublicaciones(data);
         if (isMobile) setModoCategorias(false); // en mobile mostramos resultados en sidebar
       })
       .catch((err) => {
@@ -60,12 +56,9 @@ export default function PublicacionesPage({ categorias = {} }) {
     const variantes = categorias[categoria] || [categoria];
     const query = variantes.join(" ");
 
-    fetch(
-      `http://localhost:3000/publicacion/buscar?titulo=${encodeURIComponent(
-        query
-      )}`
+    apiFetch(
+      `/publicacion/buscar?titulo=${encodeURIComponent(query)}`
     )
-      .then((res) => res.json())
       .then((data) => setPublicaciones(data))
       .catch((err) => console.error(err));
   };
@@ -102,7 +95,7 @@ export default function PublicacionesPage({ categorias = {} }) {
               {publicaciones.map((pub) => {
                 const imgSrc =
                   pub.imagenes && pub.imagenes.length > 0
-                    ? `http://localhost:3000/${pub.imagenes[0].replace(/^\/?/, "")}`
+                    ? `${API_URL}/${pub.imagenes[0].replace(/^\/?/, "")}`
                     : `/imagenes/placeholder.jpg`;
 
                 return (

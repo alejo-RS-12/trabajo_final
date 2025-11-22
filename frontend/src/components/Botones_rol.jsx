@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../services/api"; 
 import "../assets/css/botones-rol.css";
 
 export default function BotonesRol() {
@@ -14,15 +15,13 @@ export default function BotonesRol() {
         return;
       }
 
-      const res = await fetch("http://localhost:3000/auth/asignar-rol", {
+      const data = await apiFetch("/auth/asignar-rol", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idUsuario: Number(idUsuario), idRol }),
       });
 
-      const data = await res.json();
 
-      if (!res.ok) {
+      if (!data || !data.user) {
         alert(data.message || "Error al asignar el rol");
         return;
       }
@@ -37,7 +36,7 @@ export default function BotonesRol() {
 
     } catch (error) {
       console.error("Error al asignar el rol:", error);
-      alert("Ocurrió un error al asignar el rol");
+      alert(error.message || "Ocurrió un error al asignar el rol");
     }
   };
 

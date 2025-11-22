@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ConfirmModal from "../components/ConfirmModal";
+import { apiFetch, API_URL } from "../services/api";
 import "../assets/css/admin.css";
 
 export default function AdminPanel() {
@@ -25,12 +26,10 @@ export default function AdminPanel() {
   // Cargar usuario y publicaciones
     const cargarDatos = async () => {
         try {
-          const resUsuario = await fetch(`http://localhost:3000/usuario`);
-          const datosUsuarios = await resUsuario.json();
+          const datosUsuarios = await apiFetch(`/usuario`);
           setUsuarios(datosUsuarios);
   
-          const resPubs = await fetch("http://localhost:3000/publicacion");
-          const dataPubs = await resPubs.json();
+          const pubs = await apiFetch("/publicacion");
           setPublicaciones(dataPubs);
 
         } catch (err) {
@@ -63,8 +62,8 @@ export default function AdminPanel() {
     try {
       const endpoint =
         tipo === "usuario"
-          ? `http://localhost:3000/usuario/${id}`
-          : `http://localhost:3000/publicacion/${id}`;
+          ? `${API_URL}/usuario/${id}`
+          : `${API_URL}/publicacion/${id}`;
 
       const res = await fetch(endpoint, { method: "DELETE" });
 
