@@ -20,6 +20,8 @@ import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 
 
 import * as bcrypt from 'bcrypt';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class UsuarioService {
@@ -290,5 +292,35 @@ export class UsuarioService {
     if (!usuario) throw new NotFoundException('Usuario no encontrado');
 
     return usuario.favoritos ?? [];
+  }
+
+  // ======================================================
+  // 9) IMAGENES
+  // ======================================================
+
+  async actualizarImagenes(idUsuario: number, nuevasImagenes: string[]) {
+    const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
+
+    // 🗑️ Eliminar imágenes viejas si existen
+    if (usuario.imagenes && usuario.imagenes.length > 0) {
+      for (const img of usuario.imagenes) {
+        const rutaArchivo = path.resolve(process.cwd(), img.replace('/uploads/', 'uploads/'));
+        if (fs.existsSync(rutaArchivo)) {
+          try {
+            fs.unlinkSync(rutaArchivo);
+            console.log(`🗑️ Imagen anterior eliminada: ${rutaArchivo}`);
+          } catch (err) {
+            console.error(`❌ Error eliminando ${rutaArchivo}:`, err);
+          }
+        }
+      }
+    }
+
+    usuario.imagenes = Array.isArray(nuevasImagenes)
+    ? nuevasImagenes
+    : [nuevasImagenes];
+    await this.usuarioRepository.save(usuario);
+    return { message: 'Imágenes actualizadas', imagenes: nuevasImagenes };
   }
 }

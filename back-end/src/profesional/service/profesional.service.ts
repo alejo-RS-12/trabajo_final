@@ -110,7 +110,7 @@ export class ProfesionalService {
   findByUsuario(idUsuario: number) {
     return this.profesionalRepo.findOne({
       where: { usuario: { idUsuario } },
-      relations: ['usuario', 'profesiones'],
+      relations: ['usuario', 'profesiones', "profesiones.profesion"],
     });
   }
 

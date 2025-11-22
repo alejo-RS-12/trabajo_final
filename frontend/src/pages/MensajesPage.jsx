@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import ConversacionesList from "../components/ConversacionesList";
 import ChatView from "../components/ChatView";
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function MensajesPage() {
   const { usuario } = useAuth();
@@ -32,10 +32,7 @@ export default function MensajesPage() {
 
     const fetchConversaciones = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/mensaje/conversaciones/${idUsuario}`);
-        if (!res.ok) throw new Error("Error al obtener conversaciones");
-        const data = await res.json();
-
+        const data = await apiFetch(`/mensaje/conversaciones/${idUsuario}`);
         const conversacionesData = (Array.isArray(data) ? data : []) 
         setConversaciones(conversacionesData);
 
@@ -59,15 +56,13 @@ export default function MensajesPage() {
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`http://localhost:3000/mensaje/conversaciones/${idUsuario}`);
-        if (!res.ok) throw new Error("Error al obtener conversaciones");
-        const data = await res.json();
-        const conversacionesData = (Array.isArray(data) ? data : [])
+        const conversacionesData = await apiFetch(`/mensaje/conversaciones/${idUsuario}`);
+        const conversacionesArray = (Array.isArray(conversacionesData) ? conversacionesData : [])
         // console.log("Conversaciones recibidas del backend:", conversacionesData);
         setConversaciones(prev => {
           const nuevosIndicadores = {};
 
-          conversacionesData.forEach(conv => {
+          conversacionesArray.forEach(conv => {
             const previa = prev.find(p => p.idUsuario === conv.idUsuario);
 
             // Comparo por la fecha del último mensaje  
@@ -81,22 +76,16 @@ export default function MensajesPage() {
                 nuevosIndicadores[conv.idUsuario] = true;
               }
             }
-            // console.log("Comparando:", {
-            //   usuario: conv.idUsuario,
-            //   fechaPrev,
-            //   fechaAct,
-            //   conv
-            // });
           });
 
           if (Object.keys(nuevosIndicadores).length > 0) {
             setMensajesNuevos(prevNuevos => ({ ...prevNuevos, ...nuevosIndicadores }));
           }
 
-          return conversacionesData;
+          return conversacionesArray;
         });
       } catch (err) {
-        console.error(err);
+        console.error("Error en polling de conversaciones:", err);
       }
     }, 3000);
 
@@ -135,8 +124,7 @@ export default function MensajesPage() {
                 }
               }}
                refrescarConversaciones={async () => {
-                const res = await fetch(`http://localhost:3000/mensaje/conversaciones/${idUsuario}`);
-                const data = await res.json();
+                const data = await apiFetch(`/mensaje/conversaciones/${idUsuario}`);
                 setConversaciones(data);
               }}
             />

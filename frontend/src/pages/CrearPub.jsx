@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SidebarCrearPub from "../components/SidebarCrearPub";
 import ToastContainer from "../components/ToastContainer";
 import ConfirmModal from "../components/ConfirmModal";
-import { apiFetch } from "../services/api";
+import { apiFetch, API_URL } from "../services/api";
 
 export default function CrearPub() {
   const { usuario } = useAuth();
@@ -156,7 +156,10 @@ export default function CrearPub() {
     setModo("crear");
     setEditandoId(pub.idPublicacion);
 
-    setCategoriaSeleccionada(pub.categoria);
+    setCategoriaSeleccionada(pub.categoria || pub.tipo ||
+    (pub.titulo.includes("form") ? "Formación" :
+    pub.titulo.includes("bien") ? "Bienestar" :
+    "Trabajo"));
     setTitulo(pub.titulo);
     setDescripcion(pub.descripcion);
     setUbicacion(pub.ubicacion);
@@ -333,7 +336,7 @@ export default function CrearPub() {
                 <div className="imagen-principal" id="vp-fotos">
                   <img
                     src={fotos[0] ? (fotos[0] instanceof File ? URL.createObjectURL(fotos[0]) : fotos[0]?.startsWith("/uploads")
-                      ? `http://localhost:3000${fotos[0]}` : fotos[0]) : "/imagenes/crearpub/placeholder.jpg"}
+                      ? `${API_URL}${fotos[0]}` : fotos[0]) : "/imagenes/crearpub/placeholder.jpg"}
                     alt="Imagen principal"
                   />
                 </div>
@@ -369,7 +372,7 @@ export default function CrearPub() {
                       src={pub.imagenes?.[0]
                         ? (typeof pub.imagenes[0] === "string"
                           ? (pub.imagenes[0].startsWith("/uploads")
-                            ? `http://localhost:3000${pub.imagenes[0]}`
+                            ? `${API_URL}${pub.imagenes[0]}`
                             : pub.imagenes[0])
                           : pub.imagenes[0].url)
                         : "/imagenes/crearpub/placeholder.jpg"}

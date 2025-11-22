@@ -29,6 +29,9 @@ export class Usuario {
   @Column({ length: 255 })
   contrasena: string;
 
+  @Column({ type: 'simple-array', nullable: true })
+  imagenes?: string[];
+
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   fechaRegistro: Date;
 

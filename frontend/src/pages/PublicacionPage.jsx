@@ -6,13 +6,13 @@ import CarruselImagenes from "../components/CarruselImagenes";
 import Calificacion from "../components/Calificacion";
 import ChatModal from "../components/ChatModal";
 import DenunciaModal from "../components/DenunciaModal";
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function PublicacionPage() {
-  const { usuario } = useAuth();
+  const { usuario, token } = useAuth();
   const usuarioId = usuario?.idUsuario;
   const { id } = useParams(); // id de la URL
-  console.log("ID de la publicación:", id);
+  //console.log("ID de la publicación:", id);
 
   const location = useLocation();
   const publicacionState = location.state?.publicacion;
@@ -44,77 +44,104 @@ export default function PublicacionPage() {
       };
     }, []);
 
-   const handleClick = (n) => {
-  fetch(`http://localhost:3000/publicacion/${publicacion.idPublicacion}/calificar`, {
+   const handleClick  = async  (n) => {
+     try {
+    const data = await apiFetch(`/publicacion/${publicacion.idPublicacion}/calificar`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ puntuacion: n }),
   })
-  .then(res => res.json())
-  .then(data => {
-    // actualizar promedio en la publicación
+  // actualizar promedio en la publicación
     setPromedioCalificacion(Number(data.calificacionPromedio));
-  })
-  .catch(err => console.error(err));
+  }
+  catch(err) { console.error(err);}
 };
 
 
   useEffect(() => {
-  if (!usuarioId) return;
+
+    if (usuario === null) {
+    console.log("⏳ usuario todavía cargando...");
+    return;
+  }
+  // console.log("useEffect ejecutado");
+  // console.log("usuarioId:", usuarioId);
+  // console.log("token:", usuario?.token);
+
+  if (!usuarioId || !token) {console.log("⛔ No entra a checkFavorito por falta de datos");return;} 
 
   const checkFavorito = async () => {
+    // console.log("➡ Entró a checkFavorito");
     try {
-      const res = await fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`);
-      if (!res.ok) throw new Error("No se pudieron obtener favoritos");
-      const data = await res.json();
+      const data = await apiFetch(`/usuario/${usuarioId}/favoritos`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      // Si devuelve [1, 2, 3] → data directamente
-      const idsFavoritos = data.map(fav => fav.idPublicacion ?? fav);
+      //console.log("Favoritos recibidos:", data);
+
+      // Si backend devuelve publicaciones completas → fav.id
+      // Si backend devuelve solo IDs → fav
+      const idsFavoritos = data.map(fav =>
+        fav.idPublicacion ?? fav.id ?? fav
+      );
+
       setFavorito(idsFavoritos.includes(Number(id)));
+      //console.log("✔ FAVORITOS DEVUELTOS:", idsFavoritos);
     } catch (err) {
-      console.warn(err);
+      console.error("Error obteniendo favoritos", err);
+      console.warn("Error verificando favoritos:", err);
       setFavorito(false);
     }
   };
 
   checkFavorito();
-}, [id, usuarioId]);
+}, [id, usuarioId, usuario?.token]);
 
-  // Alternar favorito (guardar / quitar)
-  const toggleFavorito = () => {
-    if (!usuarioId) {
-      showToast("⚠️ Debes iniciar sesión para usar favoritos");
-      return;
-    }
 
+const toggleFavorito = async () => {
+  try {
     if (!favorito) {
       // Guardar favorito
-      fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
+      const res = await apiFetch(`/usuario/${usuarioId}/favoritos`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json", 
+          Authorization: `Bearer ${usuario.token}`,
+        },
         body: JSON.stringify({ idPublicacion: Number(id) }),
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error();
-          setFavorito(true);
-          showToast("❤️ Publicación guardada en favoritos");
-        })
-        .catch(() => showToast("❌ Error al guardar en favoritos"));
+      });
+
+      // si tu api devuelve algo como { success: false, message: "..." }
+      if (res.error) throw new Error(res.message || "Error desconocido");
+
+      setFavorito(true);
+      showToast("❤️ Publicación guardada en favoritos");
+
     } else {
       // Quitar favorito
-      fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
-  method: "DELETE",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ idPublicacion: Number(id) }),
-})
-  .then((res) => {
-    if (!res.ok) throw new Error();
-    setFavorito(false);
-    showToast("💔 Publicación quitada de favoritos");
-  })
-  .catch(() => showToast("❌ Error al quitar favorito"));
+      const res = await apiFetch(`/usuario/${usuarioId}/favoritos`, {
+        method: "DELETE",
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${usuario.token}`,
+        },
+        body: JSON.stringify({ idPublicacion: Number(id) }),
+      });
+
+      if (res.error) throw new Error(res.message || "Error desconocido");
+
+      setFavorito(false);
+      showToast("💔 Publicación quitada de favoritos");
     }
-  };
+  } catch (err) {
+    console.error("Error de favoritos:", err);
+    showToast("❌ " + err.message);
+  }
+};
 
   const handleCompartir = () => {
     // URL de la publicación
@@ -133,9 +160,10 @@ export default function PublicacionPage() {
 
 // Guardar en favoritos (ejemplo usuario id=${usuarioId})
   const handleGuardar = () => {
-    fetch(`http://localhost:3000/usuario/${usuarioId}/favoritos`, {
+    apiFetch(`/usuario/${usuarioId}/favoritos`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", 
+        Authorization: `Bearer ${usuario.token}`, },
       body: JSON.stringify({ idPublicacion: Number(id) }),
     })
       .then((res) => {
@@ -243,7 +271,7 @@ export default function PublicacionPage() {
           <CarruselImagenes
             imagenes={
               publicacion.imagenes && publicacion.imagenes.length > 0
-                ? publicacion.imagenes.map(img => `http://localhost:3000/${img.replace(/^\/?/, "")}`)
+                ? publicacion.imagenes.map(img => `${API_URL}/${img.replace(/^\/?/, "")}`)
                 : [`/imagenes/placeholder.jpg`] 
             }
           />

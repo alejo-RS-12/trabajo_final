@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function ChatInput({ idEmisor, idReceptor, onSent }) {
   const [texto, setTexto] = useState("");
@@ -7,6 +7,7 @@ export default function ChatInput({ idEmisor, idReceptor, onSent }) {
 
   const handleSend = async () => {
     if (!texto.trim()) return;
+    
     const payload = {
       contenido: texto,
       idEmisor,
@@ -14,13 +15,11 @@ export default function ChatInput({ idEmisor, idReceptor, onSent }) {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/mensaje", {
+      const nuevo = await apiFetch("/mensaje", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("Error al enviar mensaje");
-      const nuevo = await res.json(); 
+      
       onSent(nuevo || { contenido: texto });
       setTexto("");
       inputRef.current?.focus();

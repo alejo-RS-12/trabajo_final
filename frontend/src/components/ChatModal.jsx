@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import { apiFetch, API_URL } from "../services/api";
 
 export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
   const [mensaje, setMensaje] = useState(receptor === "Administrador ROPO" ? "" : "Estoy interesado en tu publicación.");
@@ -13,9 +13,7 @@ export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
 
   const fetchMensajes = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/mensaje/conversacion/${idEmisor}/${idReceptor}`);
-      if (!res.ok) throw new Error("Error al obtener mensajes");
-      const data = await res.json();
+      const data = await apiFetch(`/mensaje/conversacion/${idEmisor}/${idReceptor}`);
 
       setMensajes(
         data.map((m) => ({
@@ -53,13 +51,10 @@ export default function ChatModal({ receptor, onClose, idReceptor, idEmisor }) {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/mensaje", {
+      await apiFetch("/mensaje", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nuevoMensaje),
       });
-
-      if (!res.ok) throw new Error("Error al enviar mensaje");
 
       setMensajes((prev) => [...prev, { tipo: "emisor", texto: mensaje }]);
       setMensaje("");

@@ -15,6 +15,8 @@ import PublicacionPage from "../src/pages/PublicacionPage";
 import Login from "../src/pages/Login";
 import FavoritosPage from "./pages/FavoritosPage";
 import MensajesPage from "./pages/MensajesPage";
+import Usuario from "./pages/Usuario";
+import ConfiguracionUsuario from "./pages/ConfiguracionUsuario";
 import ToastContainer from "./components/ToastContainer";
 
 export default function App() {
@@ -37,6 +39,8 @@ export default function App() {
             <Route path="/publicacion/:id" element={<PublicacionPage />} />
             <Route path="/favoritos" element={<FavoritosPage />} />
             <Route path="/mensajes" element={<MensajesPage />} />
+            <Route path="/usuario" element={<Usuario />} />
+            <Route path="/configuracion-de-usuario" element={<ConfiguracionUsuario />} />
           </Route>
         </Routes>
 

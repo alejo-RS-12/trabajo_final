@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors, 
+  UploadedFiles
 } from '@nestjs/common';
 
 import { UsuarioService } from '../service/usuario.service';
@@ -16,6 +18,9 @@ import { AddFavoritoDto, RemoveFavoritoDto } from '../dto/favoritos.dto';
 import { RegisterUserDto } from '../dto/register-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { JwtAuthGuard } from '../../auth/service/jwt-auth.guard';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -86,4 +91,25 @@ export class UsuarioController {
   getFavoritos(@Param('id') idUsuario: number) {
     return this.usuarioService.obtenerFavoritos(idUsuario);
   }
+
+  @Post(':id/imagenes')
+  @UseInterceptors(
+    FilesInterceptor('imagenes', 5, { 
+      storage: diskStorage({
+        destination: './uploads/usuarios',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, uniqueSuffix + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+    async uploadImagenes(
+      @Param('id') id: string,
+      @UploadedFiles() files: Express.Multer.File[],
+    ) {
+      const imagenes = files.map((f) => `/uploads/usuarios/${f.filename}`);
+    console.log('📸 Imágenes subidas:', imagenes);
+    return this.usuarioService.actualizarImagenes(+id, imagenes);
+    }
 }

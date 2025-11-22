@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { apiFetch } from "../services/api";
 
 export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor }) {
   const [motivo, setMotivo] = useState("");
@@ -23,14 +23,10 @@ export default function DenunciaModal({ isOpen, onClose, publicacionId, idEmisor
     };
 
     try {
-      const res = await fetch("http://localhost:3000/mensaje", {
+      const res = await apiFetch("/mensaje", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nuevoMensaje),
       });
-
-      if (!res.ok) throw new Error("Error al enviar la denuncia");
-
       showToast("✅ Denuncia enviada correctamente al administrador.");
       setTimeout(() => {
       setMotivo("");
