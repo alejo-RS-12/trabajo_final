@@ -37,7 +37,7 @@ export default function UserMenu({ open, setOpen }) {
             <a href="/favoritos">Favoritos</a>
           </li>
           <li>
-            <a href="/configuración">Configuración</a>
+            <a href="/configuracion-de-usuario">Configuración</a>
           </li>
           <li>
             <a href="/logout">Salir</a>
