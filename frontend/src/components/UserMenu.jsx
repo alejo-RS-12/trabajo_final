@@ -1,14 +1,15 @@
 import { useEffect, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 import "../assets/css/UserMenu.css";
 
 export default function UserMenu({ open, setOpen }) {
   const ref = useRef(null);
+  const { logout } = useAuth();
 
-  // 👇 Cerrar solo el user menu al hacer click fuera de él
   useEffect(() => {
     function handleClickOutside(e) {
       if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false); //esto nO toca el hamburguesa
+        setOpen(false);
       }
     }
 
@@ -22,7 +23,7 @@ export default function UserMenu({ open, setOpen }) {
         src="imagenes/icono-user.png"
         alt="usuario"
         className="um-icon"
-        onClick={() => setOpen(!open)} // llama a handleSetUserOpen del Header
+        onClick={() => setOpen(!open)}
       />
 
       {open && (
@@ -39,8 +40,10 @@ export default function UserMenu({ open, setOpen }) {
           <li>
             <a href="/configuracion-de-usuario">Configuración</a>
           </li>
-          <li>
-            <a href="/logout">Salir</a>
+
+          {/*CERRAR SESIÓN*/}
+          <li onClick={logout} style={{ cursor: "pointer" }}>
+            Salir
           </li>
         </ul>
       )}
