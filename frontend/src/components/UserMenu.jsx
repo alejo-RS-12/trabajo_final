@@ -1,10 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch, API_URL } from "../services/api";
 import "../assets/css/UserMenu.css";
 
 export default function UserMenu({ open, setOpen }) {
   const ref = useRef(null);
-  const { logout } = useAuth();
+  const {  usuario, logout } = useAuth();
+  const [fotoPerfil, setFotoPerfil] = useState(null);
+
+   useEffect(() => {
+  if (!usuario?.idUsuario) {
+    setFotoPerfil("/imagenes/icono-user.png"); // Si no está logueado
+    return;
+  }
+
+  const fetchImagen = async () => {
+    try {
+      const dataUsuario = await apiFetch(`/usuario/${usuario.idUsuario}`);
+      const imgs = dataUsuario.imagenes || [];
+      if (imgs.length > 0) {
+        setFotoPerfil(`${API_URL}${imgs[0]}`);
+      } else {
+        setFotoPerfil("/imagenes/icono-user.png"); // Si no hay imagen
+      }
+    } catch (err) {
+      console.error("Error cargando imagen de perfil:", err);
+      setFotoPerfil("/imagenes/icono-user.png"); // Si falla fetch
+    }
+  };
+
+  fetchImagen();
+}, [usuario]);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -17,15 +43,17 @@ export default function UserMenu({ open, setOpen }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [setOpen]);
 
+ 
   return (
     <div className="um-container" ref={ref}>
-      <img
-        src="imagenes/icono-user.png"
-        alt="usuario"
-        className="um-icon"
-        onClick={() => setOpen(!open)}
-      />
-
+      {fotoPerfil && (
+        <img
+          src={fotoPerfil}
+          alt="usuario"
+          className="um-icon"
+          onClick={() => setOpen(!open)}
+        />
+      )}
       {open && (
         <ul className="um-menu">
           <li>
