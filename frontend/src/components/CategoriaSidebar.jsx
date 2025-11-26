@@ -37,7 +37,7 @@ export default function CategoriaSidebar({
               <span>
                 {categoriaSeleccionada || "Resultados de búsqueda"}
               </span>
-              <button className="btn-accion" onClick={onVolverCategorias}>+ Categorías</button>
+              <button className="btn-accion2" onClick={onVolverCategorias}>+ Categorías</button>
             </div>
 
             <div className="publicaciones-grid">

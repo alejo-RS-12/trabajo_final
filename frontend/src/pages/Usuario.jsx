@@ -17,6 +17,13 @@ export default function Usuario() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!usuario) {
+      showToast("Inicia sesión para continuar", "error");
+      navigate("/login", { replace: true }); 
+    }
+  }, [usuario, navigate]);
+
+  useEffect(() => {
     if (!idUsuario) return;
 
     // Obtener datos del usuario
@@ -73,6 +80,15 @@ export default function Usuario() {
                 >
                   Actualiza tus datos
                 </button>
+                {datosUsuario.rol.nombreRol === "Admin" && (
+                  <button
+                    className="btn-editar" 
+                    onClick={() => navigate("/admin")}
+                    style={{ margin: '10px'}} 
+                  >
+                    Administrar
+                  </button>
+                )}
             </div>
           </div>
 

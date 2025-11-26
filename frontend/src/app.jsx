@@ -18,6 +18,7 @@ import MensajesPage from "./pages/MensajesPage";
 import Usuario from "./pages/Usuario";
 import ConfiguracionUsuario from "./pages/ConfiguracionUsuario";
 import ToastContainer from "./components/ToastContainer";
+import Nosotros from "./pages/Nosotros";
 
 export default function App() {
   return (
@@ -32,15 +33,43 @@ export default function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/trabajos"element={<PublicacionesPage categorias={categoriasTrabajos} titulo="Trabajos"/>  } />
-            <Route path="/formacion" element={<PublicacionesPage  categorias={categoriasFormacion} titulo="Formación"/>}/>
-            <Route path="/bienestar" element={<PublicacionesPage categorias={categoriasBienestar} titulo="Bienestar"/> }/>
+            <Route
+              path="/trabajos"
+              element={
+                <PublicacionesPage
+                  categorias={categoriasTrabajos}
+                  titulo="Trabajos"
+                />
+              }
+            />
+            <Route
+              path="/formacion"
+              element={
+                <PublicacionesPage
+                  categorias={categoriasFormacion}
+                  titulo="Formación"
+                />
+              }
+            />
+            <Route
+              path="/bienestar"
+              element={
+                <PublicacionesPage
+                  categorias={categoriasBienestar}
+                  titulo="Bienestar"
+                />
+              }
+            />
             <Route path="/crear-publicacion" element={<CrearPub />} />
             <Route path="/publicacion/:id" element={<PublicacionPage />} />
             <Route path="/favoritos" element={<FavoritosPage />} />
             <Route path="/mensajes" element={<MensajesPage />} />
             <Route path="/usuario" element={<Usuario />} />
-            <Route path="/configuracion-de-usuario" element={<ConfiguracionUsuario />} />
+            <Route
+              path="/configuracion-de-usuario"
+              element={<ConfiguracionUsuario />}
+            />
+            <Route path="/nosotros" element={<Nosotros />} />
           </Route>
         </Routes>
 

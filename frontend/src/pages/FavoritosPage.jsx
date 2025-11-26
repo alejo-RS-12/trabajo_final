@@ -1,21 +1,29 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { apiFetch, API_URL } from "../services/api";
-
+import { useNavigate } from "react-router-dom";
 
 export default function FavoritosPage() {
   const { usuario, token } = useAuth();
   const usuarioId = usuario?.idUsuario;
   const [publicaciones, setPublicaciones] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+  const estaEnRutaFavoritos = location.pathname === "/favoritos";
 
   // función para formatear ubicaciones
   const formatUbicacion = (ubicacion = "") => {
     return ubicacion.replace(/_/g, " ").toUpperCase();
   };
+
+   useEffect(() => {
+    if (!usuario) {
+      showToast("Inicia sesión para continuar", "error");
+      navigate("/login", { replace: true }); 
+    }
+  }, [usuario, navigate]);
 
   useEffect(() => {
   if (!usuarioId || !token) return;
@@ -47,7 +55,7 @@ export default function FavoritosPage() {
   return (
     <div className="contenedor-sitio">
       <div className="contenido-favoritos">
-      {/*<h2>Tus publicaciones guardadas en FAVORITOS </h2>*/}
+      {estaEnRutaFavoritos && (<h3>Tus publicaciones guardadas en FAVORITOS </h3>)}
         {publicaciones.length === 0 ? (
           <p>No tienes publicaciones guardadas en favoritos</p>
         ) : (

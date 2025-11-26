@@ -3,10 +3,12 @@ import { useAuth } from "../context/AuthContext";
 import ConversacionesList from "../components/ConversacionesList";
 import ChatView from "../components/ChatView";
 import { apiFetch, API_URL } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function MensajesPage() {
   const { usuario } = useAuth();
   const idUsuario = usuario?.idUsuario;
+  const navigate = useNavigate();
 
   const [conversaciones, setConversaciones] = useState([]);
   const [seleccionado, setSeleccionado] = useState(null);
@@ -16,6 +18,13 @@ export default function MensajesPage() {
     setSeleccionado(conv);
   };
 
+  useEffect(() => {
+    if (!usuario) {
+      showToast("Inicia sesión para continuar", "error");
+      navigate("/login", { replace: true }); 
+    }
+  }, [usuario, navigate]);
+  
   // Limpia el indicador de mensaje nuevo al seleccionar una conversación
   useEffect(() => {
     if (!seleccionado) return;

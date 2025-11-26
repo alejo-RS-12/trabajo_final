@@ -19,6 +19,13 @@ export default function ConfiguracionUsuario() {
   // 1) Cargar usuario ó profesional
   //
   useEffect(() => {
+    if (!usuario) {
+      showToast("Inicia sesión para continuar", "error");
+      navigate("/login", { replace: true }); 
+    }
+  }, [usuario, navigate]);
+  
+  useEffect(() => {
   if (!usuario || !usuario.idUsuario) return;
 
   const fetchDatos = async () => {
