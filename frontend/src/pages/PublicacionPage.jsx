@@ -103,6 +103,11 @@ export default function PublicacionPage() {
 
 
 const toggleFavorito = async () => {
+  if (!usuario || !token) {
+        console.error("⛔ Debe iniciar sesión para guardar favoritos.");
+        showToast("❌ Debes iniciar sesión para guardar favoritos.", "error");
+        return; // Detiene la ejecución
+    }
   try {
     if (!favorito) {
       // Guardar favorito
@@ -182,11 +187,7 @@ const toggleFavorito = async () => {
 // Traemos desde la base de datos
   useEffect(() => {
     if (!publicacionState) {
-      fetch(`http://localhost:3000/publicacion/${id}`)
-        .then(res => {
-          if (!res.ok) throw new Error("No se encontró la publicación");
-          return res.json();
-        })
+      apiFetch(`/publicacion/${id}`)
         .then(data => {
           setPublicacion(data);
           setLoading(false);
@@ -222,17 +223,14 @@ const toggleFavorito = async () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/mensaje", {
+      const data = await apiFetch("/mensaje", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contenido: mensajeTexto,
           idEmisor: usuarioId,
           idReceptor: publicacion.profesional?.usuario?.idUsuario,
         }),
       });
-
-      if (!res.ok) throw new Error("Error al enviar mensaje");
 
       setMensajeTexto(""); 
       showToast("✅ Mensaje enviado correctamente");
@@ -252,10 +250,10 @@ const toggleFavorito = async () => {
     </button>
     </div>
     <div className="iconos-superiores">
-      <button className="btn-accion" onClick={() => setMostrarDenuncia(true)}>
+      <button className="btn-accion" onClick={() => setMostrarDenuncia(true)} disabled={!usuario}>
       🚩 Denunciar
     </button>
-    <button className="btn-accion" onClick={() => setMostrarChat(true)}>
+    <button className="btn-accion" onClick={() => setMostrarChat(true)} disabled={!usuario}>
       💬 Chat
     </button>
      <button className="btn-accion" onClick={toggleFavorito}> {favorito ? "💔 Quitar" : "❤️ Guardar"} </button>

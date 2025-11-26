@@ -29,7 +29,7 @@ export default function UserMenu({ open, setOpen }) {
       {open && (
         <ul className="um-menu">
           <li>
-            <a href="/admin">Administrador</a>
+            <a href="/usuario">Perfil</a>
           </li>
           <li>
             <a href="/mensajes">Mensajes</a>

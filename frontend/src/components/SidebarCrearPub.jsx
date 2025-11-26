@@ -80,7 +80,7 @@ export default function SidebarCrearPub({
       >
         Tus publicaciones
       </li>
-            <li> <Link to="/trabajos">Volver a tu perfil</Link> </li>
+            <li> <Link to="/usuario">Volver a tu perfil</Link> </li>
           </ul>
         </div>
       )}
