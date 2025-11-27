@@ -35,17 +35,20 @@ ROPO es una plataforma web diseñada para conectar proveedores de servicios loca
 1_ Una vez clonado o descargado el proyecto, utilizando la terminal de visual estudio code se tiene que instalar las dependencias en cada carpeta:
 En la raiz del poryecto (npm install), luego en la carptea de frontend y back-end lo mismo
 
-2- crear la base de datos en MySQL Wokrbench 
-CREATE DATABASE IF NOT EXISTS ropo2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE ropo2;
+2- **crear la base de datos en MySQL Wokrbench**
+   CREATE DATABASE IF NOT EXISTS ropo2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   USE ropo2;
 
-3_ En la carpeta back-end ir al archivo app.module.ts y cambiar lo siguiente, hacer lo mismo en seeds/seed,module.ts
-   username: process.env.DB_USER || '***', nombre de tu perfil en la base de datos
-   password: process.env.DB_PASS || '***'contraseña de tu base de datos
+3_ En la carpeta back-end ir al archivo app.module.ts y cambiar lo siguiente, hacer lo mismo en seeds/seed,module.ts:
+
+   username: process.env.DB_USER || '***',: nombre de tu perfil en la base de datos
+   
+   password: process.env.DB_PASS || '***': contraseña de tu base de datos
+   
    hacer lo mismo en seeds/seed,module.ts
    luego en el mismo archivo app.module cambiar synchronize: false, por true
 
-   una vez hecho eso en la consola hacer cd back-end npm run start:dev (esto general las tablas vacias en la base de datos); una vez hecho esto volver a cambiar synchronize: true, por false y volver a poner cd back-end npm run start:dev.
+   una vez hecho eso en la consola hacer cd back-end npm run start:dev (esto general las tablas vacias en la base de datos); una vez     hecho esto volver a cambiar synchronize: true, por false y volver a poner cd back-end npm run start:dev.
 
 4_ Ejecutar seeds:
     en la terminal hacer cd back-end ts-node src/seeds/main.ts.
