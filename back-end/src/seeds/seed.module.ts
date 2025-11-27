@@ -14,11 +14,11 @@ import { Mensaje } from '../mensaje/entities/mensaje.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'b0swkr0msylwbygkrnvk-mysql.services.clever-cloud.com',
       port: 3306,
-      username: 'root',
-      password: 'Admin',
-      database: 'ropo2beta',
+      username: 'uka8qb6tpuhti9bk',
+      password: 'zRr6EHUqKCRp6OWox8GG',
+      database: 'b0swkr0msylwbygkrnvk',
       entities: [
         Usuario,
         Rol,
