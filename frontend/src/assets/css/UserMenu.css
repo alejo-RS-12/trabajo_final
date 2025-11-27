@@ -1,0 +1,46 @@
+.um-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.um-icon {
+  width: 42px;
+  height: 42px;
+  background: #88d8db;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* MENÚ DROPDOWN */
+.um-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 10px;
+  list-style: none;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+/*similares al NavMenu*/
+.um-menu li {
+  padding: 0.75rem 1rem; /*altura */
+  text-align: center;
+}
+
+.um-menu a {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+
+.um-menu li:hover {
+  background: #f2f2f2;
+}

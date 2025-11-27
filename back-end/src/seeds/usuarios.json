@@ -1,0 +1,12 @@
+[
+  { "idUsuario":1, "nombreCompleto": "Jose Luis Labourdette", "nombreDeUsuario": "jose", "email": "jose@mail.com", "contrasena": "$2b$10$cj74RVGcgKwKbB.2gXt9auEzLc8/I1JSemkot5qCSk.2H.DkccnCO", "idRol": 1, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":2, "nombreCompleto": "Alejo Rua", "nombreDeUsuario": "alejo", "email": "alejo@mail.com", "contrasena": "$2b$10$723WgaOtW9CH5wXmzveS1OcJIg9lDfsoyC.IjiByd6Qh3oMcvi5sG",  "idRol": 1, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":3, "nombreCompleto": "Santiago Pedraza", "nombreDeUsuario": "santi", "email": "santi@mail.com", "contrasena": "$2b$10$zCD1gxh7OsuPpavwK7xK6u33XsibTxkOjLV/TLQ7n5Paz89QulFMu", "idRol": 1, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":4, "nombreCompleto": "Pedro de Mendoza", "nombreDeUsuario": "pedro", "email": "pedro@mail.com", "contrasena": "$2b$10$YPhwqFyCW.NBC51NtZCfve5wuFYOOH0LjFE.8jzqo/QgRD0/j/r0O",  "idRol": 2, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":5, "nombreCompleto": "Pepe Argento", "nombreDeUsuario": "pepe", "email": "pepe@mail.com", "contrasena": "$2b$10$v6hqgE8U9JnkqWowsYFn2unyNOdo28idRn03phdqHjZI3RApPlTeK", "idRol": 3, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":6, "nombreCompleto": "Dardo Fuseneco", "nombreDeUsuario": "dardo", "email": "dardo@mail.com", "contrasena": "$2b$10$A/5pEZKwjNUlNPXT40kgWOiU1dQQLTSVbTkqryiyA7OBzMcacU8j2", "idRol": 3, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":7, "nombreCompleto": "Homero Simpsons", "nombreDeUsuario": "homero", "email": "homero@mail.com", "contrasena": "$2b$10$vdIZasFQpMZUgmSkG9IW4uVQMEkFZCbD5VVKDzzYkiD3a65g/.Bli", "idRol": 3, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":8, "nombreCompleto": "Marge Bouvier", "nombreDeUsuario": "marge", "email": "marge@mail.com", "contrasena": "$2b$10$OIK8/uHysgZXqVbBMiCFveTi55VpRQLHZIHkEzrD/8RrVyreZ4ac2",  "idRol": 3, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":9, "nombreCompleto": "Moni Argento", "nombreDeUsuario": "moni", "email": "moni@mail.com", "contrasena": "$2b$10$Sm3JLPxW/RLq9jrRKKzh5um2.SJj6gGd/4MXco.k3LWAaDx3GiBMu", "idRol": 3, "tokenVerificacion": null, "verificado": true },
+  { "idUsuario":10, "nombreCompleto": "Mara E. Fuseneco", "nombreDeUsuario": "maria", "email": "maria@mail.com", "contrasena": "$2b$10$MoqK7pwdDrYb9y28Am5tB.4i0HAR1tM8rF4llwlKy8FfWCknWlsYq", "idRol": 3, "tokenVerificacion": null, "verificado": true }
+]
