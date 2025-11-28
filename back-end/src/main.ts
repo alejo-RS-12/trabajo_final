@@ -7,9 +7,9 @@ import { METHODS } from 'http';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({origin: ["https://ropo-7e929.web.app",
-      "https://ropo-7e929.firebaseapp.com", "https://rop-ke9k.onrender.com", "http://localhost:5173"], 
+      "https://ropo-7e929.firebaseapp.com", "http://localhost:5173"], 
     METHODS: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-    credentials: false,});
+    credentials: true,});
   // Carpeta uploads accesible públicamente
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
