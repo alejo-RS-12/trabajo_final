@@ -6,7 +6,8 @@ import { METHODS } from 'http';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({origin: ["https://rop-ke9k.onrender.com", "http://localhost:5173"], 
+  app.enableCors({origin: ["https://ropo-7e929.web.app",
+      "https://ropo-7e929.firebaseapp.com", "https://rop-ke9k.onrender.com", "http://localhost:5173"], 
     METHODS: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
     credentials: false,});
   // Carpeta uploads accesible públicamente
