@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3000";
+export const API_URL = "https://rop-ke9k.onrender.com";
 
 export async function apiFetch(endpoint: string, options: any = {}) {
   const token = localStorage.getItem("token");
