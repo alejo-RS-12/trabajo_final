@@ -6,6 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // CORS correcto para Firebase Hosting
   app.enableCors({
     origin: [
       "https://ropo-7e929.web.app",
@@ -13,14 +14,22 @@ async function bootstrap() {
       "http://localhost:5173"
     ],
     methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+    allowedHeaders: "Content-Type, Authorization",
     credentials: true,
   });
 
-  // Servir /uploads correctamente
+  // Carpeta /uploads pública
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads',
+    setHeaders: (res, path) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');          
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); 
+      res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    }
   });
 
   await app.listen(process.env.PORT ?? 3000);
 }
+
 bootstrap();
