@@ -127,7 +127,7 @@ export class EmailService {
 
     this.emailFrom =
       this.config.get<string>('EMAIL_FROM') ||
-      'Ropo <no-reply@ropo.com>';
+      "Ropo <onboarding@resend.dev>";
 
     this.backendUrl =
       this.config.get<string>('BACKEND_URL') ||
