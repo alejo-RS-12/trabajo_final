@@ -235,49 +235,120 @@
 // }
 
 
+//   FUNCIONA PERO SOLO CON JOSECEREBRO
+
+
+// import { Injectable } from '@nestjs/common';
+// import { ConfigService } from '@nestjs/config';
+// import { Resend } from 'resend';
+
+// @Injectable()
+// export class EmailService {
+//   private resend: Resend;
+//   private backendUrl: string;
+
+//   constructor(private readonly config: ConfigService) {
+//     this.resend = new Resend(
+//       this.config.get<string>('RESEND_API_KEY') ||
+//       're_TAizyhn3_MfUiVcNoDMkc1ifHvxWQaDkN'
+//     );
+
+//     this.backendUrl =
+//       this.config.get<string>('BACKEND_URL') ||
+//       'https://rop-ke9k.onrender.com';
+//   }
+
+//   /**
+//    * 📩 Envío simple de email con Resend (igual al ejemplo)
+//    */
+//   async sendMail(to: string, subject: string, html: string) {
+//     try {
+//       const sent = await this.resend.emails.send({
+//         from: 'onboarding@resend.dev', // 🔥 Igual que el ejemplo probado
+//         to,
+//         subject,
+//         html,
+//       });
+
+//       console.log('Email enviado:', sent);
+//       return sent;
+//     } catch (error) {
+//       console.error('Error enviando email:', error);
+//       throw new Error('No se pudo enviar el email');
+//     }
+//   }
+
+//   /**
+//    * ✉ Email de verificación
+//    */
+//   async sendVerificationEmail(
+//     to: string,
+//     token: string,
+//     nombreUsuario: string,
+//     contrasena: string,
+//   ) {
+//     const verifyLink = `${this.backendUrl}/auth/verify?token=${token}`;
+
+//     const html = `
+//       <p>Hola ${nombreUsuario},</p>
+//       <p>Tu cuenta fue creada. Esta es tu contraseña: <strong>${contrasena}</strong></p>
+//       <p>Para verificar tu cuenta hacé clic acá:</p>
+//       <a href="${verifyLink}">Verificar cuenta</a>
+//     `;
+
+//     return this.sendMail(to, 'Confirmá tu cuenta', html);
+//   }
+// }
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Resend } from 'resend';
+import Mailjet from 'node-mailjet';
 
 @Injectable()
 export class EmailService {
-  private resend: Resend;
+  private mailjet;
+  private emailFrom: string;
   private backendUrl: string;
 
   constructor(private readonly config: ConfigService) {
-    this.resend = new Resend(
-      this.config.get<string>('RESEND_API_KEY') ||
-      're_TAizyhn3_MfUiVcNoDMkc1ifHvxWQaDkN'
+    this.mailjet = Mailjet.apiConnect(
+      this.config.get('MAILJET_API_KEY')!,
+      this.config.get('MAILJET_API_SECRET')!,
     );
 
-    this.backendUrl =
-      this.config.get<string>('BACKEND_URL') ||
-      'https://rop-ke9k.onrender.com';
+    this.emailFrom = this.config.get('EMAIL_FROM')!;
+    this.backendUrl = this.config.get('BACKEND_URL')!;
   }
 
-  /**
-   * 📩 Envío simple de email con Resend (igual al ejemplo)
-   */
   async sendMail(to: string, subject: string, html: string) {
     try {
-      const sent = await this.resend.emails.send({
-        from: 'onboarding@resend.dev', // 🔥 Igual que el ejemplo probado
-        to,
-        subject,
-        html,
-      });
+      const result = await this.mailjet
+        .post('send', { version: 'v3.1' })
+        .request({
+          Messages: [
+            {
+              From: {
+                Email: this.emailFrom.match(/<(.*)>/)?.[1] || this.emailFrom,
+                Name: this.emailFrom.split('<')[0].trim(),
+              },
+              To: [
+                {
+                  Email: to,
+                },
+              ],
+              Subject: subject,
+              HTMLPart: html,
+            },
+          ],
+        });
 
-      console.log('Email enviado:', sent);
-      return sent;
+      return result.body;
     } catch (error) {
-      console.error('Error enviando email:', error);
+      console.error('❌ Error enviando email:', error);
       throw new Error('No se pudo enviar el email');
     }
   }
 
-  /**
-   * ✉ Email de verificación
-   */
   async sendVerificationEmail(
     to: string,
     token: string,
@@ -287,12 +358,17 @@ export class EmailService {
     const verifyLink = `${this.backendUrl}/auth/verify?token=${token}`;
 
     const html = `
-      <p>Hola ${nombreUsuario},</p>
-      <p>Tu cuenta fue creada. Esta es tu contraseña: <strong>${contrasena}</strong></p>
-      <p>Para verificar tu cuenta hacé clic acá:</p>
+      <h2>Bienvenido/a a Ropo</h2>
+      <p>Tu cuenta fue creada exitosamente.</p>
+
+      <p><strong>Usuario:</strong> ${nombreUsuario}</p>
+      <p><strong>Contraseña:</strong> ${contrasena}</p>
+
+      <p>Verificá tu cuenta haciendo clic acá:</p>
+
       <a href="${verifyLink}">Verificar cuenta</a>
     `;
 
-    return this.sendMail(to, 'Confirmá tu cuenta', html);
+    return this.sendMail(to, 'Verificá tu cuenta en ROPO', html);
   }
 }
