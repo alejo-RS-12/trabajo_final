@@ -300,48 +300,56 @@
 //   }
 // }
 
+
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import nodemailer, { Transporter } from 'nodemailer';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-  private transporter: Transporter;
-  private emailFrom: string;
+  private transporter;
   private backendUrl: string;
 
   constructor(private readonly config: ConfigService) {
-    this.emailFrom = this.config.get<string>('EMAIL_FROM')! ?? 'josecerebro@gmail.com';
-    this.backendUrl = this.config.get<string>('BACKEND_URL')! ?? 'https://rop-ke9k.onrender.com';
+    this.backendUrl =
+      this.config.get<string>('BACKEND_URL') ||
+      'https://rop-ke9k.onrender.com';
 
-    // 🔴 Configurar Nodemailer con Gmail (SMTP)
+    // 🔥 Transporter simple (igual al ejemplo de Nodemailer)
     this.transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
+      host: 'smtp.gmail.com',
       port: 465,
-      secure: true, // Gmail con contraseña de aplicación SIEMPRE usa secure true
+      secure: true, // Gmail requiere secure true
       auth: {
-        user: this.config.get<string>('EMAIL_USER')! ?? 'josecerebro@gmail.com', // tu Gmail
-        pass: this.config.get<string>('EMAIL_PASS')! ?? 'egkh gdly mtjk ozjs', // contraseña de aplicación
+        user: this.config.get<string>('EMAIL_USER'),
+        pass: this.config.get<string>('EMAIL_PASS'),
       },
     });
   }
 
+  /**
+   * 📩 Envío simple de correo (igual al ejemplo de Nodemailer)
+   */
   async sendMail(to: string, subject: string, html: string) {
     try {
-      const result = await this.transporter.sendMail({
-        from: this.emailFrom,
+      const sent = await this.transporter.sendMail({
+        from: this.config.get<string>('EMAIL_FROM') || this.config.get<string>('EMAIL_USER'),
         to,
         subject,
         html,
       });
 
-      return result;
-    } catch (err) {
-      console.error("❌ Error al enviar email:", err);
-      throw new Error("No se pudo enviar el correo.");
+      console.log('📨 Email enviado:', sent);
+      return sent;
+    } catch (error) {
+      console.error('❌ Error enviando email:', error);
+      throw new Error('No se pudo enviar el email');
     }
   }
 
+  /**
+   * ✉ Email de verificación (simple)
+   */
   async sendVerificationEmail(
     to: string,
     token: string,
@@ -351,16 +359,15 @@ export class EmailService {
     const verifyLink = `${this.backendUrl}/auth/verify?token=${token}`;
 
     const html = `
-      <h2>Bienvenido/a a ROPO</h2>
-      <p>Tu cuenta fue creada exitosamente.</p>
+      <p>Hola <strong>${nombreUsuario}</strong>,</p>
+      <p>Tu cuenta fue creada correctamente.</p>
 
-      <p><strong>Usuario:</strong> ${nombreUsuario}</p>
-      <p><strong>Contraseña:</strong> ${contrasena}</p>
+      <p>Contraseña: <strong>${contrasena}</strong></p>
 
-      <p>Verificá tu cuenta haciendo clic acá:</p>
-      <a href="${verifyLink}" target="_blank">Verificar cuenta</a>
+      <p>Hacé clic acá para verificar tu cuenta:</p>
+      <a href="${verifyLink}">Verificar cuenta</a>
     `;
 
-    return this.sendMail(to, "Verificá tu cuenta en ROPO", html);
+    return this.sendMail(to, 'Verificá tu cuenta en ROPO', html);
   }
 }
