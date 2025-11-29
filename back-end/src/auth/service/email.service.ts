@@ -247,7 +247,7 @@ export class EmailService {
   constructor(private readonly config: ConfigService) {
     this.resend = new Resend(
       this.config.get<string>('RESEND_API_KEY') ||
-      're_TAizyhn3_MfUiVcNoDMkc1ifHvxWQaDkN'
+      're_6n5Af9MV_FKCj4c3F4vLJpvAkcpC1xNCg'
     );
 
     this.backendUrl =
