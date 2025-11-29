@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-import ScrollUp from "./scrollup";
+import ScrollUp from "./ScrollUp.jsx";
 import "../assets/css/trabajos.css";
 
 
