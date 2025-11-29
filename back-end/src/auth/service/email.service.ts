@@ -302,50 +302,43 @@
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Mailjet from 'node-mailjet';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class EmailService {
-  private mailjet;
+  private transporter;
   private emailFrom: string;
   private backendUrl: string;
 
   constructor(private readonly config: ConfigService) {
-    this.mailjet = Mailjet.apiConnect(
-      this.config.get('MAILJET_API_KEY')!,
-      this.config.get('MAILJET_API_SECRET')!,
-    );
+    this.emailFrom = this.config.get<string>('EMAIL_FROM')!;
+    this.backendUrl = this.config.get<string>('BACKEND_URL')!;
 
-    this.emailFrom = this.config.get('EMAIL_FROM')!;
-    this.backendUrl = this.config.get('BACKEND_URL')!;
+    // 🔴 Configurar Nodemailer con Gmail (SMTP)
+    this.transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // Gmail con contraseña de aplicación SIEMPRE usa secure true
+      auth: {
+        user: this.config.get<string>('EMAIL_USER')!, // tu Gmail
+        pass: this.config.get<string>('EMAIL_PASS')!, // contraseña de aplicación
+      },
+    });
   }
 
   async sendMail(to: string, subject: string, html: string) {
     try {
-      const result = await this.mailjet
-        .post('send', { version: 'v3.1' })
-        .request({
-          Messages: [
-            {
-              From: {
-                Email: this.emailFrom.match(/<(.*)>/)?.[1] || this.emailFrom,
-                Name: this.emailFrom.split('<')[0].trim(),
-              },
-              To: [
-                {
-                  Email: to,
-                },
-              ],
-              Subject: subject,
-              HTMLPart: html,
-            },
-          ],
-        });
+      const result = await this.transporter.sendMail({
+        from: this.emailFrom,
+        to,
+        subject,
+        html,
+      });
 
-      return result.body;
-    } catch (error) {
-      console.error('❌ Error enviando email:', error);
-      throw new Error('No se pudo enviar el email');
+      return result;
+    } catch (err) {
+      console.error("❌ Error al enviar email:", err);
+      throw new Error("No se pudo enviar el correo.");
     }
   }
 
@@ -358,17 +351,16 @@ export class EmailService {
     const verifyLink = `${this.backendUrl}/auth/verify?token=${token}`;
 
     const html = `
-      <h2>Bienvenido/a a Ropo</h2>
+      <h2>Bienvenido/a a ROPO</h2>
       <p>Tu cuenta fue creada exitosamente.</p>
 
       <p><strong>Usuario:</strong> ${nombreUsuario}</p>
       <p><strong>Contraseña:</strong> ${contrasena}</p>
 
       <p>Verificá tu cuenta haciendo clic acá:</p>
-
-      <a href="${verifyLink}">Verificar cuenta</a>
+      <a href="${verifyLink}" target="_blank">Verificar cuenta</a>
     `;
 
-    return this.sendMail(to, 'Verificá tu cuenta en ROPO', html);
+    return this.sendMail(to, "Verificá tu cuenta en ROPO", html);
   }
 }
