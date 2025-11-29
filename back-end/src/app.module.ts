@@ -31,16 +31,16 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
 
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'frontend'),
-      serveRoot: '',   
+      serveRoot: '',
     }),
     //conexión a la base de datos
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST || 'localhost',
+      host: process.env.DB_HOST || 'bkbxwzqobxfzajhxmrip-mysql.services.clever-cloud.com',
       port: Number(process.env.DB_PORT) || 3306,
-      username: process.env.DB_USER || 'root',
-      password: process.env.DB_PASS || 'Admin',
-      database: process.env.DB_NAME || 'ropo2beta',
+      username: process.env.DB_USER || 'u9evssi5obkf4laj',
+      password: process.env.DB_PASS || 'N0rx0W3JtjcnFbNVau8i',
+      database: process.env.DB_NAME || 'bkbxwzqobxfzajhxmrip',
       autoLoadEntities: true,
       entities: [
         Usuario,
@@ -69,4 +69,4 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
