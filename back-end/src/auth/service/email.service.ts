@@ -314,14 +314,14 @@ export class EmailService {
     this.emailFrom = this.config.get<string>('EMAIL_FROM')!;
     this.backendUrl = this.config.get<string>('BACKEND_URL')!;
 
-    // 🔴 Configurar Nodemailer con Gmail (SMTP)
+    // 🔵 Configurar Nodemailer con Outlook/Hotmail
     this.transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // Gmail con contraseña de aplicación SIEMPRE usa secure true
+      host: this.config.get<string>('EMAIL_HOST')!, // smtp.office365.com
+      port: Number(this.config.get<string>('EMAIL_PORT')!), // 587 o 465
+      secure: false, // Cambiar a true SOLO si usás 465
       auth: {
-        user: this.config.get<string>('EMAIL_USER')!, // tu Gmail
-        pass: this.config.get<string>('EMAIL_PASS')!, // contraseña de aplicación
+        user: this.config.get<string>('EMAIL_USER')!,
+        pass: this.config.get<string>('EMAIL_PASS')!,
       },
     });
   }
@@ -361,6 +361,6 @@ export class EmailService {
       <a href="${verifyLink}" target="_blank">Verificar cuenta</a>
     `;
 
-    return this.sendMail(to, "Verificá tu cuenta en ROPO", html);
+    return this.sendMail(to, 'Verificá tu cuenta en ROPO', html);
   }
 }
