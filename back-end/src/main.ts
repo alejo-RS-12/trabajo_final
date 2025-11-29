@@ -28,7 +28,7 @@ async function bootstrap() {
       res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
     }
   });
-
+  const port = process.env.PORT || 3000;
   await app.listen(process.env.PORT ?? 3000);
 }
 
