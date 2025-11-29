@@ -18,7 +18,7 @@ export class EmailService {
     });
 
     this.emailFrom = this.config.get<string>('EMAIL_FROM') || 'No-Reply <no-reply@example.com>';
-    this.backendUrl = this.config.get<string>('BACKEND_URL') || 'http://localhost:3000';
+    this.backendUrl = this.config.get<string>('BACKEND_URL') || 'https://rop-ke9k.onrender.com';
   }
 
   /**
