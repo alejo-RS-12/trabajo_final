@@ -9,6 +9,7 @@ export class EmailService {
   private backendUrl: string;
 
   constructor(private readonly config: ConfigService) {
+    try {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -16,6 +17,9 @@ export class EmailService {
         pass: this.config.get<string>('EMAIL_PASS'),
       },
     });
+    } catch (error) {
+      console.error('Error creating email transporter:', error);
+    };
 
     this.emailFrom = this.config.get<string>('EMAIL_FROM') || 'No-Reply <no-reply@example.com>';
     this.backendUrl = this.config.get<string>('BACKEND_URL') || 'https://rop-ke9k.onrender.com';
