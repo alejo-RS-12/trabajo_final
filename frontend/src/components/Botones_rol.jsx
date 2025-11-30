@@ -5,7 +5,7 @@ import "../assets/css/botones-rol.css";
 
 export default function BotonesRol() {
   const navigate = useNavigate();
-  const { setUsuario } = useAuth();
+  const { setUsuario, setToken } = useAuth();
 
   const handleRolSeleccionado = async (idRol) => {
     try {
@@ -24,6 +24,11 @@ export default function BotonesRol() {
       if (!data || !data.user) {
         alert(data.message || "Error al asignar el rol");
         return;
+      }
+
+       if (data.token) {
+        localStorage.setItem("token", data.token);
+        setToken(data.token);
       }
 
       // ✅ Guardamos el usuario actualizado
