@@ -36,11 +36,11 @@ import { Mensaje } from './mensaje/entities/mensaje.entity';
     //conexión a la base de datos
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST || 'b0swkr0msylwbygkrnvk-mysql.services.clever-cloud.com',
+      host: process.env.DB_HOST || 'localhost',
       port: Number(process.env.DB_PORT) || 3306,
-      username: process.env.DB_USER || 'uka8qb6tpuhti9bk',
-      password: process.env.DB_PASS || 'zRr6EHUqKCRp6OWox8GG',
-      database: process.env.DB_NAME || 'b0swkr0msylwbygkrnvk',
+      username: process.env.DB_USER || 'root',
+      password: process.env.DB_PASS || 'Admin',
+      database: process.env.DB_NAME || 'ropo2beta',
       autoLoadEntities: true,
       entities: [
         Usuario,
