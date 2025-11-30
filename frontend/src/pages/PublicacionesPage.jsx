@@ -96,7 +96,7 @@ export default function PublicacionesPage({ categorias = {} }) {
                 const imgSrc =
                   pub.imagenes && pub.imagenes.length > 0
                     ? `${API_URL}/${pub.imagenes[0].replace(/^\/?/, "")}`
-                    : `/uploads/publicaciones/placeholder.jpg`;
+                    : `/imagenes/placeholder.jpg`;
 
                 return (
                     <Link
