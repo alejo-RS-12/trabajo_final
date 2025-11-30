@@ -270,7 +270,7 @@ const toggleFavorito = async () => {
             imagenes={
               publicacion.imagenes && publicacion.imagenes.length > 0
                 ? publicacion.imagenes.map(img => `${API_URL}/${img.replace(/^\/?/, "")}`)
-                : [`/imagenes/placeholder.jpg`] 
+                : [`/uploads/publicaciones/placeholder.jpg`] 
             }
           />
         </div>

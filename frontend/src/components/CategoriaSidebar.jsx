@@ -51,7 +51,7 @@ export default function CategoriaSidebar({
                           /^\/?/,
                           ""
                         )}`
-                      : `/imagenes/placeholder.jpg`;
+                      : `/uploads/publicaciones/placeholder.jpg`;
 
                   return (
                     <div className="post-card" key={pub.idPublicacion} >

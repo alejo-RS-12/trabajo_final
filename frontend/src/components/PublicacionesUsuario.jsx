@@ -46,7 +46,7 @@ export default function PublicacionesUsuario({ ids = [], publicaciones = [] }) {
           const imgSrc =
             pub.imagenes && pub.imagenes.length > 0
               ? `${API_URL}/${pub.imagenes[0].replace(/^\/?/, "")}`
-              : `/imagenes/placeholder.jpg`;
+              : `/uploads/publicaciones/placeholder.jpg`;
 
           return (
             <Link
