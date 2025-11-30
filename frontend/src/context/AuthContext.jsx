@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
       // Caso especial: si no tiene rol
       if (data.needsRoleSelection) {
-        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("userId", data.userId, data.token);
         navigate("/botones-rol");
         return true;
       }
