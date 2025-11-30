@@ -1,0 +1,23 @@
+[
+  { "idProfesion": 1, "nombre": "Arquitectura", "descripcion": "Diseño y planificación de edificios y espacios urbanos." },
+  { "idProfesion": 2, "nombre": "Artes", "descripcion": "Creación y expresión artística en diversas disciplinas." },
+  { "idProfesion": 3, "nombre": "Biología", "descripcion": "Estudio de los seres vivos y sus procesos." },
+  { "idProfesion": 4, "nombre": "Carpintería", "descripcion": "Construcción y reparación de estructuras de madera." },
+  { "idProfesion": 5, "nombre": "Diseño gráfico", "descripcion": "Creación de contenidos visuales para medios digitales e impresos." },
+  { "idProfesion": 6, "nombre": "Electricista", "descripcion": "Instalación y mantenimiento de sistemas eléctricos." },
+  { "idProfesion": 7, "nombre": "Enfermería", "descripcion": "Cuidado de la salud y asistencia médica a pacientes." },
+  { "idProfesion": 8, "nombre": "Fotografía profesional", "descripcion": "Captura y edición de imágenes de manera profesional." },
+  { "idProfesion": 9, "nombre": "Gasista", "descripcion": "Instalación y mantenimiento de sistemas de gas." },
+  { "idProfesion": 10, "nombre": "Ingeniería", "descripcion": "Aplicación de conocimientos científicos para resolver problemas técnicos." },
+  { "idProfesion": 11, "nombre": "Maestro/a mayor de obras", "descripcion": "Supervisión y dirección de obras de construcción." },
+  { "idProfesion": 12, "nombre": "Mecánica", "descripcion": "Reparación y mantenimiento de vehículos y maquinaria." },
+  { "idProfesion": 13, "nombre": "Medicina", "descripcion": "Diagnóstico y tratamiento de enfermedades y condiciones de salud." },
+  { "idProfesion": 14, "nombre": "Modista", "descripcion": "Diseño y confección de prendas de vestir." },
+  { "idProfesion": 15, "nombre": "Panadería / Pastelería", "descripcion": "Elaboración de panes, pasteles y productos de repostería." },
+  { "idProfesion": 16, "nombre": "Plomería", "descripcion": "Instalación y reparación de sistemas de agua y desagüe." },
+  { "idProfesion": 17, "nombre": "Programación", "descripcion": "Desarrollo de software y aplicaciones informáticas." },
+  { "idProfesion": 18, "nombre": "Psicología", "descripcion": "Estudio del comportamiento y la mente humana." },
+  { "idProfesion": 19, "nombre": "Soldadura", "descripcion": "Unión de metales mediante calor o presión." },
+  { "idProfesion": 20, "nombre": "Técnico/a en refrigeración", "descripcion": "Instalación y mantenimiento de sistemas de frío y climatización." },
+  { "idProfesion": 21, "nombre": "Zapatero", "descripcion": "Venta de calzados" }
+]

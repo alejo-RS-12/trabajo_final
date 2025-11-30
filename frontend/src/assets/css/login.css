@@ -1,0 +1,389 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+* {
+  box-sizing: border-box;
+  
+
+}
+
+.all-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* ocupa toda la altura visible */
+  background: #333; /* o el fondo que quieras */
+}
+
+/* ==== MOBILE FIRST ==== */
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 50, 0.4);
+  /* Azul oscuro semitransparente */
+  z-index: 0;
+  /* Detrás del contenedor principal */
+}
+
+/* Botón de cerrar */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  /* Espacio debajo del H1 */
+}
+
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+
+span {
+  font-size: 12px;
+}
+
+h6 {
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 3px;
+  /* Espacio debajo del H1 */
+}
+
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.terminos-texto {
+  font-size: 10px;
+  font-weight: lighter;
+  margin-top: 3px;
+  margin-bottom: 5px;
+  color: #333;
+  /* o el color que quieras */
+}
+
+.terminos-texto .terminos-link {
+  color: blue;
+  text-decoration: none;
+  /* o underline si querés */
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+/*ESTO ES EL NUEVO BOTON CON EL FORMATO DEL BOTON DE PUBLICACIÒN */
+button {
+  padding:  8px 12px;
+  background-color: #45b8c5;
+  border-color: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #3aa5b4;
+}
+
+button.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+  color: black;
+}
+
+button.ghost:hover {
+  background-color: #9de6f0;
+}
+
+form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
+}
+
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 5px;
+  /* Bordes ligeramente redondeados */
+}
+
+/*PARA SACAR EL BORDE NEGRO DE LOS INPUT*/
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+              0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 850px;
+  max-width: 100%;
+  min-height: 630px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+  /* Asegura que el sign-in esté visible inicialmente */
+}
+
+.sign-up-container {
+  left: 0;
+  /* Empieza en la misma posición */
+  width: 50%;
+  opacity: 0;
+  /* Oculto inicialmente */
+  z-index: 1;
+}
+
+/* --- Animación --- */
+
+/* Mover hacia la derecha */
+.container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+  opacity: 0;
+  /* Opcional: Hacer fade out */
+  z-index: 1;
+  /* Poner detrás */
+}
+
+/* Traer desde la derecha */
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  /* Poner delante */
+  animation: show 0.6s;
+}
+
+@keyframes show {
+
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  /* Empieza en la mitad derecha */
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+  /* Encima de los formularios */
+}
+
+/* Mover hacia la izquierda */
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  background: #7fd1d1;
+  /* Azul oscuro */
+  background: -webkit-linear-gradient(to right, #7fd1d1, #7fd1d1);
+  background: linear-gradient(to right, #7fd1d1, #7fd1d1);
+  /* Degradado azul */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #000000;
+  position: relative;
+  left: -100%;
+  /* Empieza corrido a la izquierda */
+  height: 100%;
+  width: 200%;
+  /* Doble de ancho para contener ambos paneles */
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Mover el contenido*/
+.container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  /* Cada panel ocupa la mitad */
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  /* Posiciona el panel izquierdo correctamente dentro*/
+  transform: translateX(-20%);
+  /* Ajuste inicial para la animación */
+
+  background-color: #7fd1d1;
+  /* Fondo azul oscuro como en la imagen */
+}
+
+.container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+
+  background-color: #7fd1d1;
+  /* Fondo azul oscuro */
+}
+
+.container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+  /* Ajuste para la animación */
+}
+
+/* --- Estilos Iconos --- */
+.social-container {
+  margin: 20px 0;
+}
+
+.social-container a {
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+  color: #333;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.social-container a:hover {
+  background-color: #eee;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group input {
+  padding-right: 30px;
+  /* Espacio para el icono */
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.icon.valid {
+  color: green;
+}
+
+.icon.invalid {
+  color: red;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  text-align: left;
+  display: block;
+}
+
+/* ==== TABLET (≥768px) ==== */
+@media (min-width: 768px) {
+   .container {
+    width: 90%;
+    min-height: 550px;
+  }
+
+  .form-container {
+    position: absolute;
+    width: 50%;
+  }
+
+  .overlay-container {
+    display: block;
+    position: absolute;
+    width: 50%;
+  }
+}
+
+/* ==== DESKTOP (≥1024px) ==== */
+@media (min-width: 1024px) {
+  .container {
+    width: 850px;
+    min-height: 630px;
+  }
+
+  .overlay-container {
+    left: 50%;
+  }
+}
